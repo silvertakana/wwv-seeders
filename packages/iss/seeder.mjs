@@ -1,7 +1,7 @@
 const WTIA_URL = 'https://api.wheretheiss.at/v1/satellites/25544';
 
 export default {
-  id: "iss-tracker",
+  id: "iss",
   name: "ISS Tracker",
   interval: 5000,
 
