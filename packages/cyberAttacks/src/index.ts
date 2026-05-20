@@ -119,9 +119,9 @@ export async function seedCyberAttacks() {
 
   // Save to Redis
   await setLiveSnapshot(
-    'cyberAttacks',
+    'cyber-attacks',
     {
-      source: 'cyberAttacks',
+      source: 'cyber-attacks',
       fetchedAt: new Date().toISOString(),
       items,
       totalCount: items.length,
@@ -150,7 +150,7 @@ function classifyThreat(pulse: OtxPulse): string {
 }
 
 export default {
-  name: 'cyberAttacks',
+  name: 'cyber-attacks',
   cron: '0 */2 * * *', // Every 2 hours
   fn: seedCyberAttacks,
 };

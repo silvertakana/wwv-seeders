@@ -104,14 +104,14 @@ async function fetchConflictEvents() {
         notes: e.notes
       }
     }));
-    await setLiveSnapshot("conflictEvents", geoEntities, 3600 * 24);
+    await setLiveSnapshot("conflict-events", geoEntities, 3600 * 24);
   } catch (err) {
     console.warn("[Seeder: ConflictEvents] Redis cache failed:", err);
     Sentry.captureException(err, { extra: { context: "conflictEvents_redis" } });
   }
 }
 var index_default = {
-  name: "conflictEvents",
+  name: "conflict-events",
   cron: "0 0 * * *",
   // Run daily at midnight
   fn: fetchConflictEvents

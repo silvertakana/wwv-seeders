@@ -79,7 +79,7 @@ export async function seedGpsJam() {
   console.log(`[GPS Jamming] Generated ${items.length} points. Saved ${insertedCount} to SQLite.`);
 
   // Save to Redis Live Cache
-  await setLiveSnapshot('gpsjam', {
+  await setLiveSnapshot('gps-jamming', {
     source: "gpsjam_mock",
     fetchedAt: new Date().toISOString(),
     items: items,
@@ -88,7 +88,7 @@ export async function seedGpsJam() {
 }
 
 export default {
-  name: "gpsjam",
+  name: "gps-jamming",
   cron: "0 0 * * *", // Once daily at midnight
   fn: seedGpsJam
 };

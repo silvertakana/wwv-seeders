@@ -133,8 +133,8 @@ export async function seedWildfires() {
   console.log(`[Wildfires] Parsed ${fires.length} raw fires -> Clustered ${allClusteredFires.length} points. Saved ${insertedCount} new to SQLite.`);
 
   // Save full clustered map to Redis
-  await setLiveSnapshot('wildfires', {
-    source: "wildfires",
+  await setLiveSnapshot('wildfire', {
+    source: "wildfire",
     fetchedAt: new Date().toISOString(),
     items: allClusteredFires,
     totalCount: allClusteredFires.length
@@ -143,7 +143,7 @@ export async function seedWildfires() {
 
 // Register with scheduler
 export default {
-  name: "wildfires",
+  name: "wildfire",
   cron: "*/15 * * * *", // Every 15 minutes
   fn: seedWildfires
 };

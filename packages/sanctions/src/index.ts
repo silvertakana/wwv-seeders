@@ -210,7 +210,7 @@ export async function fetchSanctionsData() {
         };
 
         // Cache for live polling (24 hr TTL)
-        await setLiveSnapshot('sanctions', sanctionsObj, 86400);
+        await setLiveSnapshot('international-sanctions', sanctionsObj, 86400);
         console.log(`[Sanctions] Published ${items.length} sanctioned countries.`);
     } catch (err) {
         console.error('[Sanctions] Error:', err);
@@ -219,7 +219,7 @@ export async function fetchSanctionsData() {
 }
 
 export default {
-    name: "sanctions",
+    name: "international-sanctions",
     cron: "0 * * * *", // run hourly
     fn: fetchSanctionsData
 };
