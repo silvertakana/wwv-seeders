@@ -256,7 +256,7 @@ async function fetchSanctionsData() {
       timestamp: (/* @__PURE__ */ new Date()).toISOString(),
       items
     };
-    await setLiveSnapshot("sanctions", sanctionsObj, 86400);
+    await setLiveSnapshot("international-sanctions", sanctionsObj, 86400);
     console.log(`[Sanctions] Published ${items.length} sanctioned countries.`);
   } catch (err) {
     console.error("[Sanctions] Error:", err);
@@ -264,7 +264,7 @@ async function fetchSanctionsData() {
   }
 }
 var index_default = {
-  name: "sanctions",
+  name: "international-sanctions",
   cron: "0 * * * *",
   // run hourly
   fn: fetchSanctionsData

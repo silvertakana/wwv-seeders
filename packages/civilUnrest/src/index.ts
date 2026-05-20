@@ -127,7 +127,7 @@ export async function seedCivilUnrest() {
   console.log(`[CivilUnrest] Clustered ${features.length} mentions into ${items.length} confirmed unrest events.`);
 
   await setLiveSnapshot(
-    'civilUnrest',
+    'civil-unrest',
     {
       source: 'gdelt',
       fetchedAt: new Date().toISOString(),
@@ -139,7 +139,7 @@ export async function seedCivilUnrest() {
 }
 
 export default {
-  name: 'civilUnrest',
+  name: 'civil-unrest',
   cron: '*/15 * * * *', 
   fn: seedCivilUnrest
 };

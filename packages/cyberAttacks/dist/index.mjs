@@ -78,9 +78,9 @@ async function seedCyberAttacks() {
     `[CyberAttacks] Processed ${pulses.length} pulses \u2192 ${items.length} geolocated indicators.`
   );
   await setLiveSnapshot(
-    "cyberAttacks",
+    "cyber-attacks",
     {
-      source: "cyberAttacks",
+      source: "cyber-attacks",
       fetchedAt: (/* @__PURE__ */ new Date()).toISOString(),
       items,
       totalCount: items.length
@@ -107,7 +107,7 @@ function classifyThreat(pulse) {
   return "Other";
 }
 var index_default = {
-  name: "cyberAttacks",
+  name: "cyber-attacks",
   cron: "0 */2 * * *",
   // Every 2 hours
   fn: seedCyberAttacks

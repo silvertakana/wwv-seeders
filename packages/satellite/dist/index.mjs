@@ -103,30 +103,21 @@ function propagateAll(records, time, group) {
 async function computeAndPublishPositions() {
   const now = /* @__PURE__ */ new Date();
   const civilianObj = /* @__PURE__ */ Object.create(null);
-  const militaryObj = /* @__PURE__ */ Object.create(null);
   let totalCivilian = 0;
-  let totalMilitary = 0;
   for (const group of DEFAULT_GROUPS) {
     const records = globalsTLECache.get(group);
     if (!records) continue;
     const isMilitary = group === "military" || group === "resource";
+    if (isMilitary) continue;
     const positions = propagateAll(records, now, group);
     for (const p of positions) {
-      if (isMilitary) {
-        militaryObj[p.noradId] = p;
-        totalMilitary++;
-      } else {
-        civilianObj[p.noradId] = p;
-        totalCivilian++;
-      }
+      civilianObj[p.noradId] = p;
+      totalCivilian++;
     }
   }
   try {
     if (totalCivilian > 0) {
       await setLiveSnapshot("satellite", civilianObj, 60 * 60);
-    }
-    if (totalMilitary > 0) {
-      await setLiveSnapshot("surveillance_satellites", militaryObj, 60 * 60);
     }
   } catch (err) {
     console.error(`[SatelliteSeeder] Error publishing to Redis:`, err);

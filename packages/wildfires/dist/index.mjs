@@ -97,15 +97,15 @@ async function seedWildfires() {
   });
   insertMany(allClusteredFires);
   console.log(`[Wildfires] Parsed ${fires.length} raw fires -> Clustered ${allClusteredFires.length} points. Saved ${insertedCount} new to SQLite.`);
-  await setLiveSnapshot("wildfires", {
-    source: "wildfires",
+  await setLiveSnapshot("wildfire", {
+    source: "wildfire",
     fetchedAt: (/* @__PURE__ */ new Date()).toISOString(),
     items: allClusteredFires,
     totalCount: allClusteredFires.length
   }, 1800);
 }
 var index_default = {
-  name: "wildfires",
+  name: "wildfire",
   cron: "*/15 * * * *",
   // Every 15 minutes
   fn: seedWildfires

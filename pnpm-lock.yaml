@@ -162,7 +162,7 @@ importers:
         specifier: ^3.23.8
         version: 3.25.76
 
-  packages/iss:
+  packages/maritime:
     dependencies:
       '@sentry/node':
         specifier: ^8.55.2
@@ -183,7 +183,7 @@ importers:
         specifier: ^3.23.8
         version: 3.25.76
 
-  packages/maritime:
+  packages/market-tracker:
     dependencies:
       '@sentry/node':
         specifier: ^8.55.2
@@ -197,9 +197,6 @@ importers:
       undici:
         specifier: ^6.19.2
         version: 6.25.0
-      ws:
-        specifier: ^8.18.0
-        version: 8.20.0
       zod:
         specifier: ^3.23.8
         version: 3.25.76
@@ -330,6 +327,21 @@ importers:
       typescript:
         specifier: ^5.7.2
         version: 5.9.3
+
+  packages/surveillance-satellites:
+    dependencies:
+      '@sentry/node':
+        specifier: ^8.55.2
+        version: 8.55.2
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
+      satellite.js:
+        specifier: ^7.0.0
+        version: 7.0.0
+      undici:
+        specifier: ^6.19.2
+        version: 6.25.0
 
   packages/wildfires:
     dependencies:
