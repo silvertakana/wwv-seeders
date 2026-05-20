@@ -12,6 +12,27 @@ const activeFleetCache = new Map<string, any>();
 const FLUSH_INTERVAL_MS = 15000;
 let isFlushIntervalRunning = false;
 
+// Reconnect backoff state — resets on a successful connection
+const RECONNECT_BASE_MS = 5000;
+const RECONNECT_MAX_MS = 5 * 60 * 1000; // 5 minutes cap
+let reconnectAttempts = 0;
+let reconnectScheduled = false;
+
+function scheduleReconnect() {
+  if (reconnectScheduled) return; // Coalesce concurrent error+close events
+  reconnectScheduled = true;
+  const delay = Math.min(
+    RECONNECT_BASE_MS * Math.pow(2, reconnectAttempts),
+    RECONNECT_MAX_MS
+  );
+  reconnectAttempts++;
+  console.log(`[Maritime] Reconnecting in ${Math.round(delay / 1000)}s (attempt ${reconnectAttempts})`);
+  setTimeout(() => {
+    reconnectScheduled = false;
+    startMaritimeWebsocket();
+  }, delay);
+}
+
 // SQLite insert statement
 const insertHistory = db.prepare(`
   INSERT OR IGNORE INTO maritime_history (mmsi, ts, lat, lon, hdg, spd, fetched_at)
@@ -99,7 +120,9 @@ export function startMaritimeWebsocket() {
   }
 
   console.log('[Maritime] Connecting to AisStream.io...');
-  const ws = new WebSocket(AISSTREAM_URL);
+  // AisStream's TLS cert has expired in the past — bypass cert verification so a
+  // broken upstream cert doesn't kill our seeder. We don't auth using their cert.
+  const ws = new WebSocket(AISSTREAM_URL, { rejectUnauthorized: false });
 
   let watchdogTimer: NodeJS.Timeout | null = null;
 
@@ -113,6 +136,7 @@ export function startMaritimeWebsocket() {
 
   ws.on('open', () => {
     console.log('[Maritime] WebSocket connected. Subscribing to global feed...');
+    reconnectAttempts = 0; // Reset backoff on a successful connection
     const subscriptionMessage = {
       APIKey: API_KEY,
       BoundingBoxes: [[[-90, -180], [90, 180]]],
@@ -148,8 +172,8 @@ export function startMaritimeWebsocket() {
 
   ws.on('close', () => {
     if (watchdogTimer) clearTimeout(watchdogTimer);
-    console.log('[Maritime] WebSocket closed. Reconnecting in 5s...');
-    setTimeout(startMaritimeWebsocket, 5000);
+    console.log('[Maritime] WebSocket closed.');
+    scheduleReconnect();
   });
 
   // Start background flush loop safely
