@@ -1,0 +1,22 @@
+{
+  "name": "@wwv-seeders/market-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/index.mjs",
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@worldwideview/seeder-sdk": "workspace:*",
+    "date-fns": "^4.3.0",
+    "date-fns-tz": "^3.2.0",
+    "yahoo-finance2": "^3.14.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.7.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.7.2",
+    "vitest": "^3.2.2"
+  }
+}
