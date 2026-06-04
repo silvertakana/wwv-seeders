@@ -1,0 +1,13 @@
+{
+  "name": "@wwv-seeders/_template",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Copyable reference seeder. NOT built or released (no build script on purpose). Copy this folder to packages/<your-seeder> to start.",
+  "main": "dist/index.mjs",
+  "dependencies": {
+    "@worldwideview/seeder-sdk": "^1.0.0",
+    "node-cron": "^3.0.3",
+    "undici": "^6.19.2",
+    "zod": "^3.23.8"
+  }
+}
