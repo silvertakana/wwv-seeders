@@ -1,0 +1,112 @@
+name: Per-Seeder CI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'packages/**'
+
+jobs:
+  detect:
+    name: Detect changed seeders
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.build.outputs.matrix }}
+      has_seeders: ${{ steps.build.outputs.has_seeders }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build seeder matrix
+        id: build
+        run: |
+          BASE=${{ github.event.pull_request.base.sha }}
+          HEAD=${{ github.event.pull_request.head.sha }}
+
+          # Dirs that are not runnable seeders
+          SKIP="shared _template"
+
+          SEEDERS=()
+          while IFS= read -r dir; do
+            [ -z "$dir" ] && continue
+            echo "$SKIP" | grep -qw "$dir" && continue
+            [ ! -f "packages/$dir/src/index.ts" ] && continue
+            SEEDERS+=("$dir")
+          done < <(git diff --name-only "$BASE...$HEAD" \
+            | grep '^packages/' \
+            | cut -d/ -f2 \
+            | sort -u)
+
+          if [ ${#SEEDERS[@]} -eq 0 ]; then
+            echo "matrix=[]" >> "$GITHUB_OUTPUT"
+            echo "has_seeders=false" >> "$GITHUB_OUTPUT"
+            echo "No seeder dirs changed — CI will skip"
+          else
+            MATRIX=$(printf '%s\n' "${SEEDERS[@]}" | jq -R . | jq -sc .)
+            echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
+            echo "has_seeders=true" >> "$GITHUB_OUTPUT"
+            echo "Seeders to test: ${SEEDERS[*]}"
+          fi
+
+  test:
+    name: ${{ matrix.seeder }}
+    needs: detect
+    if: needs.detect.outputs.has_seeders == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        seeder: ${{ fromJson(needs.detect.outputs.matrix) }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      # Tier 0a: type-check (only for seeders that have tsconfig.json)
+      - name: Type-check
+        if: hashFiles(format('packages/{0}/tsconfig.json', matrix.seeder)) != ''
+        run: pnpm exec tsc --noEmit --project packages/${{ matrix.seeder }}/tsconfig.json
+
+      # Tier 0b: build via tsup
+      - name: Build
+        working-directory: packages/${{ matrix.seeder }}
+        run: pnpm run build
+
+      # Tier 0c: validate bundle output exists
+      - name: Validate dist/index.mjs
+        run: |
+          OUT="packages/${{ matrix.seeder }}/dist/index.mjs"
+          if [ ! -f "$OUT" ]; then
+            echo "ERROR: $OUT not found after build"
+            exit 1
+          fi
+          SIZE=$(wc -c < "$OUT")
+          echo "OK: $OUT ($SIZE bytes)"
+          if [ "$SIZE" -lt 100 ]; then
+            echo "ERROR: bundle is suspiciously small ($SIZE bytes) — build may have silently failed"
+            exit 1
+          fi
+
+      # Tier 1: unit tests (skip if no test script in package.json)
+      - name: Unit tests
+        working-directory: packages/${{ matrix.seeder }}
+        run: |
+          if grep -q '"test"' package.json; then
+            pnpm run test
+          else
+            echo "No test script defined — skipping"
+          fi
