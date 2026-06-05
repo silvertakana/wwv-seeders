@@ -16,7 +16,6 @@
     "@types/node": "^25.7.0",
     "tsup": "^8.5.1",
     "typescript": "^5.7.2",
-    "vitest": "^3.2.2",
-    "@worldwideview/seeder-sdk": "workspace:*"
+    "vitest": "^3.2.2"
   }
 }
