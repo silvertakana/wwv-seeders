@@ -10,5 +10,7 @@
     "satellite.js": "^7.0.0",
     "undici": "^6.19.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@worldwideview/seeder-sdk": "^1.0.0"
+  }
 }

@@ -26,6 +26,10 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/civilUnrest:
     dependencies:
@@ -44,6 +48,10 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/conflictEvents:
     dependencies:
@@ -62,6 +70,10 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/cyberAttacks:
     dependencies:
@@ -80,6 +92,10 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/earthquakes:
     dependencies:
@@ -98,6 +114,10 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/gpsjam:
     dependencies:
@@ -116,6 +136,10 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/iranwarlive:
     dependencies:
@@ -134,6 +158,10 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/maritime:
     dependencies:
@@ -152,6 +180,10 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/market-tracker:
     dependencies:
@@ -168,6 +200,9 @@ importers:
       '@types/node':
         specifier: ^25.7.0
         version: 25.7.0
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
       tsup:
         specifier: ^8.5.1
         version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
@@ -195,6 +230,10 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/nz-traffic-cameras:
     dependencies:
@@ -213,6 +252,10 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/sanctions:
     dependencies:
@@ -234,6 +277,10 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/satellite:
     dependencies:
@@ -255,6 +302,10 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/shared:
     dependencies:
@@ -304,6 +355,10 @@ importers:
       undici:
         specifier: ^6.19.2
         version: 6.25.0
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/wildfires:
     dependencies:
@@ -322,6 +377,10 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
 packages:
 
@@ -951,6 +1010,9 @@ packages:
 
   '@vitest/utils@3.2.4':
     resolution: {integrity: sha512-fB2V0JFrQSMsCo9HiSq3Ezpdv4iYaXRG1Sx8edX3MwxfyNn83mKiGzOcH+Fkxt4MHxr3y42fQi1oeAInqgX2QA==}
+
+  '@worldwideview/seeder-sdk@1.0.0':
+    resolution: {integrity: sha512-8doeAL0WqTF8WivIPf0JunJ008To7Kf6zrdcSoVkW2d+1vvnOYVdJpCFt03/XcQk2R18v61hzdG+nAN9+CZhHg==}
 
   acorn-import-attributes@1.9.5:
     resolution: {integrity: sha512-n02Vykv5uA3eHGM/Z2dQrcD56kL8TyDb2p1+0P83PClMnC/nc+anbQRhIOWnSq4Ke/KvDPrY3C9hDtC/A3eHnQ==}
@@ -2372,6 +2434,18 @@ snapshots:
       '@vitest/pretty-format': 3.2.4
       loupe: 3.2.1
       tinyrainbow: 2.0.0
+
+  '@worldwideview/seeder-sdk@1.0.0':
+    dependencies:
+      '@sentry/node': 8.55.2
+      better-sqlite3: 11.10.0
+      dotenv: 17.4.2
+      geoip-lite: 2.0.2
+      ioredis: 5.10.1
+      node-fetch: 2.7.0
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
 
   acorn-import-attributes@1.9.5(acorn@8.16.0):
     dependencies:

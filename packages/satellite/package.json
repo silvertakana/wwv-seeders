@@ -13,5 +13,7 @@
     "ws": "^8.18.0",
     "zod": "^3.23.8"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@worldwideview/seeder-sdk": "^1.0.0"
+  }
 }
