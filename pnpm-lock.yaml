@@ -15,14 +15,27 @@ importers:
         specifier: ^5.4.5
         version: 5.9.3
 
+  packages/_template:
+    dependencies:
+      node-cron:
+        specifier: ^3.0.3
+        version: 3.0.3
+      undici:
+        specifier: ^6.19.2
+        version: 6.25.0
+      zod:
+        specifier: ^3.23.8
+        version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
+
   packages/civilUnrest:
     dependencies:
       '@sentry/node':
         specifier: ^8.55.2
         version: 8.55.2
-      '@worldwideview/seeder-sdk':
-        specifier: ^1.0.0
-        version: 1.0.0
       node-cron:
         specifier: ^3.0.3
         version: 3.0.3
@@ -35,15 +48,16 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/conflictEvents:
     dependencies:
       '@sentry/node':
         specifier: ^8.55.2
         version: 8.55.2
-      '@worldwideview/seeder-sdk':
-        specifier: ^1.0.0
-        version: 1.0.0
       node-cron:
         specifier: ^3.0.3
         version: 3.0.3
@@ -56,15 +70,16 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/cyberAttacks:
     dependencies:
       '@sentry/node':
         specifier: ^8.55.2
         version: 8.55.2
-      '@worldwideview/seeder-sdk':
-        specifier: ^1.0.0
-        version: 1.0.0
       node-cron:
         specifier: ^3.0.3
         version: 3.0.3
@@ -77,15 +92,16 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/earthquakes:
     dependencies:
       '@sentry/node':
         specifier: ^8.55.2
         version: 8.55.2
-      '@worldwideview/seeder-sdk':
-        specifier: ^1.0.0
-        version: 1.0.0
       node-cron:
         specifier: ^3.0.3
         version: 3.0.3
@@ -98,15 +114,16 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/gpsjam:
     dependencies:
       '@sentry/node':
         specifier: ^8.55.2
         version: 8.55.2
-      '@worldwideview/seeder-sdk':
-        specifier: ^1.0.0
-        version: 1.0.0
       node-cron:
         specifier: ^3.0.3
         version: 3.0.3
@@ -119,15 +136,16 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/iranwarlive:
     dependencies:
       '@sentry/node':
         specifier: ^8.55.2
         version: 8.55.2
-      '@worldwideview/seeder-sdk':
-        specifier: ^1.0.0
-        version: 1.0.0
       node-cron:
         specifier: ^3.0.3
         version: 3.0.3
@@ -140,15 +158,16 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/maritime:
     dependencies:
       '@sentry/node':
         specifier: ^8.55.2
         version: 8.55.2
-      '@worldwideview/seeder-sdk':
-        specifier: ^1.0.0
-        version: 1.0.0
       node-cron:
         specifier: ^3.0.3
         version: 3.0.3
@@ -161,12 +180,13 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/market-tracker:
     dependencies:
-      '@worldwideview/seeder-sdk':
-        specifier: workspace:*
-        version: link:../shared
       date-fns:
         specifier: ^4.3.0
         version: 4.3.0
@@ -180,6 +200,9 @@ importers:
       '@types/node':
         specifier: ^25.7.0
         version: 25.7.0
+      '@worldwideview/seeder-sdk':
+        specifier: workspace:*
+        version: link:../shared
       tsup:
         specifier: ^8.5.1
         version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
@@ -195,9 +218,6 @@ importers:
       '@sentry/node':
         specifier: ^8.55.2
         version: 8.55.2
-      '@worldwideview/seeder-sdk':
-        specifier: ^1.0.0
-        version: 1.0.0
       node-cron:
         specifier: ^3.0.3
         version: 3.0.3
@@ -210,15 +230,16 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/nz-traffic-cameras:
     dependencies:
       '@sentry/node':
         specifier: ^8.55.2
         version: 8.55.2
-      '@worldwideview/seeder-sdk':
-        specifier: ^1.0.0
-        version: 1.0.0
       node-cron:
         specifier: ^3.0.3
         version: 3.0.3
@@ -231,15 +252,16 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/sanctions:
     dependencies:
       '@sentry/node':
         specifier: ^8.55.2
         version: 8.55.2
-      '@worldwideview/seeder-sdk':
-        specifier: ^1.0.0
-        version: 1.0.0
       node-cron:
         specifier: ^3.0.3
         version: 3.0.3
@@ -255,15 +277,16 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/satellite:
     dependencies:
       '@sentry/node':
         specifier: ^8.55.2
         version: 8.55.2
-      '@worldwideview/seeder-sdk':
-        specifier: ^1.0.0
-        version: 1.0.0
       node-cron:
         specifier: ^3.0.3
         version: 3.0.3
@@ -279,6 +302,10 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/shared:
     dependencies:
@@ -322,24 +349,22 @@ importers:
       '@sentry/node':
         specifier: ^8.55.2
         version: 8.55.2
-      '@worldwideview/seeder-sdk':
-        specifier: ^1.0.0
-        version: 1.0.0
       satellite.js:
         specifier: ^7.0.0
         version: 7.0.0
       undici:
         specifier: ^6.19.2
         version: 6.25.0
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/wildfires:
     dependencies:
       '@sentry/node':
         specifier: ^8.55.2
         version: 8.55.2
-      '@worldwideview/seeder-sdk':
-        specifier: ^1.0.0
-        version: 1.0.0
       node-cron:
         specifier: ^3.0.3
         version: 3.0.3
@@ -352,6 +377,10 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
 
 packages:
 

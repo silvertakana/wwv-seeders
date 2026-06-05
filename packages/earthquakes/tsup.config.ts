@@ -5,6 +5,6 @@ export default defineConfig({
   format: ['esm'],
   clean: true,
   shims: true,
-  noExternal: [/@wwv-seeders\/.*/],
+  noExternal: [/@wwv-seeders\/.*/, '@worldwideview/seeder-sdk'],
   external: [/^(?!@wwv-seeders)[a-z@].*/],
 });
