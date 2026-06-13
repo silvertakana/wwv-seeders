@@ -61,3 +61,27 @@ jobs:
           curl -sS -X POST "https://coolify.worldwideview.dev/api/v1/services/slv47hjfvip5h1xggsc3yenm/restart" \
             -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
             -H "Content-Type: application/json"
+
+      - name: Verify Engine Health (Prevent 502 Trap)
+        run: |
+          echo "Waiting for engine to restart..."
+          sleep 30
+          check_health() {
+            curl -sS -o /dev/null -w "%{http_code}" "https://dataenginev2.worldwideview.dev/health" 2>/dev/null || echo "000"
+          }
+          HEALTH=$(check_health)
+          echo "Health check: HTTP $HEALTH"
+          if [ "$HEALTH" != "200" ]; then
+            echo "⚠ Engine not healthy. Retrying restart..."
+            curl -sS -X POST "https://coolify.worldwideview.dev/api/v1/services/slv47hjfvip5h1xggsc3yenm/restart" \
+              -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
+              -H "Content-Type: application/json"
+            sleep 30
+            HEALTH=$(check_health)
+            echo "Health check after retry: HTTP $HEALTH"
+          fi
+          if [ "$HEALTH" = "200" ]; then
+            echo "✅ Engine healthy"
+          else
+            echo "::warning::Engine unhealthy (HTTP $HEALTH). Manual compose restart may be needed: ssh root@server 'docker compose -f /data/coolify/services/slv47hjfvip5h1xggsc3yenm/docker-compose.yml up -d'"
+          fi
