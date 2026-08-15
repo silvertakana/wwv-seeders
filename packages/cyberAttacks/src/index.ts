@@ -130,7 +130,7 @@ export async function seedCyberAttacks() {
   );
 }
 
-function classifyThreat(pulse: OtxPulse): string {
+export function classifyThreat(pulse: OtxPulse): string {
   const tags = (pulse.tags || []).map((t) => t.toLowerCase());
   const name = pulse.name.toLowerCase();
   const desc = (pulse.description || '').toLowerCase();
