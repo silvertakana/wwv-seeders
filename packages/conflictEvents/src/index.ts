@@ -38,6 +38,12 @@ function extractLocation(name: string): { location: string; country: string } {
   return { location, country };
 }
 
+// Stable per-mention slug so record ids are deterministic across 30-min polls.
+function slugifyMention(name: string): string {
+  const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  return slug.slice(0, 48) || 'mention';
+}
+
 const insertStmt = db.prepare('INSERT OR REPLACE INTO conflict_events (id, payload, source_ts, fetched_at) VALUES (@id, @payload, @source_ts, @fetched_at)');
 
 export async function fetchConflictEvents() {
@@ -73,16 +79,12 @@ export async function fetchConflictEvents() {
     const { type, subType } = classifyConflictType(name, feature.properties.urltone);
     const { location, country } = extractLocation(name);
 
-    const fatalities = type === 'Violence against civilians'
-      ? Math.floor(Math.random() * 10) + 1
-      : type === 'Battles'
-        ? Math.floor(Math.random() * 15)
-        : type === 'Explosions/Remote violence'
-          ? Math.floor(Math.random() * 5)
-          : 0;
+    // GKG GeoJSON mentions are unverified: never fabricate a casualty count.
+    const fatalities = 0;
 
+    const stableTime = feature.properties.urlpubtimedate || '';
     const item = {
-      id: `gdelt-${fetchedAt}-${lat.toFixed(4)}-${lon.toFixed(4)}-${items.length}`,
+      id: `gdelt-${slugifyMention(name)}-${lat.toFixed(4)}-${lon.toFixed(4)}${stableTime ? '-' + stableTime : ''}`,
       latitude: lat,
       longitude: lon,
       type,
@@ -91,6 +93,7 @@ export async function fetchConflictEvents() {
       actor2: 'Unknown',
       fatalities,
       date: feature.properties.urlpubtimedate?.split(' ')[0] || new Date().toISOString().split('T')[0],
+      url: feature.properties.url || '',
       source: feature.properties.domain || 'GDELT',
       notes: name
     };
@@ -118,7 +121,9 @@ export async function fetchConflictEvents() {
         actor1: e.actor1,
         actor2: e.actor2,
         date: e.date,
-        notes: e.notes
+        url: e.url,
+        notes: e.notes,
+        verification: 'unverified-mention'
       }
     }));
 
