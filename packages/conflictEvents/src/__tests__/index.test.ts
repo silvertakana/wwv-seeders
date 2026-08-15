@@ -141,4 +141,17 @@ describe('data-quality containment fix', () => {
     const item = JSON.parse(mocks.run.mock.calls[0][0].payload);
     expect(item.id).toContain('gdelt-battle-near-kyiv');
   });
+
+  it('parses compact GDELT dates so source_ts is never NaN and date is readable', async () => {
+    mockGkgResponse([MENTION]);
+    const mod = await import('../index');
+    await mod.fetchConflictEvents();
+
+    const [call] = mocks.run.mock.calls;
+    const item = JSON.parse(call[0].payload);
+    expect(item.date).toBe('2024-06-07');
+    expect(typeof call[0].source_ts).toBe('number');
+    expect(Number.isNaN(call[0].source_ts)).toBe(false);
+    expect(call[0].source_ts).toBe(new Date('2024-06-07T12:30:00Z').getTime());
+  });
 });

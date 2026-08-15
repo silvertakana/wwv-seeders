@@ -245,9 +245,15 @@ function slugifyMention(name) {
   const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   return slug.slice(0, 48) || "mention";
 }
+function parseGdeltDate(raw) {
+  if (!raw) return null;
+  const compact = raw.match(/^(\d{4})(\d{2})(\d{2})(\d{2})?(\d{2})?(\d{2})?$/);
+  const t = compact ? (/* @__PURE__ */ new Date(`${compact[1]}-${compact[2]}-${compact[3]}T${compact[4] || "00"}:${compact[5] || "00"}:${compact[6] || "00"}Z`)).getTime() : new Date(raw).getTime();
+  return Number.isNaN(t) ? null : t;
+}
 var insertStmt = db.prepare("INSERT OR REPLACE INTO conflict_events (id, payload, source_ts, fetched_at) VALUES (@id, @payload, @source_ts, @fetched_at)");
 async function fetchConflictEvents() {
-  var _a, _b, _c;
+  var _a, _b;
   console.log("[ConflictEvents] Fetching from GDELT API...");
   const res = await withRetry(() => fetchWithTimeout(GDELT_URL, { headers: { "User-Agent": "WWV-Data-Engine" } }, 25e3), 3, 5e3);
   if (!res.ok) {
@@ -273,6 +279,7 @@ async function fetchConflictEvents() {
     const { location, country } = extractLocation(name);
     const fatalities = 0;
     const stableTime = feature.properties.urlpubtimedate || "";
+    const sourceTs = parseGdeltDate(stableTime) ?? fetchedAt;
     const item = {
       id: `gdelt-${slugifyMention(name)}-${lat.toFixed(4)}-${lon.toFixed(4)}${stableTime ? "-" + stableTime : ""}`,
       latitude: lat,
@@ -282,7 +289,7 @@ async function fetchConflictEvents() {
       actor1: "Unknown",
       actor2: "Unknown",
       fatalities,
-      date: ((_c = feature.properties.urlpubtimedate) == null ? void 0 : _c.split(" ")[0]) || (/* @__PURE__ */ new Date()).toISOString().split("T")[0],
+      date: stableTime ? new Date(sourceTs).toISOString().split("T")[0] : (/* @__PURE__ */ new Date()).toISOString().split("T")[0],
       url: feature.properties.url || "",
       source: feature.properties.domain || "GDELT",
       notes: name
@@ -291,7 +298,7 @@ async function fetchConflictEvents() {
     insertStmt.run({
       id: item.id,
       payload: JSON.stringify(item),
-      source_ts: new Date(item.date).getTime(),
+      source_ts: sourceTs,
       fetched_at: fetchedAt
     });
   }
