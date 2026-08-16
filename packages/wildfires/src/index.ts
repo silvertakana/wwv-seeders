@@ -2,7 +2,7 @@ import { db } from '@worldwideview/seeder-sdk';
 import { setLiveSnapshot } from '@worldwideview/seeder-sdk';
 import { fetchWithTimeout, withRetry } from '@worldwideview/seeder-sdk';
 
-interface FIRMSRecord {
+export interface FIRMSRecord {
   latitude: number;
   longitude: number;
   bright_ti4: number;
@@ -18,7 +18,23 @@ interface FIRMSRecord {
   daynight: string;
 }
 
-function parseCSV(csv: string): FIRMSRecord[] {
+export interface TierSpec {
+  level: number;
+  size: number;
+}
+
+export interface ClusteredFire extends FIRMSRecord {
+  tier: number;
+  id: string;
+}
+
+export const DEFAULT_TIERS: TierSpec[] = [
+  { level: 1, size: 2.0 },   // Macro: ~220km
+  { level: 2, size: 0.5 },   // Meso: ~55km
+  { level: 3, size: 0.05 },  // Micro: ~5.5km
+];
+
+export function parseCSV(csv: string): FIRMSRecord[] {
   const lines = csv.trim().split("\n");
   if (lines.length < 2) return [];
 
@@ -57,6 +73,51 @@ function parseCSV(csv: string): FIRMSRecord[] {
   return records;
 }
 
+// Multi-Tier Clustering logic (Preserved from original implementation)
+// Groups fires into grid cells per tier and merges same-cell entries:
+// - frp is summed on merge
+// - confidence escalates low -> nominal -> high (high is sticky)
+// - the first fire's deterministic id survives a merge
+export function clusterFires(fires: FIRMSRecord[], tiers: TierSpec[] = DEFAULT_TIERS): ClusteredFire[] {
+  const allClusteredFires: ClusteredFire[] = [];
+
+  for (const tier of tiers) {
+      const clustered = new Map<string, ClusteredFire>();
+
+      for (const fire of fires) {
+          const gridId = `${Math.floor(fire.latitude / tier.size)}_${Math.floor(fire.longitude / tier.size)}`;
+          const existing = clustered.get(gridId);
+          if (existing) {
+              existing.frp += fire.frp;
+              if (fire.confidence === "high" || (fire.confidence === "nominal" && existing.confidence === "low")) {
+                  existing.confidence = fire.confidence;
+              }
+          } else {
+              // Creating a unique ID based on date, time, lat, lon to allow deduplication in SQLite
+              const id = `firm_${fire.acq_date}_${fire.acq_time}_${Math.round(fire.latitude*1000)}_${Math.round(fire.longitude*1000)}_t${tier.level}`;
+              clustered.set(gridId, { ...fire, tier: tier.level, id });
+          }
+      }
+      allClusteredFires.push(...Array.from(clustered.values()));
+  }
+  return allClusteredFires;
+}
+
+// Build a pseudo-timestamp from acq_date and acq_time: "2024-04-01" "1430"
+// Falls back to fetchedAt when the composed ISO string is invalid.
+export function buildSourceTs(acqDate: string, acqTime: string, fetchedAt: number): number {
+  const timeStr = acqTime.toString().padStart(4, '0');
+  const tsStr = `${acqDate}T${timeStr.substring(0,2)}:${timeStr.substring(2,4)}:00Z`;
+  let sourceTs = 0;
+  try {
+    sourceTs = new Date(tsStr).getTime();
+    if (isNaN(sourceTs)) sourceTs = fetchedAt;
+  } catch (e) {
+    sourceTs = fetchedAt;
+  }
+  return sourceTs;
+}
+
 const insertWildfire = db.prepare('INSERT OR IGNORE INTO wildfires (id, payload, source_ts, fetched_at) VALUES (@id, @payload, @source_ts, @fetched_at)');
 
 export async function seedWildfires() {
@@ -75,49 +136,13 @@ export async function seedWildfires() {
     return;
   }
 
-  // Multi-Tier Clustering logic (Preserved from original implementation)
-  const tiers = [
-      { level: 1, size: 2.0 },   // Macro: ~220km
-      { level: 2, size: 0.5 },   // Meso: ~55km
-      { level: 3, size: 0.05 },  // Micro: ~5.5km
-  ];
-
-  const allClusteredFires: (FIRMSRecord & { tier: number, id: string })[] = [];
-
-  for (const tier of tiers) {
-      const clustered = new Map<string, FIRMSRecord & { tier: number, id: string }>();
-
-      for (const fire of fires) {
-          const gridId = `${Math.floor(fire.latitude / tier.size)}_${Math.floor(fire.longitude / tier.size)}`;
-          const existing = clustered.get(gridId);
-          if (existing) {
-              existing.frp += fire.frp;
-              if (fire.confidence === "high" || (fire.confidence === "nominal" && existing.confidence === "low")) {
-                  existing.confidence = fire.confidence;
-              }
-          } else {
-              // Creating a unique ID based on date, time, lat, lon to allow deduplication in SQLite
-              const id = `firm_${fire.acq_date}_${fire.acq_time}_${Math.round(fire.latitude*1000)}_${Math.round(fire.longitude*1000)}_t${tier.level}`;
-              clustered.set(gridId, { ...fire, tier: tier.level, id });
-          }
-      }
-      allClusteredFires.push(...Array.from(clustered.values()));
-  }
+  const allClusteredFires = clusterFires(fires);
 
   // Save to SQLite History
   let insertedCount = 0;
   const insertMany = db.transaction((firesList) => {
     for (const f of firesList) {
-      // Create a pseudo-timestamp from acq_date and acq_time: "2024-04-01" "1430"
-      const timeStr = f.acq_time.toString().padStart(4, '0');
-      const tsStr = `${f.acq_date}T${timeStr.substring(0,2)}:${timeStr.substring(2,4)}:00Z`;
-      let sourceTs = 0;
-      try {
-        sourceTs = new Date(tsStr).getTime();
-        if (isNaN(sourceTs)) sourceTs = fetchedAt;
-      } catch (e) {
-        sourceTs = fetchedAt;
-      }
+      const sourceTs = buildSourceTs(f.acq_date, f.acq_time, fetchedAt);
 
       const result = insertWildfire.run({
         id: f.id,

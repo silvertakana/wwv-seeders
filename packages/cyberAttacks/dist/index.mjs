@@ -113,6 +113,7 @@ var index_default = {
   fn: seedCyberAttacks
 };
 export {
+  classifyThreat,
   index_default as default,
   seedCyberAttacks
 };
