@@ -81,12 +81,28 @@ jobs:
         if: hashFiles(format('packages/{0}/tsconfig.json', matrix.seeder)) != ''
         run: pnpm exec tsc --noEmit --project packages/${{ matrix.seeder }}/tsconfig.json
 
-      # Tier 0b: build via tsup
+      # Tier 0b: dist hygiene — committed dist must inline seeder-sdk (checked BEFORE build regenerates it)
+      - name: Dist hygiene
+        run: |
+          OUT="packages/${{ matrix.seeder }}/dist/index.mjs"
+          if [ ! -f "$OUT" ]; then
+            echo "SKIP: $OUT not committed yet — nothing to check"
+            exit 0
+          fi
+          if grep -q 'from "@worldwideview/seeder-sdk"' "$OUT"; then
+            echo "ERROR: $OUT still imports @worldwideview/seeder-sdk externally"
+            echo "Committed dists must inline the SDK (tsup noExternal). A stale dist ships broken bundles to consumers."
+            echo "Fix: run pnpm run build in packages/${{ matrix.seeder }} and commit the regenerated dist/index.mjs."
+            exit 1
+          fi
+          echo "OK: $OUT inlines @worldwideview/seeder-sdk"
+
+      # Tier 0c: build via tsup
       - name: Build
         working-directory: packages/${{ matrix.seeder }}
         run: pnpm run build
 
-      # Tier 0c: validate bundle output exists
+      # Tier 0d: validate bundle output exists
       - name: Validate dist/index.mjs
         run: |
           OUT="packages/${{ matrix.seeder }}/dist/index.mjs"
