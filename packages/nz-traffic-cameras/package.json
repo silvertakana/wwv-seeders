@@ -1,7 +1,7 @@
 {
   "name": "@wwv-seeders/nz-traffic-cameras",
   "version": "1.0.0",
-  "main": "dist/seeder.mjs",
+  "main": "dist/index.mjs",
   "scripts": {
     "build": "tsup"
   },

@@ -1,7 +1,7 @@
 {
   "name": "@wwv-seeders/military-aviation",
   "version": "1.0.0",
-  "main": "dist/seeder.mjs",
+  "main": "dist/index.mjs",
   "scripts": {
     "build": "tsup"
   },
