@@ -43,8 +43,8 @@ importers:
         specifier: ^6.19.2
         version: 6.25.0
       ws:
-        specifier: ^8.18.0
-        version: 8.20.0
+        specifier: ^8.21.3
+        version: 8.21.3
       zod:
         specifier: ^3.23.8
         version: 3.25.76
@@ -65,8 +65,8 @@ importers:
         specifier: ^6.19.2
         version: 6.25.0
       ws:
-        specifier: ^8.18.0
-        version: 8.20.0
+        specifier: ^8.21.3
+        version: 8.21.3
       zod:
         specifier: ^3.23.8
         version: 3.25.76
@@ -99,8 +99,8 @@ importers:
         specifier: ^6.19.2
         version: 6.25.0
       ws:
-        specifier: ^8.18.0
-        version: 8.20.0
+        specifier: ^8.21.3
+        version: 8.21.3
       zod:
         specifier: ^3.23.8
         version: 3.25.76
@@ -133,8 +133,8 @@ importers:
         specifier: ^6.19.2
         version: 6.25.0
       ws:
-        specifier: ^8.18.0
-        version: 8.20.0
+        specifier: ^8.21.3
+        version: 8.21.3
       zod:
         specifier: ^3.23.8
         version: 3.25.76
@@ -167,8 +167,8 @@ importers:
         specifier: ^6.19.2
         version: 6.25.0
       ws:
-        specifier: ^8.18.0
-        version: 8.20.0
+        specifier: ^8.21.3
+        version: 8.21.3
       zod:
         specifier: ^3.23.8
         version: 3.25.76
@@ -189,8 +189,8 @@ importers:
         specifier: ^6.19.2
         version: 6.25.0
       ws:
-        specifier: ^8.18.0
-        version: 8.20.0
+        specifier: ^8.21.3
+        version: 8.21.3
       zod:
         specifier: ^3.23.8
         version: 3.25.76
@@ -211,8 +211,8 @@ importers:
         specifier: ^6.19.2
         version: 6.25.0
       ws:
-        specifier: ^8.18.0
-        version: 8.20.0
+        specifier: ^8.21.3
+        version: 8.21.3
       zod:
         specifier: ^3.23.8
         version: 3.25.76
@@ -224,11 +224,11 @@ importers:
   packages/market-tracker:
     dependencies:
       date-fns:
-        specifier: ^4.3.0
-        version: 4.3.0
+        specifier: ^4.4.0
+        version: 4.4.0
       date-fns-tz:
         specifier: ^3.2.0
-        version: 3.2.0(date-fns@4.3.0)
+        version: 3.2.0(date-fns@4.4.0)
       yahoo-finance2:
         specifier: ^3.14.1
         version: 3.14.1
@@ -261,8 +261,8 @@ importers:
         specifier: ^6.19.2
         version: 6.25.0
       ws:
-        specifier: ^8.18.0
-        version: 8.20.0
+        specifier: ^8.21.3
+        version: 8.21.3
       zod:
         specifier: ^3.23.8
         version: 3.25.76
@@ -283,8 +283,8 @@ importers:
         specifier: ^6.19.2
         version: 6.25.0
       ws:
-        specifier: ^8.18.0
-        version: 8.20.0
+        specifier: ^8.21.3
+        version: 8.21.3
       zod:
         specifier: ^3.23.8
         version: 3.25.76
@@ -302,14 +302,14 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       sax:
-        specifier: ^1.6.0
-        version: 1.6.0
+        specifier: ^1.6.1
+        version: 1.6.1
       undici:
         specifier: ^6.19.2
         version: 6.25.0
       ws:
-        specifier: ^8.18.0
-        version: 8.20.0
+        specifier: ^8.21.3
+        version: 8.21.3
       zod:
         specifier: ^3.23.8
         version: 3.25.76
@@ -327,14 +327,14 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       satellite.js:
-        specifier: ^7.0.0
-        version: 7.0.0
+        specifier: ^7.1.0
+        version: 7.1.0
       undici:
         specifier: ^6.19.2
         version: 6.25.0
       ws:
-        specifier: ^8.18.0
-        version: 8.20.0
+        specifier: ^8.21.3
+        version: 8.21.3
       zod:
         specifier: ^3.23.8
         version: 3.25.76
@@ -355,8 +355,8 @@ importers:
         specifier: ^17.4.2
         version: 17.4.2
       geoip-lite:
-        specifier: ^2.0.2
-        version: 2.0.2
+        specifier: ^2.0.3
+        version: 2.0.3
       ioredis:
         specifier: ^5.4.1
         version: 5.10.1
@@ -386,8 +386,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2
       satellite.js:
-        specifier: ^7.0.0
-        version: 7.0.0
+        specifier: ^7.1.0
+        version: 7.1.0
       undici:
         specifier: ^6.19.2
         version: 6.25.0
@@ -408,8 +408,8 @@ importers:
         specifier: ^6.19.2
         version: 6.25.0
       ws:
-        specifier: ^8.18.0
-        version: 8.20.0
+        specifier: ^8.21.3
+        version: 8.21.3
       zod:
         specifier: ^3.23.8
         version: 3.25.76
@@ -1160,8 +1160,8 @@ packages:
     peerDependencies:
       date-fns: ^3.0.0 || ^4.0.0
 
-  date-fns@4.3.0:
-    resolution: {integrity: sha512-OYcL+3N/jyWbYdFGqoMAhytDgxP9pbYPUUiRCOgn4Fewaadk9l/Wam4Avciiyp2BgkpfQyBV9B+ehnVJych+eQ==}
+  date-fns@4.4.0:
+    resolution: {integrity: sha512-+1UMbeh68lH1SegH83CGWwpb6OHHbpSgr3+s5Eww5M4CAgswBpoWS0AjTOfEJ33HiYKz1hdj/KTFprzXHmq/6w==}
 
   debug@4.4.3:
     resolution: {integrity: sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==}
@@ -1274,6 +1274,10 @@ packages:
     resolution: {integrity: sha512-C90u7hFgIrDTboiqJm+pc23buM5TykTJq11sCsRItKr6a4IHIHJvZPjq+pY96+Q15saWAMzs3ILzqyEVF0v2gA==}
     engines: {node: '>=24.0.0'}
 
+  geoip-lite@2.0.3:
+    resolution: {integrity: sha512-I0v/6sITK5FhEXHmatGSPBMply2nHN/2D743LIx4KkksttZt/E505lDaV6qUwt5RM08MbZW+/4E0KxusLVN39w==}
+    engines: {node: '>=24.0.0'}
+
   github-from-package@0.0.0:
     resolution: {integrity: sha512-SyHy3T1v2NUXn29OsWdxmK6RwHD+vkj3v8en8AOBZ1wBQ/hCAQ5bAQTD02kW4W9tUp/3Qh6J8r9EvntiyCmOOw==}
 
@@ -1311,6 +1315,10 @@ packages:
 
   ip-address@10.2.0:
     resolution: {integrity: sha512-/+S6j4E9AHvW9SWMSEY9Xfy66O5PWvVEJ08O0y5JGyEKQpojb0K0GKpz/v5HJ/G0vi3D2sjGK78119oXZeE0qA==}
+    engines: {node: '>= 12'}
+
+  ip-address@10.5.0:
+    resolution: {integrity: sha512-R5SnVLJmgYYvf2F2ZgwSBnelz5G4q5AxIC277GDfUaNbrZKNANcBC7RHqYYePlszf4kBolVkJauG0ZjHHFh55g==}
     engines: {node: '>= 12'}
 
   is-core-module@2.16.2:
@@ -1558,11 +1566,11 @@ packages:
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  satellite.js@7.0.0:
-    resolution: {integrity: sha512-jrWZBytZgpzcfWpny6jsV7/StWKmie6JlDNpQ53RjbIXVDJPleQw8y+Cs/ZXaPIs720NFgQQLyvqYTbpsBTXKg==}
+  satellite.js@7.1.0:
+    resolution: {integrity: sha512-U6nRml9Nb7dV9LJPiMNPyna7U7ry+1nXYkOeCEG7K/YbojQQLHHmcjPisp03VNY+HLcbQHqbt7t4t1vQMaKCLQ==}
 
-  sax@1.6.0:
-    resolution: {integrity: sha512-6R3J5M4AcbtLUdZmRv2SygeVaM7IhrLXu9BmnOGmmACak8fiUtOsYNWUS4uK7upbmHIBbLBeFeI//477BKLBzA==}
+  sax@1.6.1:
+    resolution: {integrity: sha512-42tBVwLWnaQvW5zc4HbZrTuWccECCZfBi92FDuwtqxasH+JbPB3/FOKb1m222K42R4WxuxzzMsTswfzgtSu64Q==}
     engines: {node: '>=11.0.0'}
 
   semver@7.8.0:
@@ -1839,8 +1847,8 @@ packages:
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
-  ws@8.20.0:
-    resolution: {integrity: sha512-sAt8BhgNbzCtgGbt2OxmpuryO63ZoDk/sqaB/znQm94T4fCEsy/yV+7CdC1kJhOU9lboAEU7R3kquuycDoibVA==}
+  ws@8.21.3:
+    resolution: {integrity: sha512-201TZ/kPWxoPr/OKWjquZR1SWKXcvxdH+e1xrx89b3YbmzLMFCLfnaG1HFIgWzJOEWZ7MvpK++odZufgYR50Rw==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -1858,10 +1866,15 @@ packages:
   yahoo-finance2@3.14.1:
     resolution: {integrity: sha512-66bhnBMaxmtbrnFvhiiKqg4KhpUw5pazVF1QvRAElTOrBVDdLPcYdgEyCVz0PH1T/dYUuEddNrCmOus9DeUPkA==}
     engines: {node: '>=20.0.0'}
+    deprecated: yahoo-finance2 v3 is no longer supported. Upgrade to v4, which requires Node.js 22 or newer.
     hasBin: true
 
   yauzl@3.3.0:
     resolution: {integrity: sha512-PtGEvEP30p7sbIBJKUBjUnqgTVOyMURc4dLo9iNyAJnNIEz9pm88cCXF21w94Kg3k6RXkeZh5DHOGS0qEONvNQ==}
+    engines: {node: '>=12'}
+
+  yauzl@3.4.0:
+    resolution: {integrity: sha512-jIH9yLR9wqr0wOS0TpBvo/g/2UgZH5qePVbjgRliiF0BYvOZyaBknKsF+x9Iht0O6sqgnB93rCICdOZFecJuDw==}
     engines: {node: '>=12'}
 
   zod@3.25.76:
@@ -2577,11 +2590,11 @@ snapshots:
 
   consola@3.4.2: {}
 
-  date-fns-tz@3.2.0(date-fns@4.3.0):
+  date-fns-tz@3.2.0(date-fns@4.4.0):
     dependencies:
-      date-fns: 4.3.0
+      date-fns: 4.4.0
 
-  date-fns@4.3.0: {}
+  date-fns@4.4.0: {}
 
   debug@4.4.3:
     dependencies:
@@ -2697,6 +2710,14 @@ snapshots:
       lazy: 1.0.11
       yauzl: 3.3.0
 
+  geoip-lite@2.0.3:
+    dependencies:
+      chalk: 4.1.2
+      iconv-lite: 0.6.3
+      ip-address: 10.5.0
+      lazy: 1.0.11
+      yauzl: 3.4.0
+
   github-from-package@0.0.0: {}
 
   has-flag@4.0.0: {}
@@ -2741,6 +2762,8 @@ snapshots:
       - supports-color
 
   ip-address@10.2.0: {}
+
+  ip-address@10.5.0: {}
 
   is-core-module@2.16.2:
     dependencies:
@@ -2976,9 +2999,9 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  satellite.js@7.0.0: {}
+  satellite.js@7.1.0: {}
 
-  sax@1.6.0: {}
+  sax@1.6.1: {}
 
   semver@7.8.0: {}
 
@@ -3246,7 +3269,7 @@ snapshots:
 
   wrappy@1.0.2: {}
 
-  ws@8.20.0: {}
+  ws@8.21.3: {}
 
   xtend@4.0.2: {}
 
@@ -3263,6 +3286,10 @@ snapshots:
   yauzl@3.3.0:
     dependencies:
       buffer-crc32: 0.2.13
+      pend: 1.2.0
+
+  yauzl@3.4.0:
+    dependencies:
       pend: 1.2.0
 
   zod@3.25.76: {}

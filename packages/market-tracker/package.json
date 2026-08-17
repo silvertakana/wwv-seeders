@@ -8,7 +8,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "date-fns": "^4.3.0",
+    "date-fns": "^4.4.0",
     "date-fns-tz": "^3.2.0",
     "yahoo-finance2": "^3.14.1"
   },
