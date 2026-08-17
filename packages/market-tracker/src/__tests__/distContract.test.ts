@@ -1,14 +1,16 @@
 // Locks the BUILT artifact's contract (dist/index.mjs), not just the source.
 // Run after: pnpm --filter @wwv-seeders/market-tracker build
 //
-// The dist bundle imports @worldwideview/seeder-sdk and yahoo-finance2 as externals.
-// We mock those here to prevent better-sqlite3 native bindings from loading in tests.
+// The dist bundle inlines @worldwideview/seeder-sdk (tsup noExternal) and imports
+// yahoo-finance2 as an external. We mock the native/transitive externals here so
+// dist/index.mjs can be dynamically imported without triggering better-sqlite3
+// native binding resolution.
 import { describe, it, expect, beforeAll, vi } from 'vitest';
 import { existsSync } from 'fs';
 import { resolve } from 'path';
 
-// Mock the SDK and yahoo-finance2 so dist/index.mjs can be dynamically imported
-// without triggering better-sqlite3 native binding resolution
+// The SDK is inlined into the dist, so this mock is inert for the dist path but
+// harmless to keep (it is still the mock used by the other suites for src imports).
 vi.mock('@worldwideview/seeder-sdk', () => ({
   withRetry: vi.fn(async (fn: () => Promise<unknown>) => fn()),
   setLiveSnapshot: vi.fn(),
@@ -21,6 +23,21 @@ vi.mock('yahoo-finance2', () => ({
     quote: vi.fn(async () => []),
   },
 }));
+
+// Native/transitive externals pulled in by the inlined SDK bundle. better-sqlite3
+// is constructed at dist import time, so the mock must be a constructor.
+vi.mock('better-sqlite3', () => ({
+  default: class {
+    pragma = vi.fn();
+    exec = vi.fn();
+    prepare = vi.fn(() => ({ run: vi.fn(), get: vi.fn(), all: vi.fn() }));
+    close = vi.fn();
+  },
+}));
+
+vi.mock('ioredis', () => ({ Redis: class { on = vi.fn(); } }));
+vi.mock('dotenv', () => ({ default: { config: vi.fn() } }));
+vi.mock('geoip-lite', () => ({ default: { lookup: vi.fn() } }));
 
 const DIST_PATH = resolve(__dirname, '../../dist/index.mjs');
 

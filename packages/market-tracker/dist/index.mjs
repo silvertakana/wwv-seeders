@@ -202,12 +202,18 @@ function isMarketOpen(now) {
 }
 
 // src/index.ts
+function isMarketQuoteArray(value) {
+  return Array.isArray(value);
+}
 var TICKERS = ["AAPL", "MSFT", "NVDA", "SPY", "QQQ"];
 async function fetchQuotes() {
   if (!isMarketOpen()) {
     return null;
   }
   const quotes = await withRetry(() => yahooFinance.quote(TICKERS));
+  if (!isMarketQuoteArray(quotes)) {
+    return null;
+  }
   const results = [];
   for (const q of quotes) {
     if (q.regularMarketPrice == null) continue;
