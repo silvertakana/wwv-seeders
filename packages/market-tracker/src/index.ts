@@ -9,6 +9,19 @@ export interface StockTick {
   timestamp: number;
 }
 
+// The default export's static `quote()` is typed as `(...args: unknown[]): never`
+// (deprecated static API), so `await` yields `unknown`. Type the result shape we
+// actually consume and narrow it with a guard instead of relying on that return type.
+interface MarketQuote {
+  symbol: string;
+  regularMarketPrice?: number;
+  regularMarketChangePercent?: number;
+}
+
+function isMarketQuoteArray(value: unknown): value is MarketQuote[] {
+  return Array.isArray(value);
+}
+
 const TICKERS = ['AAPL', 'MSFT', 'NVDA', 'SPY', 'QQQ'];
 
 async function fetchQuotes(): Promise<StockTick[] | null> {
@@ -17,6 +30,10 @@ async function fetchQuotes(): Promise<StockTick[] | null> {
   }
 
   const quotes = await withRetry(() => yahooFinance.quote(TICKERS));
+
+  if (!isMarketQuoteArray(quotes)) {
+    return null;
+  }
 
   const results: StockTick[] = [];
   for (const q of quotes) {
