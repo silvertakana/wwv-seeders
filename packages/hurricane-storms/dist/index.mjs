@@ -1,6 +1,31 @@
-// db.ts
+var __defProp = Object.defineProperty;
+var __defProps = Object.defineProperties;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
+var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
+
+// ../../node_modules/.pnpm/@worldwideview+seeder-sdk@1.0.0/node_modules/@worldwideview/seeder-sdk/dist/index.mjs
 import Database from "better-sqlite3";
 import path from "path";
+import { Redis } from "ioredis";
+import dotenv from "dotenv";
+import path2 from "path";
+import zlib from "zlib";
+import geoip from "geoip-lite";
 var dbPath = process.env.DB_PATH || path.join(process.cwd(), "data", "engine.db");
 var db = new Database(dbPath, {
   // Use verbose logging if needed for debugging
@@ -134,38 +159,9 @@ function initDB() {
       fetched_at INTEGER NOT NULL
     )
   `);
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS marine_buoys (
-      stn TEXT PRIMARY KEY,
-      payload JSON NOT NULL,
-      source_ts INTEGER NOT NULL,
-      fetched_at INTEGER NOT NULL
-    )
-  `);
   console.log("[DB] All tables initialized successfully.");
 }
 initDB();
-var RETENTION_HOURS = 24;
-function pruneHistoryTables() {
-  const cutoff = Math.floor(Date.now() / 1e3) - RETENTION_HOURS * 3600;
-  const tables = [
-    "aviation_history",
-    "military_aviation_history",
-    "maritime_history"
-  ];
-  for (const table of tables) {
-    const result = db.prepare(`DELETE FROM ${table} WHERE ts < ?`).run(cutoff);
-    if (result.changes > 0) {
-      console.log(`[DB] Pruned ${result.changes} rows from ${table}`);
-    }
-  }
-}
-
-// redis.ts
-import { Redis } from "ioredis";
-import dotenv from "dotenv";
-import path2 from "path";
-import zlib from "zlib";
 dotenv.config({ path: path2.resolve(process.cwd(), ".env.local") });
 var redisUrl = process.env.REDIS_URL || "redis://redis:6379";
 if (redisUrl.includes("upstash.io") && redisUrl.startsWith("redis://")) {
@@ -212,24 +208,6 @@ async function setLiveSnapshot(source, payload, ttlSeconds) {
     console.error(`[Redis] Failed to snapshot ${source}:`, error);
   }
 }
-async function getLiveSnapshot(source) {
-  const key = `data:${source}:live`;
-  try {
-    const data = await redis.getBuffer(key);
-    if (!data) return null;
-    try {
-      const decompressed = zlib.unzipSync(data);
-      return JSON.parse(decompressed.toString("utf-8"));
-    } catch {
-      return JSON.parse(data.toString("utf-8"));
-    }
-  } catch (error) {
-    console.error(`[Redis] Failed to get live snapshot ${source}:`, error);
-    return null;
-  }
-}
-
-// seed-utils.ts
 async function withRetry(fn, maxRetries = 3, delayMs = 1e3) {
   let lastErr;
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
@@ -250,10 +228,9 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = 15e3) {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    const response = await fetch(url, {
-      ...options,
+    const response = await fetch(url, __spreadProps(__spreadValues({}, options), {
       signal: controller.signal
-    });
+    }));
     if (!response.ok) {
       throw new Error(`HTTP ${response.status} - ${response.statusText}`);
     }
@@ -262,42 +239,86 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = 15e3) {
     clearTimeout(id);
   }
 }
-function haversineKm(lat1, lon1, lat2, lon2) {
-  const R = 6371;
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c;
-}
-var CHROME_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36";
-function sleep(ms) {
-  return new Promise((r) => setTimeout(r, ms));
-}
 
-// geoip.ts
-import geoip from "geoip-lite";
-function geolocateIp(ip) {
-  const lookup = geoip.lookup(ip);
-  if (!lookup || !lookup.ll) return null;
+// src/index.ts
+var NHC_STORMS_URL = "https://www.nhc.noaa.gov/CurrentStorms.json";
+function mapActiveStormToItem(storm) {
+  var _a, _b, _c, _d, _e, _f, _g;
+  const lat = storm.latitudeNumeric;
+  const lon = storm.longitudeNumeric;
+  if (typeof lat !== "number" || !Number.isFinite(lat)) return null;
+  if (typeof lon !== "number" || !Number.isFinite(lon)) return null;
   return {
-    lat: lookup.ll[0],
-    lon: lookup.ll[1],
-    country: lookup.country || "Unknown",
-    city: lookup.city || "Unknown"
+    id: String(storm.id),
+    name: (_a = storm.name) != null ? _a : "Unnamed Storm",
+    classification: storm.classification,
+    intensity: finiteOrNull(storm.intensity),
+    pressure: finiteOrNull(storm.pressure),
+    lat,
+    lon,
+    lastUpdate: storm.lastUpdate,
+    advisoryUrl: (_c = (_b = storm.publicAdvisory) == null ? void 0 : _b.url) != null ? _c : null,
+    forecastUrl: (_e = (_d = storm.forecastTrack) == null ? void 0 : _d.kmzFile) != null ? _e : null,
+    discussionUrl: (_g = (_f = storm.forecastDiscussion) == null ? void 0 : _f.url) != null ? _g : null
   };
 }
+function finiteOrNull(value) {
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+try {
+  db.prepare(
+    "CREATE TABLE IF NOT EXISTS hurricane_storms (id TEXT PRIMARY KEY, payload TEXT NOT NULL, source_ts INTEGER, fetched_at INTEGER)"
+  ).run();
+} catch (err) {
+  console.error("[HurricaneStorms] could not ensure SQLite table:", err instanceof Error ? err.message : err);
+}
+var insertStorm = db.prepare(
+  "INSERT OR IGNORE INTO hurricane_storms (id, payload, source_ts, fetched_at) VALUES (@id, @payload, @source_ts, @fetched_at)"
+);
+async function seedHurricaneStorms() {
+  console.log("[HurricaneStorms] Polling NOAA NHC...");
+  try {
+    const res = await withRetry(() => fetchWithTimeout(NHC_STORMS_URL));
+    const data = await res.json();
+    const fetchedAt = Date.now();
+    if (!data || !Array.isArray(data.activeStorms)) {
+      console.warn("[HurricaneStorms] Invalid response from NOAA NHC");
+      return;
+    }
+    const items = [];
+    let insertedCount = 0;
+    for (const storm of data.activeStorms) {
+      const item = mapActiveStormToItem(storm);
+      if (!item) continue;
+      items.push(item);
+      const sourceTs = item.lastUpdate ? new Date(item.lastUpdate).getTime() : fetchedAt;
+      const result = insertStorm.run({
+        id: item.id,
+        payload: JSON.stringify(item),
+        source_ts: sourceTs,
+        fetched_at: fetchedAt
+      });
+      if (result.changes > 0) insertedCount++;
+    }
+    console.log(`[HurricaneStorms] Parsed ${items.length} active storms. Saved ${insertedCount} new to SQLite.`);
+    await setLiveSnapshot("hurricane-storms", {
+      source: "hurricane-storms",
+      fetchedAt: (/* @__PURE__ */ new Date()).toISOString(),
+      items,
+      totalCount: items.length
+    }, 3600);
+  } catch (err) {
+    console.error("[HurricaneStorms] Seeder failed:", err instanceof Error ? err.message : String(err));
+  }
+}
+var index_default = {
+  name: "hurricane-storms",
+  cron: "0 * * * *",
+  // Every hour
+  fn: seedHurricaneStorms
+};
 export {
-  CHROME_UA,
-  db,
-  fetchWithTimeout,
-  geolocateIp,
-  getLiveSnapshot,
-  haversineKm,
-  initDB,
-  pruneHistoryTables,
-  redis,
-  setLiveSnapshot,
-  sleep,
-  withRetry
+  index_default as default,
+  mapActiveStormToItem,
+  seedHurricaneStorms
 };

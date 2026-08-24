@@ -180,6 +180,14 @@ function initDB() {
       fetched_at INTEGER NOT NULL
     )
   `);
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS marine_buoys (
+      stn TEXT PRIMARY KEY,
+      payload JSON NOT NULL,
+      source_ts INTEGER NOT NULL,
+      fetched_at INTEGER NOT NULL
+    )
+  `);
   console.log("[DB] All tables initialized successfully.");
 }
 initDB();

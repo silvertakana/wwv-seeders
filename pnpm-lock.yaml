@@ -155,6 +155,28 @@ importers:
         specifier: ^3.2.2
         version: 3.2.4(@types/node@25.7.0)
 
+  packages/flock-camera:
+    dependencies:
+      '@sentry/node':
+        specifier: ^8.55.2
+        version: 8.55.2
+      node-cron:
+        specifier: ^3.0.3
+        version: 3.0.3
+      undici:
+        specifier: ^6.19.2
+        version: 6.25.0
+      ws:
+        specifier: ^8.18.0
+        version: 8.21.3
+      zod:
+        specifier: ^3.23.8
+        version: 3.25.76
+    devDependencies:
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
+
   packages/gpsjam:
     dependencies:
       '@sentry/node':
@@ -177,6 +199,40 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
 
+  packages/hurricane-storms:
+    dependencies:
+      '@sentry/node':
+        specifier: ^8.55.2
+        version: 8.55.2
+      node-cron:
+        specifier: ^3.0.3
+        version: 3.0.3
+      undici:
+        specifier: ^6.19.2
+        version: 6.25.0
+      ws:
+        specifier: ^8.21.3
+        version: 8.21.3
+      zod:
+        specifier: ^3.23.8
+        version: 3.25.76
+    devDependencies:
+      '@types/node':
+        specifier: ^25.7.0
+        version: 25.7.0
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.4(@types/node@25.7.0)
+
   packages/iranwarlive:
     dependencies:
       '@sentry/node':
@@ -198,6 +254,108 @@ importers:
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0
+
+  packages/launch-tracker:
+    dependencies:
+      '@sentry/node':
+        specifier: ^8.55.2
+        version: 8.55.2
+      node-cron:
+        specifier: ^3.0.3
+        version: 3.0.3
+      undici:
+        specifier: ^6.19.2
+        version: 6.25.0
+      ws:
+        specifier: ^8.21.3
+        version: 8.21.3
+      zod:
+        specifier: ^3.23.8
+        version: 3.25.76
+    devDependencies:
+      '@types/node':
+        specifier: ^25.7.0
+        version: 25.7.0
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.4(@types/node@25.7.0)
+
+  packages/live-disasters:
+    dependencies:
+      '@sentry/node':
+        specifier: ^8.55.2
+        version: 8.55.2
+      node-cron:
+        specifier: ^3.0.3
+        version: 3.0.3
+      undici:
+        specifier: ^6.19.2
+        version: 6.25.0
+      ws:
+        specifier: ^8.21.3
+        version: 8.21.3
+      zod:
+        specifier: ^3.23.8
+        version: 3.25.76
+    devDependencies:
+      '@types/node':
+        specifier: ^25.7.0
+        version: 25.7.0
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.4(@types/node@25.7.0)
+
+  packages/marine-buoys:
+    dependencies:
+      '@sentry/node':
+        specifier: ^8.55.2
+        version: 8.55.2
+      node-cron:
+        specifier: ^3.0.3
+        version: 3.0.3
+      undici:
+        specifier: ^6.19.2
+        version: 6.25.0
+      ws:
+        specifier: ^8.21.3
+        version: 8.21.3
+      zod:
+        specifier: ^3.23.8
+        version: 3.25.76
+    devDependencies:
+      '@types/node':
+        specifier: ^25.7.0
+        version: 25.7.0
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.4(@types/node@25.7.0)
 
   packages/maritime:
     dependencies:

@@ -1,6 +1,31 @@
-// db.ts
+var __defProp = Object.defineProperty;
+var __defProps = Object.defineProperties;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
+var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
+
+// ../../node_modules/.pnpm/@worldwideview+seeder-sdk@1.0.0/node_modules/@worldwideview/seeder-sdk/dist/index.mjs
 import Database from "better-sqlite3";
 import path from "path";
+import { Redis } from "ioredis";
+import dotenv from "dotenv";
+import path2 from "path";
+import zlib from "zlib";
+import geoip from "geoip-lite";
 var dbPath = process.env.DB_PATH || path.join(process.cwd(), "data", "engine.db");
 var db = new Database(dbPath, {
   // Use verbose logging if needed for debugging
@@ -134,38 +159,9 @@ function initDB() {
       fetched_at INTEGER NOT NULL
     )
   `);
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS marine_buoys (
-      stn TEXT PRIMARY KEY,
-      payload JSON NOT NULL,
-      source_ts INTEGER NOT NULL,
-      fetched_at INTEGER NOT NULL
-    )
-  `);
   console.log("[DB] All tables initialized successfully.");
 }
 initDB();
-var RETENTION_HOURS = 24;
-function pruneHistoryTables() {
-  const cutoff = Math.floor(Date.now() / 1e3) - RETENTION_HOURS * 3600;
-  const tables = [
-    "aviation_history",
-    "military_aviation_history",
-    "maritime_history"
-  ];
-  for (const table of tables) {
-    const result = db.prepare(`DELETE FROM ${table} WHERE ts < ?`).run(cutoff);
-    if (result.changes > 0) {
-      console.log(`[DB] Pruned ${result.changes} rows from ${table}`);
-    }
-  }
-}
-
-// redis.ts
-import { Redis } from "ioredis";
-import dotenv from "dotenv";
-import path2 from "path";
-import zlib from "zlib";
 dotenv.config({ path: path2.resolve(process.cwd(), ".env.local") });
 var redisUrl = process.env.REDIS_URL || "redis://redis:6379";
 if (redisUrl.includes("upstash.io") && redisUrl.startsWith("redis://")) {
@@ -212,24 +208,6 @@ async function setLiveSnapshot(source, payload, ttlSeconds) {
     console.error(`[Redis] Failed to snapshot ${source}:`, error);
   }
 }
-async function getLiveSnapshot(source) {
-  const key = `data:${source}:live`;
-  try {
-    const data = await redis.getBuffer(key);
-    if (!data) return null;
-    try {
-      const decompressed = zlib.unzipSync(data);
-      return JSON.parse(decompressed.toString("utf-8"));
-    } catch {
-      return JSON.parse(data.toString("utf-8"));
-    }
-  } catch (error) {
-    console.error(`[Redis] Failed to get live snapshot ${source}:`, error);
-    return null;
-  }
-}
-
-// seed-utils.ts
 async function withRetry(fn, maxRetries = 3, delayMs = 1e3) {
   let lastErr;
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
@@ -250,10 +228,9 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = 15e3) {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    const response = await fetch(url, {
-      ...options,
+    const response = await fetch(url, __spreadProps(__spreadValues({}, options), {
       signal: controller.signal
-    });
+    }));
     if (!response.ok) {
       throw new Error(`HTTP ${response.status} - ${response.statusText}`);
     }
@@ -262,42 +239,129 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = 15e3) {
     clearTimeout(id);
   }
 }
-function haversineKm(lat1, lon1, lat2, lon2) {
-  const R = 6371;
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c;
-}
-var CHROME_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36";
-function sleep(ms) {
-  return new Promise((r) => setTimeout(r, ms));
-}
 
-// geoip.ts
-import geoip from "geoip-lite";
-function geolocateIp(ip) {
-  const lookup = geoip.lookup(ip);
-  if (!lookup || !lookup.ll) return null;
+// src/index.ts
+var GDACS_RSS_URL = "https://www.gdacs.org/xml/rss_24h.xml";
+var PLUGIN_ID = "live-disasters";
+var SNAPSHOT_TTL_SECONDS = 3600;
+function unescapeXml(value) {
+  return value.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, "&");
+}
+function extractItemBlocks(xml) {
+  var _a;
+  return (_a = xml.match(/<item>[\s\S]*?<\/item>/g)) != null ? _a : [];
+}
+function stripCdata(text) {
+  const match = text.match(/^<!\[CDATA\[([\s\S]*)\]\]>$/);
+  return match ? match[1] : text;
+}
+function childText(block, tagName) {
+  const escaped = tagName.replace(/:/g, "\\:");
+  const match = block.match(new RegExp(`<${escaped}(?:\\s[^>]*)?>([\\s\\S]*?)</${escaped}>`));
+  if (!match) return null;
+  const text = stripCdata(match[1]).trim();
+  return text.length > 0 ? unescapeXml(text) : null;
+}
+function childAttr(block, tagName, attrName) {
+  const escaped = tagName.replace(/:/g, "\\:");
+  const match = block.match(new RegExp(`<${escaped}\\b[^>]*\\b${attrName}="([^"]*)"`));
+  return match ? unescapeXml(match[1]) : null;
+}
+function parseDate(value) {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  return { iso: date.toISOString(), epochMs: date.getTime() };
+}
+function parseItemBlock(block, index) {
+  var _a, _b, _c, _d, _e, _f, _g;
+  const guid = childText(block, "guid");
+  const title = childText(block, "title");
+  if (guid === null && title === null) return null;
+  const lat = Number(childText(block, "geo:lat"));
+  const lon = Number(childText(block, "geo:long"));
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+  if (childText(block, "gdacs:temporary") === "true") return null;
+  const isCurrent = childText(block, "gdacs:iscurrent");
+  if (isCurrent !== null && isCurrent !== "true") return null;
+  const severityAttr = childAttr(block, "gdacs:severity", "value");
+  const severityNumber = severityAttr !== null ? Number(severityAttr) : NaN;
+  const pubDateRaw = (_a = childText(block, "gdacs:fromdate")) != null ? _a : childText(block, "pubDate");
+  const parsed = parseDate(pubDateRaw);
+  const nowMs = Date.now();
   return {
-    lat: lookup.ll[0],
-    lon: lookup.ll[1],
-    country: lookup.country || "Unknown",
-    city: lookup.city || "Unknown"
+    id: guid != null ? guid : `gdacs-${index}`,
+    title: title != null ? title : "GDACS event",
+    description: (_b = childText(block, "description")) != null ? _b : "",
+    link: (_c = childText(block, "link")) != null ? _c : "",
+    lat,
+    lon,
+    alertlevel: (_e = (_d = childText(block, "gdacs:alertlevel")) == null ? void 0 : _d.toLowerCase()) != null ? _e : null,
+    severity: Number.isFinite(severityNumber) ? severityNumber : null,
+    severityText: childText(block, "gdacs:severity"),
+    eventtype: childText(block, "gdacs:eventtype"),
+    iso3: childText(block, "gdacs:iso3"),
+    country: childText(block, "gdacs:country"),
+    pubDate: (_f = parsed == null ? void 0 : parsed.iso) != null ? _f : new Date(nowMs).toISOString(),
+    occurredAt: (_g = parsed == null ? void 0 : parsed.epochMs) != null ? _g : nowMs
   };
 }
+try {
+  db.prepare(
+    "CREATE TABLE IF NOT EXISTS live_disasters (id TEXT PRIMARY KEY, payload TEXT NOT NULL, source_ts INTEGER, fetched_at INTEGER)"
+  ).run();
+} catch (err) {
+  console.error("[LiveDisasters] could not ensure SQLite table:", err instanceof Error ? err.message : err);
+}
+var insertLiveDisaster = db.prepare(
+  "INSERT OR IGNORE INTO live_disasters (id, payload, source_ts, fetched_at) VALUES (@id, @payload, @source_ts, @fetched_at)"
+);
+async function seedLiveDisasters() {
+  try {
+    console.log("[LiveDisasters] Polling GDACS RSS...");
+    const res = await withRetry(() => fetchWithTimeout(GDACS_RSS_URL));
+    const xml = await res.text();
+    const fetchedAt = Date.now();
+    const items = extractItemBlocks(xml).map((block, i) => parseItemBlock(block, i)).filter((item) => item !== null);
+    let insertedCount = 0;
+    for (const item of items) {
+      const result = insertLiveDisaster.run({
+        id: item.id,
+        payload: JSON.stringify(item),
+        source_ts: item.occurredAt,
+        fetched_at: fetchedAt
+      });
+      if (result.changes > 0) insertedCount++;
+    }
+    console.log(`[LiveDisasters] Parsed ${items.length} events. Saved ${insertedCount} new to SQLite.`);
+    await setLiveSnapshot(
+      PLUGIN_ID,
+      {
+        source: PLUGIN_ID,
+        fetchedAt: (/* @__PURE__ */ new Date()).toISOString(),
+        items,
+        totalCount: items.length
+      },
+      SNAPSHOT_TTL_SECONDS
+      // 1 hour TTL
+    );
+  } catch (err) {
+    console.error("[LiveDisasters] seeder failed:", err instanceof Error ? err.message : err);
+  }
+}
+var index_default = {
+  name: PLUGIN_ID,
+  cron: "0 * * * *",
+  // Every hour
+  fn: seedLiveDisasters
+};
 export {
-  CHROME_UA,
-  db,
-  fetchWithTimeout,
-  geolocateIp,
-  getLiveSnapshot,
-  haversineKm,
-  initDB,
-  pruneHistoryTables,
-  redis,
-  setLiveSnapshot,
-  sleep,
-  withRetry
+  childAttr,
+  childText,
+  index_default as default,
+  extractItemBlocks,
+  parseDate,
+  parseItemBlock,
+  seedLiveDisasters,
+  unescapeXml
 };
