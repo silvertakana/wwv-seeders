@@ -20,9 +20,10 @@ vi.mock('@worldwideview/seeder-sdk', () => ({
 import { parseLatestObs, parseObsValue, seedMarineBuoys, type BuoyObservation } from '../index';
 import { setLiveSnapshot, fetchWithTimeout, withRetry, db } from '@worldwideview/seeder-sdk';
 
-// db.prepare is invoked once at module load (top-level insertBuoy statement).
+// db.prepare is invoked twice at module load: first for the CREATE TABLE
+// guard, then for the top-level insertBuoy statement.
 const prepareMock = vi.mocked(db.prepare);
-const insertRunMock = prepareMock.mock.results[0].value.run as ReturnType<typeof vi.fn>;
+const insertRunMock = prepareMock.mock.results[1].value.run as ReturnType<typeof vi.fn>;
 
 // A slice of the REAL NOAA NDBC latest_obs.txt feed (fetched and verified live
 // 2026-08-24): the #STN header line, the #text units line, data rows with

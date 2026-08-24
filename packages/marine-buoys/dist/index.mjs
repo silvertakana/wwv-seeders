@@ -307,6 +307,13 @@ function observationEpochMs(obs) {
   }
   return Date.UTC(year, month - 1, day, hour, minute);
 }
+try {
+  db.prepare(
+    "CREATE TABLE IF NOT EXISTS marine_buoys (stn TEXT PRIMARY KEY, payload TEXT NOT NULL, source_ts INTEGER, fetched_at INTEGER)"
+  ).run();
+} catch (err) {
+  console.error("[MarineBuoys] could not ensure SQLite table:", err instanceof Error ? err.message : err);
+}
 var insertBuoy = db.prepare("INSERT OR IGNORE INTO marine_buoys (stn, payload, source_ts, fetched_at) VALUES (@stn, @payload, @source_ts, @fetched_at)");
 async function seedMarineBuoys() {
   console.log("[MarineBuoys] Polling NOAA NDBC latest observations...");
