@@ -1,0 +1,1084 @@
+{
+  "title": "Current watches, warnings, and advisories",
+  "features": [
+    {
+      "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f2c652cbb28730b59fc273589968f3773218bc09.001.1",
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -90.91,
+              32.45
+            ],
+            [
+              -90.88,
+              32.44
+            ],
+            [
+              -90.87,
+              32.45
+            ],
+            [
+              -90.86,
+              32.45
+            ],
+            [
+              -90.86,
+              32.5
+            ],
+            [
+              -90.48,
+              32.4
+            ],
+            [
+              -90.63,
+              32.26
+            ],
+            [
+              -90.78,
+              32.2
+            ],
+            [
+              -90.99,
+              32.25
+            ],
+            [
+              -91,
+              32.33
+            ],
+            [
+              -90.91,
+              32.45
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f2c652cbb28730b59fc273589968f3773218bc09.001.1",
+        "@type": "wx:Alert",
+        "id": "urn:oid:2.49.0.1.840.0.f2c652cbb28730b59fc273589968f3773218bc09.001.1",
+        "areaDesc": "Madison; Warren; Hinds",
+        "geocode": {
+          "SAME": [
+            "022065",
+            "028149",
+            "028049"
+          ],
+          "UGC": [
+            "LAZ016",
+            "MSZ047",
+            "MSZ048"
+          ]
+        },
+        "affectedZones": [
+          "https://api.weather.gov/zones/forecast/LAZ016",
+          "https://api.weather.gov/zones/forecast/MSZ047",
+          "https://api.weather.gov/zones/forecast/MSZ048"
+        ],
+        "references": [],
+        "sent": "2026-08-25T01:49:00+12:00",
+        "effective": "2026-08-25T01:49:00+12:00",
+        "onset": "2026-08-25T01:49:00+12:00",
+        "expires": "2026-08-25T02:45:00+12:00",
+        "ends": null,
+        "status": "Actual",
+        "messageType": "Alert",
+        "category": "Met",
+        "severity": "Moderate",
+        "certainty": "Observed",
+        "urgency": "Expected",
+        "event": "Special Weather Statement",
+        "sender": "w-nws.webmaster@noaa.gov",
+        "senderName": "NWS Jackson MS",
+        "headline": "Special Weather Statement issued August 24 at 8:49AM CDT by NWS Jackson MS",
+        "description": "At 849 AM CDT, Doppler radar was tracking a strong thunderstorm near\nRedwood, or near Vicksburg, moving southeast at 15 mph.\n\nHAZARD...Wind gusts up to 40 mph.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects.\n\nLocations impacted include...\nVicksburg, Edwards, Bovina, Redwood, Newman, Flowers, and Delta.",
+        "instruction": "If outdoors, consider seeking shelter inside a building.",
+        "response": "Execute",
+        "note": null,
+        "parameters": {
+          "AWIPSidentifier": [
+            "SPSJAN"
+          ],
+          "WMOidentifier": [
+            "WWUS84 KJAN 241349"
+          ],
+          "NWSheadline": [
+            "A STRONG THUNDERSTORM WILL IMPACT EAST CENTRAL MADISON PARISH... CENTRAL WARREN AND WEST CENTRAL HINDS COUNTIES THROUGH 945 AM CDT"
+          ],
+          "eventMotionDescription": [
+            "2026-08-24T13:49:00-00:00...storm...309DEG...15KT...32.41,-90.83"
+          ],
+          "maxWindGust": [
+            "40 MPH"
+          ],
+          "maxHailSize": [
+            "0.00"
+          ],
+          "BLOCKCHANNEL": [
+            "EAS",
+            "NWEM",
+            "CMAS"
+          ],
+          "EAS-ORG": [
+            "WXR"
+          ]
+        },
+        "scope": "Public",
+        "code": "IPAWSv1.0",
+        "language": "en-US",
+        "web": "http://www.weather.gov",
+        "eventCode": {
+          "SAME": [
+            "SPS"
+          ],
+          "NationalWeatherService": [
+            "SPS"
+          ]
+        }
+      }
+    },
+    {
+      "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bf0808644cf12d457c7616fe4b65f312b6dd15ac.001.1",
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -92.23,
+              34.06
+            ],
+            [
+              -92.22,
+              34.18
+            ],
+            [
+              -92.02,
+              34.24
+            ],
+            [
+              -91.68,
+              34.09
+            ],
+            [
+              -91.43,
+              33.91
+            ],
+            [
+              -91.46,
+              33.52
+            ],
+            [
+              -91.46,
+              33.39
+            ],
+            [
+              -91.48,
+              33.39
+            ],
+            [
+              -91.83,
+              33.61
+            ],
+            [
+              -92.13,
+              33.86
+            ],
+            [
+              -92.23,
+              34
+            ],
+            [
+              -92.23,
+              34.06
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bf0808644cf12d457c7616fe4b65f312b6dd15ac.001.1",
+        "@type": "wx:Alert",
+        "id": "urn:oid:2.49.0.1.840.0.bf0808644cf12d457c7616fe4b65f312b6dd15ac.001.1",
+        "areaDesc": "Cleveland, AR; Desha, AR; Drew, AR; Jefferson, AR; Lincoln, AR",
+        "geocode": {
+          "SAME": [
+            "005025",
+            "005041",
+            "005043",
+            "005069",
+            "005079"
+          ],
+          "UGC": [
+            "ARC025",
+            "ARC041",
+            "ARC043",
+            "ARC069",
+            "ARC079"
+          ]
+        },
+        "affectedZones": [
+          "https://api.weather.gov/zones/county/ARC025",
+          "https://api.weather.gov/zones/county/ARC041",
+          "https://api.weather.gov/zones/county/ARC043",
+          "https://api.weather.gov/zones/county/ARC069",
+          "https://api.weather.gov/zones/county/ARC079"
+        ],
+        "references": [],
+        "sent": "2026-08-25T01:38:00+12:00",
+        "effective": "2026-08-25T01:38:00+12:00",
+        "onset": "2026-08-25T01:38:00+12:00",
+        "expires": "2026-08-25T03:45:00+12:00",
+        "ends": "2026-08-25T03:45:00+12:00",
+        "status": "Actual",
+        "messageType": "Alert",
+        "category": "Met",
+        "severity": "Severe",
+        "certainty": "Likely",
+        "urgency": "Immediate",
+        "event": "Flash Flood Warning",
+        "sender": "w-nws.webmaster@noaa.gov",
+        "senderName": "NWS Little Rock AR",
+        "headline": "Flash Flood Warning issued August 24 at 8:38AM CDT until August 24 at 10:45AM CDT by NWS Little Rock AR",
+        "description": "FFWLZK\n\nThe National Weather Service in Little Rock has issued a\n\n* Flash Flood Warning for...\nNortheastern Cleveland County in southeastern Arkansas...\nWest Central Desha County in southeastern Arkansas...\nDrew County in southeastern Arkansas...\nSouthwestern Jefferson County in southeastern Arkansas...\nLincoln County in southeastern Arkansas...\n\n* Until 1045 AM CDT.\n\n* At 838 AM CDT, Doppler radar indicated thunderstorms producing\nheavy rain across the warned area. Between 2 and 4 inches of rain\nhave fallen. Additional rainfall amounts of 1 to 1.5 inches are\npossible in the warned area. Flash flooding is ongoing or expected\nto begin shortly.\n\nHAZARD...Flash flooding caused by thunderstorms.\n\nSOURCE...Radar indicated.\n\nIMPACT...Flash flooding of small creeks and streams, urban areas,\nhighways, streets and underpasses as well as other poor\ndrainage and low-lying areas.\n\n* Some locations that will experience flash flooding include...\nPine Bluff, Monticello, Dumas, Star City, Rison, Gould, Grady,\nMitchellville, Tillar, Winchester, Cane Creek State Park,\nPlantersville, Nebo, Feenyville, Brandon, Whitefield, Mills,\nHerbine, Omega and Toledo.",
+        "instruction": "Turn around, don't drown when encountering flooded roads. Most flood\ndeaths occur in vehicles.\n\nBe aware of your surroundings and do not drive on flooded roads.",
+        "response": "Avoid",
+        "note": null,
+        "parameters": {
+          "AWIPSidentifier": [
+            "FFWLZK"
+          ],
+          "WMOidentifier": [
+            "WGUS54 KLZK 241338"
+          ],
+          "flashFloodDetection": [
+            "RADAR INDICATED"
+          ],
+          "BLOCKCHANNEL": [
+            "EAS",
+            "NWEM",
+            "CMAS"
+          ],
+          "EAS-ORG": [
+            "WXR"
+          ],
+          "VTEC": [
+            "/O.NEW.KLZK.FF.W.0069.260824T1338Z-260824T1545Z/"
+          ],
+          "eventEndingTime": [
+            "2026-08-25T03:45:00+12:00"
+          ]
+        },
+        "scope": "Public",
+        "code": "IPAWSv1.0",
+        "language": "en-US",
+        "web": "http://www.weather.gov",
+        "eventCode": {
+          "SAME": [
+            "FFW"
+          ],
+          "NationalWeatherService": [
+            "FFW"
+          ]
+        }
+      }
+    },
+    {
+      "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.fdaf12f640b39d76df50c52ceb3cd023ca8a1ed2.001.1",
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -91.39,
+              33.56
+            ],
+            [
+              -91.23,
+              33.37
+            ],
+            [
+              -91.21,
+              33.02
+            ],
+            [
+              -91.36,
+              33.03
+            ],
+            [
+              -91.46,
+              33.08
+            ],
+            [
+              -91.45,
+              33.56
+            ],
+            [
+              -91.39,
+              33.56
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.fdaf12f640b39d76df50c52ceb3cd023ca8a1ed2.001.1",
+        "@type": "wx:Alert",
+        "id": "urn:oid:2.49.0.1.840.0.fdaf12f640b39d76df50c52ceb3cd023ca8a1ed2.001.1",
+        "areaDesc": "Chicot, AR",
+        "geocode": {
+          "SAME": [
+            "005017"
+          ],
+          "UGC": [
+            "ARC017"
+          ]
+        },
+        "affectedZones": [
+          "https://api.weather.gov/zones/county/ARC017"
+        ],
+        "references": [],
+        "sent": "2026-08-25T01:31:00+12:00",
+        "effective": "2026-08-25T01:31:00+12:00",
+        "onset": "2026-08-25T01:31:00+12:00",
+        "expires": "2026-08-25T04:00:00+12:00",
+        "ends": "2026-08-25T04:00:00+12:00",
+        "status": "Actual",
+        "messageType": "Alert",
+        "category": "Met",
+        "severity": "Severe",
+        "certainty": "Likely",
+        "urgency": "Immediate",
+        "event": "Flash Flood Warning",
+        "sender": "w-nws.webmaster@noaa.gov",
+        "senderName": "NWS Jackson MS",
+        "headline": "Flash Flood Warning issued August 24 at 8:31AM CDT until August 24 at 11:00AM CDT by NWS Jackson MS",
+        "description": "FFWJAN\n\nThe National Weather Service in Jackson has issued a\n\n* Flash Flood Warning for...\nChicot County in southeastern Arkansas...\n\n* Until 1100 AM CDT.\n\n* At 831 AM CDT, Doppler radar indicated thunderstorms producing\nheavy rain across the warned area. Between 1 and 3 inches of rain\nhave fallen. The expected rainfall rate is 1 to 2 inches in 1 hour.\nAdditional rainfall amounts of 1 to 3 inches are possible in the\nwarned area. Flash flooding is ongoing or expected to begin\nshortly.\n\nHAZARD...Flash flooding caused by thunderstorms.\n\nSOURCE...Radar indicated.\n\nIMPACT...Flash flooding of small creeks and streams, urban areas,\nhighways, streets and underpasses as well as other poor\ndrainage and low-lying areas.\n\n* Some locations that will experience flash flooding include...\nLake Village, Dermott, Eudora, Chicot Junction and Mcmillan Corner.",
+        "instruction": "Turn around, don't drown when encountering flooded roads. Most flood\ndeaths occur in vehicles.\n\nBe aware of your surroundings and do not drive on flooded roads.",
+        "response": "Avoid",
+        "note": null,
+        "parameters": {
+          "AWIPSidentifier": [
+            "FFWJAN"
+          ],
+          "WMOidentifier": [
+            "WGUS54 KJAN 241331"
+          ],
+          "flashFloodDetection": [
+            "RADAR INDICATED"
+          ],
+          "BLOCKCHANNEL": [
+            "EAS",
+            "NWEM",
+            "CMAS"
+          ],
+          "EAS-ORG": [
+            "WXR"
+          ],
+          "VTEC": [
+            "/O.NEW.KJAN.FF.W.0053.260824T1331Z-260824T1600Z/"
+          ],
+          "eventEndingTime": [
+            "2026-08-25T04:00:00+12:00"
+          ]
+        },
+        "scope": "Public",
+        "code": "IPAWSv1.0",
+        "language": "en-US",
+        "web": "http://www.weather.gov",
+        "eventCode": {
+          "SAME": [
+            "FFW"
+          ],
+          "NationalWeatherService": [
+            "FFW"
+          ]
+        }
+      }
+    },
+    {
+      "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.d75c18c00e9bbd746ca191bc20b8a558ae3dc987.001.1",
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -92.69,
+              35.23
+            ],
+            [
+              -92.56,
+              35.33
+            ],
+            [
+              -92.27,
+              35.16
+            ],
+            [
+              -92.52,
+              34.98
+            ],
+            [
+              -92.69,
+              35.23
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.d75c18c00e9bbd746ca191bc20b8a558ae3dc987.001.1",
+        "@type": "wx:Alert",
+        "id": "urn:oid:2.49.0.1.840.0.d75c18c00e9bbd746ca191bc20b8a558ae3dc987.001.1",
+        "areaDesc": "Conway; Faulkner; Perry",
+        "geocode": {
+          "SAME": [
+            "005029",
+            "005045",
+            "005105"
+          ],
+          "UGC": [
+            "ARZ031",
+            "ARZ032",
+            "ARZ039"
+          ]
+        },
+        "affectedZones": [
+          "https://api.weather.gov/zones/forecast/ARZ031",
+          "https://api.weather.gov/zones/forecast/ARZ032",
+          "https://api.weather.gov/zones/forecast/ARZ039"
+        ],
+        "references": [],
+        "sent": "2026-08-25T01:26:00+12:00",
+        "effective": "2026-08-25T01:26:00+12:00",
+        "onset": "2026-08-25T01:26:00+12:00",
+        "expires": "2026-08-25T02:00:00+12:00",
+        "ends": null,
+        "status": "Actual",
+        "messageType": "Alert",
+        "category": "Met",
+        "severity": "Moderate",
+        "certainty": "Observed",
+        "urgency": "Expected",
+        "event": "Special Weather Statement",
+        "sender": "w-nws.webmaster@noaa.gov",
+        "senderName": "NWS Little Rock AR",
+        "headline": "Special Weather Statement issued August 24 at 8:26AM CDT by NWS Little Rock AR",
+        "description": "At 826 AM CDT, Doppler radar was tracking a strong thunderstorm over\nSpringfield, or 10 miles northeast of Morrilton, moving southeast at\n20 mph.\n\nHAZARD...Winds in excess of 40 mph and half inch hail.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects. Minor damage to outdoor objects is\npossible.\n\nLocations impacted include...\nConway...                         Greenbrier...\nWooster...                        Menifee...\nBethlehem...                      Mallet Town...\nHill Creek...                     Pickles Gap...\nSpringhill...                     Toad Suck...\nSpringfield...                    Plumerville...\nHolland...                        Mt Olive in Conway County...\nOvercup...",
+        "instruction": "If outdoors, consider seeking shelter inside a building.\n\nTorrential rainfall is also occurring with this storm and may lead to\nlocalized flooding. Do not drive your vehicle through flooded\nroadways.\n\nFrequent cloud to ground lightning is occurring with this storm.\nLightning can strike 10 miles away from a thunderstorm. Seek a safe\nshelter inside a building or vehicle.",
+        "response": "Execute",
+        "note": null,
+        "parameters": {
+          "AWIPSidentifier": [
+            "SPSLZK"
+          ],
+          "WMOidentifier": [
+            "WWUS84 KLZK 241326"
+          ],
+          "NWSheadline": [
+            "A strong thunderstorm will impact portions of northeastern Perry, southeastern Conway and northwestern Faulkner Counties through 900 AM CDT"
+          ],
+          "eventMotionDescription": [
+            "2026-08-24T13:26:00-00:00...storm...318DEG...16KT...35.24,-92.59"
+          ],
+          "maxWindGust": [
+            "40 MPH"
+          ],
+          "maxHailSize": [
+            "0.50"
+          ],
+          "BLOCKCHANNEL": [
+            "EAS",
+            "NWEM",
+            "CMAS"
+          ],
+          "EAS-ORG": [
+            "WXR"
+          ]
+        },
+        "scope": "Public",
+        "code": "IPAWSv1.0",
+        "language": "en-US",
+        "web": "http://www.weather.gov",
+        "eventCode": {
+          "SAME": [
+            "SPS"
+          ],
+          "NationalWeatherService": [
+            "SPS"
+          ]
+        }
+      }
+    },
+    {
+      "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e611d888f0b860bf842f3076e8bd792348b6b8d0.002.1",
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -87.44,
+              38.51
+            ],
+            [
+              -87.6,
+              38.44
+            ],
+            [
+              -87.73,
+              38.41
+            ],
+            [
+              -87.73,
+              38.43
+            ],
+            [
+              -87.55,
+              38.52
+            ],
+            [
+              -87.44,
+              38.54
+            ],
+            [
+              -87.44,
+              38.51
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e611d888f0b860bf842f3076e8bd792348b6b8d0.002.1",
+        "@type": "wx:Alert",
+        "id": "urn:oid:2.49.0.1.840.0.e611d888f0b860bf842f3076e8bd792348b6b8d0.002.1",
+        "areaDesc": "Gibson, IN; Knox, IN",
+        "geocode": {
+          "SAME": [
+            "018051",
+            "018083"
+          ],
+          "UGC": [
+            "INC051",
+            "INC083"
+          ]
+        },
+        "affectedZones": [
+          "https://api.weather.gov/zones/county/INC051",
+          "https://api.weather.gov/zones/county/INC083"
+        ],
+        "references": [
+          {
+            "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.91bf995aeae972da07ddfc4c1c141f11d4f99099.001.1",
+            "identifier": "urn:oid:2.49.0.1.840.0.91bf995aeae972da07ddfc4c1c141f11d4f99099.001.1",
+            "sender": "w-nws.webmaster@noaa.gov",
+            "sent": "2026-08-24T13:53:00+12:00"
+          }
+        ],
+        "sent": "2026-08-25T00:54:00+12:00",
+        "effective": "2026-08-25T00:54:00+12:00",
+        "onset": "2026-08-25T00:54:00+12:00",
+        "expires": "2026-08-25T16:00:00+12:00",
+        "ends": "2026-08-29T10:30:00+12:00",
+        "status": "Actual",
+        "messageType": "Update",
+        "category": "Met",
+        "severity": "Severe",
+        "certainty": "Observed",
+        "urgency": "Immediate",
+        "event": "Flood Warning",
+        "sender": "w-nws.webmaster@noaa.gov",
+        "senderName": "NWS Indianapolis IN",
+        "headline": "Flood Warning issued August 24 at 8:54AM EDT until August 28 at 6:30PM EDT by NWS Indianapolis IN",
+        "description": "...The Flood Warning continues for the following rivers in Indiana...\nIllinois...\n\nWhite River at Elliston to Edwardsport, Hazleton.\n\nWabash River at Terre Haute.\n\nWabash River at Montezuma.\n\n...The Flood Warning is extended for the following rivers in\nIndiana...Illinois...\n\nWhite River at Petersburg.\n\nWabash River from Hutsonville to Mount Carmel.\n\n.Minor flooding continues along portions of central Indiana rivers\ndue to excessive rain over the previous few weeks. Largely dry\nweather is in store for the week ahead, with only a few low chances\nof rain.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...White River at Hazleton.\n\n* WHEN...Until Friday evening.\n\n* IMPACTS...At 19.0 feet, Flood waters cover the Hazleton softball\nfield. Pottsville Road is underwater and impassable.\n\n* ADDITIONAL DETAILS...\n- There is no current observed data.\n- Forecast...The river is expected to fall below flood stage\nFriday morning and continue falling and remain below flood\nstage.\n- Flood stage is 16.0 feet.\n- http://www.weather.gov/safety/flood",
+        "instruction": "Turn around, don't drown when encountering flooded roads. Most flood\ndeaths occur in vehicles.\n\nFlooding is occurring or is imminent. Most flood related deaths\noccur in automobiles. Do not attempt to cross water covered bridges,\ndips, or low water crossings. Never try to cross a flowing stream,\neven a small one, on foot. To escape rising water find another route\nover higher ground.\n\nAdditional information is available at www.weather.gov/ind.\n\nThe next statement should be issued late tonight by around midnight\nEDT /1100 PM CDT/.",
+        "response": "Avoid",
+        "note": null,
+        "parameters": {
+          "AWIPSidentifier": [
+            "FLSIND"
+          ],
+          "WMOidentifier": [
+            "WGUS83 KIND 241254"
+          ],
+          "NWSheadline": [
+            "FLOOD WARNING NOW IN EFFECT UNTIL FRIDAY EVENING"
+          ],
+          "BLOCKCHANNEL": [
+            "EAS",
+            "NWEM",
+            "CMAS"
+          ],
+          "EAS-ORG": [
+            "WXR"
+          ],
+          "VTEC": [
+            "/O.EXT.KIND.FL.W.0175.000000T0000Z-260828T2230Z/"
+          ],
+          "eventEndingTime": [
+            "2026-08-29T10:30:00+12:00"
+          ],
+          "expiredReferences": [
+            "w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.80aefc3a77c6080a84755a24ef28fd6d4a72367f.002.1,2026-08-23T11:49:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.e369d74c9aa3888503a809d3996ea1790fdc169b.001.1,2026-08-22T21:05:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.9e54eb83e34c9f8a9b86ea13ea81eab599c43b7d.001.1,2026-08-22T12:18:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.22de2448a1d9e524b86852fe0d60d07d2beff165.002.1,2026-08-21T20:34:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.9009fac36e842c115ac13a2b2a3e00359962049d.002.1,2026-08-21T13:15:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.1399032b82f362ec8511dbd8ece31416d4c207ff.003.1,2026-08-20T23:45:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.eabb35d6b2e0ff7c02f20169674ba0f22ba0242a.001.1,2026-08-20T12:25:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.d77ca3985661473b12eba71bc87a11505b2cb1f4.005.1,2026-08-19T22:07:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.e0886fcf73c793a433e0324c3f155cdfb4d3ebf9.007.1,2026-08-19T11:36:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.326b597a5c9283a9dded098f6e877a5df14a9a48.003.1,2026-08-18T19:42:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.7726b79c7444416d75ba6b98834ca01e4aae351b.011.1,2026-08-18T12:43:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.47ecb9a0dc02685750481f942b5d309036f0cfc2.005.1,2026-08-17T23:25:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.252321710d87aeff7e92a948558e319a00f11c23.001.1,2026-08-17T12:07:00-04:00"
+          ]
+        },
+        "scope": "Public",
+        "code": "IPAWSv1.0",
+        "language": "en-US",
+        "web": "http://www.weather.gov",
+        "eventCode": {
+          "SAME": [
+            "FLS"
+          ],
+          "NationalWeatherService": [
+            "FLW"
+          ]
+        }
+      }
+    },
+    {
+      "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e611d888f0b860bf842f3076e8bd792348b6b8d0.007.1",
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -86.92,
+              39.12
+            ],
+            [
+              -86.94,
+              39.08
+            ],
+            [
+              -86.93,
+              39
+            ],
+            [
+              -86.97,
+              39
+            ],
+            [
+              -86.99,
+              39.05
+            ],
+            [
+              -86.96,
+              39.13
+            ],
+            [
+              -86.92,
+              39.12
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e611d888f0b860bf842f3076e8bd792348b6b8d0.007.1",
+        "@type": "wx:Alert",
+        "id": "urn:oid:2.49.0.1.840.0.e611d888f0b860bf842f3076e8bd792348b6b8d0.007.1",
+        "areaDesc": "Daviess, IN; Greene, IN; Knox, IN",
+        "geocode": {
+          "SAME": [
+            "018027",
+            "018055",
+            "018083"
+          ],
+          "UGC": [
+            "INC027",
+            "INC055",
+            "INC083"
+          ]
+        },
+        "affectedZones": [
+          "https://api.weather.gov/zones/county/INC027",
+          "https://api.weather.gov/zones/county/INC055",
+          "https://api.weather.gov/zones/county/INC083"
+        ],
+        "references": [
+          {
+            "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.91bf995aeae972da07ddfc4c1c141f11d4f99099.004.1",
+            "identifier": "urn:oid:2.49.0.1.840.0.91bf995aeae972da07ddfc4c1c141f11d4f99099.004.1",
+            "sender": "w-nws.webmaster@noaa.gov",
+            "sent": "2026-08-24T13:53:00+12:00"
+          }
+        ],
+        "sent": "2026-08-25T00:54:00+12:00",
+        "effective": "2026-08-25T00:54:00+12:00",
+        "onset": "2026-08-25T00:54:00+12:00",
+        "expires": "2026-08-25T16:00:00+12:00",
+        "ends": "2026-08-26T01:30:00+12:00",
+        "status": "Actual",
+        "messageType": "Update",
+        "category": "Met",
+        "severity": "Severe",
+        "certainty": "Observed",
+        "urgency": "Immediate",
+        "event": "Flood Warning",
+        "sender": "w-nws.webmaster@noaa.gov",
+        "senderName": "NWS Indianapolis IN",
+        "headline": "Flood Warning issued August 24 at 8:54AM EDT until August 25 at 9:30AM EDT by NWS Indianapolis IN",
+        "description": "...The Flood Warning continues for the following rivers in Indiana...\nIllinois...\n\nWhite River at Elliston to Edwardsport, Hazleton.\n\nWabash River at Terre Haute.\n\nWabash River at Montezuma.\n\n...The Flood Warning is extended for the following rivers in\nIndiana...Illinois...\n\nWhite River at Petersburg.\n\nWabash River from Hutsonville to Mount Carmel.\n\n.Minor flooding continues along portions of central Indiana rivers\ndue to excessive rain over the previous few weeks. Largely dry\nweather is in store for the week ahead, with only a few low chances\nof rain.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...White River at Elliston.\n\n* WHEN...Until late tomorrow morning.\n\n* IMPACTS...At 20.0 feet, River Road north of CR 150 W in Greene\nCounty is flooded.  Low agricultural fields flood.\n\n* ADDITIONAL DETAILS...\n- There is no current observed data.\n- Forecast...The river is expected to fall below flood stage\nlate this evening and continue falling and remain below flood\nstage.\n- Flood stage is 18.0 feet.\n- http://www.weather.gov/safety/flood",
+        "instruction": "Turn around, don't drown when encountering flooded roads. Most flood\ndeaths occur in vehicles.\n\nFlooding is occurring or is imminent. Most flood related deaths\noccur in automobiles. Do not attempt to cross water covered bridges,\ndips, or low water crossings. Never try to cross a flowing stream,\neven a small one, on foot. To escape rising water find another route\nover higher ground.\n\nAdditional information is available at www.weather.gov/ind.\n\nThe next statement should be issued late tonight by around midnight\nEDT /1100 PM CDT/.",
+        "response": "Avoid",
+        "note": null,
+        "parameters": {
+          "AWIPSidentifier": [
+            "FLSIND"
+          ],
+          "WMOidentifier": [
+            "WGUS83 KIND 241254"
+          ],
+          "NWSheadline": [
+            "FLOOD WARNING NOW IN EFFECT UNTIL LATE TOMORROW MORNING"
+          ],
+          "BLOCKCHANNEL": [
+            "EAS",
+            "NWEM",
+            "CMAS"
+          ],
+          "EAS-ORG": [
+            "WXR"
+          ],
+          "VTEC": [
+            "/O.EXT.KIND.FL.W.0165.000000T0000Z-260825T1330Z/"
+          ],
+          "eventEndingTime": [
+            "2026-08-26T01:30:00+12:00"
+          ],
+          "expiredReferences": [
+            "w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.80aefc3a77c6080a84755a24ef28fd6d4a72367f.007.1,2026-08-23T11:49:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.e369d74c9aa3888503a809d3996ea1790fdc169b.006.1,2026-08-22T21:05:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.9e54eb83e34c9f8a9b86ea13ea81eab599c43b7d.006.1,2026-08-22T12:18:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.22de2448a1d9e524b86852fe0d60d07d2beff165.007.1,2026-08-21T20:34:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.9009fac36e842c115ac13a2b2a3e00359962049d.007.1,2026-08-21T13:15:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.1399032b82f362ec8511dbd8ece31416d4c207ff.008.1,2026-08-20T23:45:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.eabb35d6b2e0ff7c02f20169674ba0f22ba0242a.006.1,2026-08-20T12:25:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.d77ca3985661473b12eba71bc87a11505b2cb1f4.007.1,2026-08-19T22:07:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.e0886fcf73c793a433e0324c3f155cdfb4d3ebf9.004.1,2026-08-19T11:36:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.326b597a5c9283a9dded098f6e877a5df14a9a48.001.1,2026-08-18T19:42:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.7726b79c7444416d75ba6b98834ca01e4aae351b.004.1,2026-08-18T12:43:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.47ecb9a0dc02685750481f942b5d309036f0cfc2.002.1,2026-08-17T23:25:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.3fab2cf236f2f3848c940cfd109bf7976503698b.002.1,2026-08-17T12:07:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.d5e9798c0d5f9ece1da098dfd54c4b35a30d8aad.001.1,2026-08-16T21:32:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.26914f2e509c6d8a13fb04ec434c50763ae25111.004.1,2026-08-16T12:00:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.cd9e3654093ad0b4d9d5acf471e24e540175a91d.001.1,2026-08-15T23:24:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.8c9e2c7243fa89c5772bdac13a5189897f292a22.002.1,2026-08-15T19:14:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.eafa7da4955976a5822d40461ef364f4db88666b.002.1,2026-08-15T10:47:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.c0d438ac1e232492d62d376d8486369f3b5f72f2.011.1,2026-08-15T01:07:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.a1242849545ba7b2e4f7252e423549424eb70e0a.007.1,2026-08-14T16:51:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.04a8b0c56af52cd3eb1946e6e4c47344813975ea.005.1,2026-08-14T10:46:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.a3b4492cbda9ee2df3c9032976b68f9baeb6b5fc.008.1,2026-08-14T05:24:00-04:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.c24c0028f0f3abeb78382a2f753d14755f9e449f.001.1,2026-08-13T17:54:00-04:00"
+          ]
+        },
+        "scope": "Public",
+        "code": "IPAWSv1.0",
+        "language": "en-US",
+        "web": "http://www.weather.gov",
+        "eventCode": {
+          "SAME": [
+            "FLS"
+          ],
+          "NationalWeatherService": [
+            "FLW"
+          ]
+        }
+      }
+    },
+    {
+      "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e073b3d405f5290ed0e51190d4aed79ad3177e53.001.1",
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e073b3d405f5290ed0e51190d4aed79ad3177e53.001.1",
+        "@type": "wx:Alert",
+        "id": "urn:oid:2.49.0.1.840.0.e073b3d405f5290ed0e51190d4aed79ad3177e53.001.1",
+        "areaDesc": "Western Arctic Coast; Northwest Arctic Coast; Northern Arctic Coast",
+        "geocode": {
+          "SAME": [
+            "002185"
+          ],
+          "UGC": [
+            "AKZ801",
+            "AKZ802",
+            "AKZ803"
+          ]
+        },
+        "affectedZones": [
+          "https://api.weather.gov/zones/forecast/AKZ801",
+          "https://api.weather.gov/zones/forecast/AKZ802",
+          "https://api.weather.gov/zones/forecast/AKZ803"
+        ],
+        "references": [],
+        "sent": "2026-08-25T01:48:00+12:00",
+        "effective": "2026-08-25T01:48:00+12:00",
+        "onset": "2026-08-25T01:48:00+12:00",
+        "expires": "2026-08-25T12:00:00+12:00",
+        "ends": null,
+        "status": "Actual",
+        "messageType": "Alert",
+        "category": "Met",
+        "severity": "Moderate",
+        "certainty": "Observed",
+        "urgency": "Expected",
+        "event": "Special Weather Statement",
+        "sender": "w-nws.webmaster@noaa.gov",
+        "senderName": "NWS Fairbanks AK",
+        "headline": "Special Weather Statement issued August 24 at 5:48AM AKDT by NWS Fairbanks AK",
+        "description": "A Bering Sea low moving through the Bering Strait early Monday\nmorning will move through the Chukchi Sea through the rest of the\nday on Monday. South-southwest winds will increase water levels\nto around 1 to 3 feet above the normal high tide line during the\nMonday and Tuesday high tides from Wainwright to Utqiagvik. Water\nlevels around 2 to 4 feet above the normal high tide line are\npossible from Point Lay to Point Hope. Secondly, winds will shift\nwest-northwest Tuesday afternoon which can prolong high water\nlevels into Wednesday. There is still some uncertainty with the\nexact water level heights and they will be monitored over the next\ncouple of days.",
+        "instruction": null,
+        "response": "Execute",
+        "note": null,
+        "parameters": {
+          "AWIPSidentifier": [
+            "SPSNSB"
+          ],
+          "WMOidentifier": [
+            "WWAK81 PAFG 241348"
+          ],
+          "NWSheadline": [
+            "Elevated Water Levels Monday and Tuesday"
+          ],
+          "BLOCKCHANNEL": [
+            "EAS",
+            "NWEM",
+            "CMAS"
+          ],
+          "EAS-ORG": [
+            "WXR"
+          ]
+        },
+        "scope": "Public",
+        "code": "IPAWSv1.0",
+        "language": "en-US",
+        "web": "http://www.weather.gov",
+        "eventCode": {
+          "SAME": [
+            "SPS"
+          ],
+          "NationalWeatherService": [
+            "SPS"
+          ]
+        }
+      }
+    },
+    {
+      "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0-KEEPALIVE-48579",
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0-KEEPALIVE-48579",
+        "@type": "wx:Alert",
+        "id": "urn:oid:2.49.0.1.840.0-KEEPALIVE-48579",
+        "areaDesc": "Montgomery",
+        "geocode": {
+          "SAME": [
+            "024031"
+          ],
+          "UGC": [
+            "MDC031"
+          ]
+        },
+        "affectedZones": [
+          "https://api.weather.gov/zones/county/MDC031"
+        ],
+        "references": [],
+        "sent": "2026-08-25T01:47:16+12:00",
+        "effective": "2026-08-25T01:47:16+12:00",
+        "onset": null,
+        "expires": "2026-08-25T01:57:16+12:00",
+        "ends": null,
+        "status": "Test",
+        "messageType": "Alert",
+        "category": "Met",
+        "severity": "Unknown",
+        "certainty": "Unknown",
+        "urgency": "Unknown",
+        "event": "Test Message",
+        "sender": "w-nws.webmaster@noaa.gov",
+        "senderName": "NWS",
+        "headline": null,
+        "description": "Monitoring message only. Please disregard.",
+        "instruction": "Monitoring message only. Please disregard.",
+        "response": "None",
+        "note": "This is only a test for monitoring of vital dissemination systems.",
+        "parameters": {
+          "AWIPSidentifier": [
+            "KEPWBC"
+          ],
+          "WMOidentifier": [
+            "NZUS91 KWBC 241347"
+          ],
+          "BLOCKCHANNEL": [
+            "CMAS",
+            "EAS",
+            "NWEM"
+          ]
+        },
+        "scope": "Public",
+        "code": "IPAWSv1.0",
+        "language": "en-US",
+        "web": "http://www.weather.gov",
+        "eventCode": {
+          "SAME": [
+            "NWS"
+          ],
+          "NationalWeatherService": [
+            "TST"
+          ]
+        }
+      }
+    },
+    {
+      "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.dae1575cb99a0c5e363de35a8a6240bc4a8a93e5.001.1",
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.dae1575cb99a0c5e363de35a8a6240bc4a8a93e5.001.1",
+        "@type": "wx:Alert",
+        "id": "urn:oid:2.49.0.1.840.0.dae1575cb99a0c5e363de35a8a6240bc4a8a93e5.001.1",
+        "areaDesc": "Kivalina and Red Dog Dock; Baldwin Peninsula; Northern Seward Peninsula; Shishmaref; Bering Strait Coast",
+        "geocode": {
+          "SAME": [
+            "002188",
+            "002180"
+          ],
+          "UGC": [
+            "AKZ815",
+            "AKZ817",
+            "AKZ818",
+            "AKZ820",
+            "AKZ821"
+          ]
+        },
+        "affectedZones": [
+          "https://api.weather.gov/zones/forecast/AKZ815",
+          "https://api.weather.gov/zones/forecast/AKZ817",
+          "https://api.weather.gov/zones/forecast/AKZ818",
+          "https://api.weather.gov/zones/forecast/AKZ820",
+          "https://api.weather.gov/zones/forecast/AKZ821"
+        ],
+        "references": [],
+        "sent": "2026-08-25T01:47:00+12:00",
+        "effective": "2026-08-25T01:47:00+12:00",
+        "onset": "2026-08-25T01:47:00+12:00",
+        "expires": "2026-08-25T12:00:00+12:00",
+        "ends": null,
+        "status": "Actual",
+        "messageType": "Alert",
+        "category": "Met",
+        "severity": "Moderate",
+        "certainty": "Observed",
+        "urgency": "Expected",
+        "event": "Special Weather Statement",
+        "sender": "w-nws.webmaster@noaa.gov",
+        "senderName": "NWS Fairbanks AK",
+        "headline": "Special Weather Statement issued August 24 at 5:47AM AKDT by NWS Fairbanks AK",
+        "description": "A Bering Sea low moving through the Bering Strait early Monday\nmorning will move through the Chukchi Sea through the rest of the\nday on Monday. South-southwest winds will increase water levels\nto around 1 to 3 feet above the normal high tide line during the\nMonday and Tuesday high tides around the Seward Peninsula. Water\nlevels around 2 to 4 feet above the normal high tide line are\npossible from Kotzebue to Kivalina. There is still some\nuncertainty with the exact water level heights, and they will be\nmonitored over the next couple of days.",
+        "instruction": null,
+        "response": "Execute",
+        "note": null,
+        "parameters": {
+          "AWIPSidentifier": [
+            "SPSWCZ"
+          ],
+          "WMOidentifier": [
+            "WWAK82 PAFG 241347"
+          ],
+          "NWSheadline": [
+            "Elevated Water Levels Monday and Tuesday"
+          ],
+          "BLOCKCHANNEL": [
+            "EAS",
+            "NWEM",
+            "CMAS"
+          ],
+          "EAS-ORG": [
+            "WXR"
+          ]
+        },
+        "scope": "Public",
+        "code": "IPAWSv1.0",
+        "language": "en-US",
+        "web": "http://www.weather.gov",
+        "eventCode": {
+          "SAME": [
+            "SPS"
+          ],
+          "NationalWeatherService": [
+            "SPS"
+          ]
+        }
+      }
+    },
+    {
+      "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f83ebd8b93741da91fdf5ea6eefc8104367a3cee.002.1",
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f83ebd8b93741da91fdf5ea6eefc8104367a3cee.002.1",
+        "@type": "wx:Alert",
+        "id": "urn:oid:2.49.0.1.840.0.f83ebd8b93741da91fdf5ea6eefc8104367a3cee.002.1",
+        "areaDesc": "Eastern Norton Sound and Nulato Hills",
+        "geocode": {
+          "SAME": [
+            "002180"
+          ],
+          "UGC": [
+            "AKZ824"
+          ]
+        },
+        "affectedZones": [
+          "https://api.weather.gov/zones/forecast/AKZ824"
+        ],
+        "references": [
+          {
+            "@id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.dde8f73be5e75276b0f37280be9044b68fe50c9a.003.1",
+            "identifier": "urn:oid:2.49.0.1.840.0.dde8f73be5e75276b0f37280be9044b68fe50c9a.003.1",
+            "sender": "w-nws.webmaster@noaa.gov",
+            "sent": "2026-08-24T08:52:00+12:00"
+          }
+        ],
+        "sent": "2026-08-25T01:46:00+12:00",
+        "effective": "2026-08-25T01:46:00+12:00",
+        "onset": "2026-08-25T01:46:00+12:00",
+        "expires": "2026-08-25T12:00:00+12:00",
+        "ends": "2026-08-26T12:00:00+12:00",
+        "status": "Actual",
+        "messageType": "Update",
+        "category": "Met",
+        "severity": "Minor",
+        "certainty": "Likely",
+        "urgency": "Expected",
+        "event": "High Surf Advisory",
+        "sender": "w-nws.webmaster@noaa.gov",
+        "senderName": "NWS Fairbanks AK",
+        "headline": "High Surf Advisory issued August 24 at 5:46AM AKDT until August 25 at 4:00PM AKDT by NWS Fairbanks AK",
+        "description": "* WHAT...Water levels of 4 to 6 feet above the normal high tide\nline expected.\n\n* WHERE...Eastern Norton Sound and Nulato Hills.\n\n* WHEN...Until 4 PM AKDT Tuesday.\n\n* IMPACTS...Localized beach erosion may occur.\n\n* ADDITIONAL DETAILS...There remains a relatively small amount of\nuncertainty in forecasted water levels, but confidence has\nincreased. Water levels are expected to peak during the high\ntide Monday morning and then return to normal throughout the\nday. The Tuesday high tide is expected to only be around 1 to 3\nfeet above normal. The highest water levels are expected near\nKoyuk and Elim with Stebbins/St. Michael and Unalakleet near the\nlower end of this range.",
+        "instruction": "Precautions should be taken to protect property.",
+        "response": "Avoid",
+        "note": null,
+        "parameters": {
+          "AWIPSidentifier": [
+            "CFWAFG"
+          ],
+          "WMOidentifier": [
+            "WHAK49 PAFG 241346"
+          ],
+          "NWSheadline": [
+            "HIGH SURF ADVISORY REMAINS IN EFFECT UNTIL 4 PM AKDT TUESDAY"
+          ],
+          "BLOCKCHANNEL": [
+            "EAS",
+            "NWEM",
+            "CMAS"
+          ],
+          "VTEC": [
+            "/O.CON.PAFG.SU.Y.0003.000000T0000Z-260826T0000Z/"
+          ],
+          "eventEndingTime": [
+            "2026-08-26T12:00:00+12:00"
+          ],
+          "expiredReferences": [
+            "w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.7a093da6d8135c09386525ed712e907fa117f46a.003.1,2026-08-23T06:28:00-08:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.ff61e3a4e73a019fe137f6decfc0e36cfb7a33b7.003.1,2026-08-22T12:32:00-08:00 w-nws.webmaster@noaa.gov,urn:oid:2.49.0.1.840.0.15a5b2d4ccfa8196cab81acb384f48b25120ac58.002.1,2026-08-21T23:39:00-08:00"
+          ]
+        },
+        "scope": "Public",
+        "code": "IPAWSv1.0",
+        "language": "en-US",
+        "web": "http://www.weather.gov",
+        "eventCode": {
+          "SAME": [
+            "NWS"
+          ],
+          "NationalWeatherService": [
+            "SUY"
+          ]
+        }
+      }
+    }
+  ],
+  "updated": "2026-08-25T01:49:38+12:00",
+  "type": "FeatureCollection"
+}
