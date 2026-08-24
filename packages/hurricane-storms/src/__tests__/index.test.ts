@@ -30,9 +30,10 @@ import {
   withRetry,
 } from '@worldwideview/seeder-sdk';
 
-// db.prepare is invoked once at module load (top-level insertStorm statement).
+// db.prepare is invoked twice at module load: first for the CREATE TABLE
+// guard, then for the top-level insertStorm statement.
 const prepareMock = vi.mocked(db.prepare);
-const insertRunMock = prepareMock.mock.results[0].value.run as ReturnType<typeof vi.fn>;
+const insertRunMock = prepareMock.mock.results[1].value.run as ReturnType<typeof vi.fn>;
 
 const STORM: NhcActiveStorm = {
   id: 1,

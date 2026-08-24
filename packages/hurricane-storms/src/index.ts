@@ -66,6 +66,16 @@ function finiteOrNull(value: number | null): number | null {
   return typeof value === 'number' && Number.isFinite(value) ? value : null;
 }
 
+// Ensure the per-plugin SQLite table exists (INSERT OR IGNORE below requires
+// it). The engine may pre-create tables, so IF NOT EXISTS keeps this safe.
+try {
+  db.prepare(
+    'CREATE TABLE IF NOT EXISTS hurricane_storms (id TEXT PRIMARY KEY, payload TEXT NOT NULL, source_ts INTEGER, fetched_at INTEGER)'
+  ).run();
+} catch (err) {
+  console.error('[HurricaneStorms] could not ensure SQLite table:', err instanceof Error ? err.message : err);
+}
+
 const insertStorm = db.prepare(
   'INSERT OR IGNORE INTO hurricane_storms (id, payload, source_ts, fetched_at) VALUES (@id, @payload, @source_ts, @fetched_at)'
 );
