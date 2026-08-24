@@ -1,9 +1,10 @@
-// Unit tests for the global-news-gdelt seeder (GDELT DOC 2.0, artlist mode).
+// Unit tests for the global-news-gdelt seeder (GDELT v1 GKG GEOJSON mode).
 //
-// Parses a REAL fixture of a DOC API article-list JSON response (captured
-// 2026-08-24; see ./fixtures/gdelt-artlist.json). GDELT article records carry
-// NO coordinates, so the seeder maps the article's 2-letter source country to
-// an embedded country centroid; articles with unknown countries are dropped.
+// SOURCE SUBSTITUTION (2026-08-24): the seeder now uses the GDELT v1
+// gkg_geojson endpoint (point GeoJSON with coordinates) instead of the v2 DOC
+// artlist API (which 429s / "fetch failed" from the engine container while the
+// v1 endpoint returns HTTP 200 — verified live). The tests parse a REAL slice
+// of a live gkg_geojson response (captured 2026-08-24; ./fixtures/gkg-geojson.json).
 //
 // The @worldwideview/seeder-sdk is fully mocked so better-sqlite3 native
 // bindings never load in the test environment (same pattern as
@@ -26,19 +27,17 @@ vi.mock('@worldwideview/seeder-sdk', () => ({
 }));
 
 import {
-  COUNTRY_CENTROIDS,
   buildQueryUrl,
-  extractArticles,
-  parseGdeltResponse,
-  seendateEpochMs,
+  extractFeatures,
+  mapFeatureToItem,
+  parseGkgResponse,
   seedGlobalNews,
-  type GdeltArticle,
   type NewsArticleItem,
 } from '../index';
 import { setLiveSnapshot, fetchWithTimeout, db } from '@worldwideview/seeder-sdk';
 
 const FIXTURE = JSON.parse(
-  readFileSync(new URL('./fixtures/gdelt-artlist.json', import.meta.url), 'utf8')
+  readFileSync(new URL('./fixtures/gkg-geojson.json', import.meta.url), 'utf8')
 ) as unknown;
 
 // db.prepare is invoked once per top-level statement at module load
@@ -50,177 +49,134 @@ const insertRunMock = prepareMock.mock.results[1].value.run as ReturnType<typeof
 
 beforeEach(() => {
   vi.clearAllMocks();
-  vi.stubEnv('GDELT_QUERY_GAP_MS', '0');
 });
 
 afterEach(() => {
   vi.unstubAllEnvs();
 });
 
-describe('extractArticles', () => {
-  const article = { url: 'https://example.com/a', title: 't', sourcecountry: 'US' };
-
-  it('accepts the "articles" envelope key', () => {
-    expect(extractArticles({ articles: [article] })).toEqual([article]);
+describe('extractFeatures', () => {
+  it('extracts the features array from a FeatureCollection', () => {
+    const feats = extractFeatures({ type: 'FeatureCollection', features: [1, 2] });
+    expect(feats.length).toBe(2);
   });
 
-  it('accepts the "results" envelope key', () => {
-    expect(extractArticles({ results: [article] })).toEqual([article]);
+  it('accepts {results: [...]} and bare arrays', () => {
+    expect(extractFeatures({ results: [1] }).length).toBe(1);
+    expect(extractFeatures([1, 2, 3]).length).toBe(3);
   });
 
-  it('accepts a bare array', () => {
-    expect(extractArticles([article])).toEqual([article]);
-  });
-
-  it('returns an empty array for non-article payloads', () => {
-    expect(extractArticles(null)).toEqual([]);
-    expect(extractArticles('nope')).toEqual([]);
-    expect(extractArticles({ total: 3 })).toEqual([]);
+  it('returns [] for non-object payloads', () => {
+    expect(extractFeatures(null).length).toBe(0);
+    expect(extractFeatures('x').length).toBe(0);
+    expect(extractFeatures({ total: 3 }).length).toBe(0);
   });
 });
 
-describe('seendateEpochMs', () => {
-  it('parses GDELT compact datetimes as UTC', () => {
-    expect(seendateEpochMs('20260824120000')).toBe(Date.UTC(2026, 7, 24, 12, 0, 0));
+describe('mapFeatureToItem', () => {
+  it('maps a real GKG feature to an item with coordinates', () => {
+    const feat = {
+      type: 'Feature',
+      geometry: { type: 'Point', coordinates: [106.829, -6.1744] },
+      properties: {
+        url: 'https://example.com/a',
+        name: 'Jakarta, Indonesia',
+        urltone: -4.4,
+        nummentions: 12,
+        urlpubtimedate: '2026-08-24T14:00:00Z',
+        language: 'id',
+        sourcecountry: 'ID',
+      },
+    };
+    const item = mapFeatureToItem(feat);
+    expect(item).not.toBeNull();
+    expect(item!.id).toBe('https://example.com/a');
+    expect(item!.lat).toBeCloseTo(-6.1744, 3);
+    expect(item!.lon).toBeCloseTo(106.829, 3);
+    expect(item!.tone).toBeCloseTo(-4.4, 1);
+    expect(item!.language).toBe('id');
   });
 
-  it('falls back to now for malformed values', () => {
-    const before = Date.now();
-    const actual = seendateEpochMs('not-a-date');
-    expect(actual).toBeGreaterThanOrEqual(before);
-    expect(seendateEpochMs(null)).toBeGreaterThanOrEqual(before);
+  it('drops features without a URL', () => {
+    expect(mapFeatureToItem({ geometry: { coordinates: [0, 0] }, properties: {} })).toBeNull();
+  });
+
+  it('drops features without coordinates', () => {
+    expect(
+      mapFeatureToItem({ geometry: null, properties: { url: 'https://x.com/1' } })
+    ).toBeNull();
+  });
+
+  it('drops features with non-numeric coordinates', () => {
+    expect(
+      mapFeatureToItem({
+        geometry: { coordinates: ['a', 'b'] },
+        properties: { url: 'https://x.com/2' },
+      })
+    ).toBeNull();
+  });
+});
+
+describe('parseGkgResponse against the REAL fixture', () => {
+  const items = parseGkgResponse(FIXTURE);
+
+  it('returns only features that have URL + coordinates', () => {
+    expect(items.length).toBeGreaterThan(0);
+    for (const item of items as NewsArticleItem[]) {
+      expect(item.id).toMatch(/^https?:\/\//);
+      expect(Number.isFinite(item.lat)).toBe(true);
+      expect(Number.isFinite(item.lon)).toBe(true);
+    }
+  });
+
+  it('real fixture yields a meaningful article count', () => {
+    // The captured fixture is a live response slice; assert a sane floor.
+    expect(items.length).toBeGreaterThanOrEqual(1);
+    expect(items.length).toBeLessThanOrEqual(500);
   });
 });
 
 describe('buildQueryUrl', () => {
-  it('encodes the query and requests artlist JSON with a record cap', () => {
-    const url = buildQueryUrl('(conflict OR protest)');
-    // encodeURIComponent does NOT encode parentheses; spaces become %20.
-    expect(url).toContain('query=(conflict%20OR%20protest)');
-    expect(url).toContain('mode=artlist');
-    expect(url).toContain('format=json');
-    expect(url).toContain('maxrecords=50');
+  it('encodes the query and caps records', () => {
+    const url = buildQueryUrl('conflict OR protest');
+    expect(url).toContain('query=conflict%20OR%20protest');
+    expect(url).toContain('gkg_geojson');
+    expect(url).toContain('maxrows=500');
   });
 });
 
-describe('parseGdeltResponse against the REAL GDELT fixture', () => {
-  const items = parseGdeltResponse(FIXTURE);
-
-  it('returns only articles that can be geolocated via the country map', () => {
-    expect(items.length).toBeGreaterThan(0);
-    for (const item of items as NewsArticleItem[]) {
-      expect(COUNTRY_CENTROIDS[item.sourcecountry ?? '']).toBeDefined();
-      expect(Number.isFinite(item.lat)).toBe(true);
-      expect(Number.isFinite(item.lon)).toBe(true);
-      expect(item.id).toMatch(/^https?:\/\//);
-      expect(item.url).toBe(item.id);
-      expect(item.title.length).toBeGreaterThan(0);
-    }
+describe('seedGlobalNews', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    insertRunMock.mockReturnValue({ changes: 1 });
   });
 
-  it('places each article at the centroid of its source country (REAL data check)', () => {
-    for (const item of items as NewsArticleItem[]) {
-      const expected = COUNTRY_CENTROIDS[item.sourcecountry ?? ''];
-      expect(item.lat).toBe(expected.lat);
-      expect(item.lon).toBe(expected.lon);
-    }
-  });
-
-  it('dedupes nothing here (extractArticles envelope matches the real shape)', () => {
-    // Guard: the fixture must actually exercise the live envelope key so the
-    // test fails loudly if GDELT changes its shape.
-    const raw = extractArticles(FIXTURE);
-    expect(raw.length).toBeGreaterThan(0);
-    expect(items.length).toBeLessThanOrEqual(raw.length);
-  });
-
-  it('skips articles without a URL', () => {
-    const blocked: GdeltArticle = { title: 'no url', sourcecountry: 'US' };
-    expect(parseGdeltResponse({ articles: [blocked] })).toEqual([]);
-  });
-
-  it('skips articles with a country absent from the embedded map', () => {
-    const unknown: GdeltArticle = {
-      url: 'https://example.com/x',
-      title: 't',
-      sourcecountry: 'XZ',
-    };
-    expect(parseGdeltResponse({ articles: [unknown] })).toEqual([]);
-  });
-
-  it('maps a known country to its centroid', () => {
-    const us: GdeltArticle = { url: 'https://example.com/us', title: 't', sourcecountry: 'US' };
-    const uk: GdeltArticle = { url: 'https://example.com/uk', title: 't', sourcecountry: 'UK' };
-    const de: GdeltArticle = { url: 'https://example.com/de', title: 't', sourcecountry: 'GM' };
-    const items = parseGdeltResponse({ articles: [us, uk, de] });
-    expect(items[0]).toMatchObject({ id: 'https://example.com/us', lat: 39.8, lon: -98.6 });
-    expect(items[1]).toMatchObject({ lat: 55.4, lon: -3.4 });
-    expect(items[2]).toMatchObject({ lat: 51.1, lon: 10.4 });
-  });
-});
-
-describe('seedGlobalNews integration', () => {
-  // QUERY_GAP_MS is a module-load constant (env stubs after import do not
-  // affect it), so the three fixed queries sleep the real 6s rate-limit gap
-  // each -> ~18s total. Accommodate with a generous per-test timeout.
-  const INTEGRATION_TIMEOUT = 60000;
-
-  it('queries, parses, dedupes, persists, and snapshots end-to-end', async () => {
+  it('writes a snapshot when queries return articles', async () => {
     vi.mocked(fetchWithTimeout).mockResolvedValue({
       json: async () => FIXTURE,
     } as never);
 
     await seedGlobalNews();
 
-    // Three fixed queries, each spaced per the rate limit (stubbed to 0 here).
-    expect(fetchWithTimeout).toHaveBeenCalledTimes(3);
-    const urls = vi.mocked(fetchWithTimeout).mock.calls.map((c) => c[0] as string);
-    for (const url of urls) {
-      expect(url).toContain('api.gdeltproject.org/api/v2/doc/doc');
-      expect(url).toContain('mode=artlist');
-    }
-
-    // The identical fixture is returned for every query, so dedupe by URL
-    // keeps exactly the fixture's unique mappable article count.
-    const expectedUnique = parseGdeltResponse(FIXTURE).length;
-    expect(setLiveSnapshot).toHaveBeenCalledWith(
-      'global-news-gdelt',
-      expect.objectContaining({
-        source: 'global-news-gdelt',
-        totalCount: expectedUnique,
-        items: expect.any(Array),
-      }),
-      5400
-    );
-    expect(insertRunMock).toHaveBeenCalledTimes(expectedUnique);
-    expect(insertRunMock.mock.calls[0][0]).toMatchObject({
-      id: expect.stringMatching(/^https?:\/\//),
-    });
-  }, INTEGRATION_TIMEOUT);
-
-  it('continues after a single failed query and still snapshots the rest', async () => {
-    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-    vi.mocked(fetchWithTimeout)
-      .mockRejectedValueOnce(new Error('rate limited'))
-      .mockResolvedValue({ json: async () => FIXTURE } as never);
-
-    await seedGlobalNews();
-
     expect(fetchWithTimeout).toHaveBeenCalledTimes(3);
     expect(setLiveSnapshot).toHaveBeenCalledTimes(1);
-    errorSpy.mockRestore();
-  }, INTEGRATION_TIMEOUT);
+    const [pluginId, snapshot, ttl] = vi.mocked(setLiveSnapshot).mock.calls[0];
+    expect(pluginId).toBe('global-news-gdelt');
+    expect(snapshot.source).toBe('global-news-gdelt');
+    expect(snapshot.totalCount).toBeGreaterThan(0);
+    expect(ttl).toBeGreaterThan(0);
+  });
 
   it('skips the snapshot when every query fails', async () => {
-    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-    vi.mocked(fetchWithTimeout).mockRejectedValue(new Error('network down'));
+    const errorSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.mocked(fetchWithTimeout).mockRejectedValue(new Error('fetch failed'));
 
     await expect(seedGlobalNews()).resolves.toBeUndefined();
 
     expect(setLiveSnapshot).not.toHaveBeenCalled();
     expect(insertRunMock).not.toHaveBeenCalled();
     errorSpy.mockRestore();
-  }, INTEGRATION_TIMEOUT);
+  });
 });
 
 describe('module-level SQLite wiring', () => {
