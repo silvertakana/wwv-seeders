@@ -121,6 +121,16 @@ function observationEpochMs(obs: BuoyObservation): number {
   return Date.UTC(year, month - 1, day, hour, minute);
 }
 
+// Ensure the per-plugin SQLite table exists (INSERT OR IGNORE below requires
+// it). The engine may pre-create tables, so IF NOT EXISTS keeps this safe.
+try {
+  db.prepare(
+    'CREATE TABLE IF NOT EXISTS marine_buoys (stn TEXT PRIMARY KEY, payload TEXT NOT NULL, source_ts INTEGER, fetched_at INTEGER)'
+  ).run();
+} catch (err) {
+  console.error('[MarineBuoys] could not ensure SQLite table:', err instanceof Error ? err.message : err);
+}
+
 const insertBuoy = db.prepare('INSERT OR IGNORE INTO marine_buoys (stn, payload, source_ts, fetched_at) VALUES (@stn, @payload, @source_ts, @fetched_at)');
 
 export async function seedMarineBuoys() {
