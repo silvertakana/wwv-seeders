@@ -31,6 +31,40 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
 
+  packages/aviation-weather-hazards:
+    dependencies:
+      '@sentry/node':
+        specifier: ^8.55.2
+        version: 8.55.2
+      node-cron:
+        specifier: ^3.0.3
+        version: 3.0.3
+      undici:
+        specifier: ^6.19.2
+        version: 6.25.0
+      ws:
+        specifier: ^8.21.3
+        version: 8.21.3
+      zod:
+        specifier: ^3.23.8
+        version: 3.25.76
+    devDependencies:
+      '@types/node':
+        specifier: ^25.7.0
+        version: 25.7.0
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.4(@types/node@25.7.0)
+
   packages/civilUnrest:
     dependencies:
       '@sentry/node':
@@ -155,7 +189,7 @@ importers:
         specifier: ^3.2.2
         version: 3.2.4(@types/node@25.7.0)
 
-  packages/flock-camera:
+  packages/global-news-gdelt:
     dependencies:
       '@sentry/node':
         specifier: ^8.55.2
@@ -167,15 +201,27 @@ importers:
         specifier: ^6.19.2
         version: 6.25.0
       ws:
-        specifier: ^8.18.0
+        specifier: ^8.21.3
         version: 8.21.3
       zod:
         specifier: ^3.23.8
         version: 3.25.76
     devDependencies:
+      '@types/node':
+        specifier: ^25.7.0
+        version: 25.7.0
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.4(@types/node@25.7.0)
 
   packages/gpsjam:
     dependencies:
@@ -200,6 +246,40 @@ importers:
         version: 1.0.0
 
   packages/hurricane-storms:
+    dependencies:
+      '@sentry/node':
+        specifier: ^8.55.2
+        version: 8.55.2
+      node-cron:
+        specifier: ^3.0.3
+        version: 3.0.3
+      undici:
+        specifier: ^6.19.2
+        version: 6.25.0
+      ws:
+        specifier: ^8.21.3
+        version: 8.21.3
+      zod:
+        specifier: ^3.23.8
+        version: 3.25.76
+    devDependencies:
+      '@types/node':
+        specifier: ^25.7.0
+        version: 25.7.0
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.4(@types/node@25.7.0)
+
+  packages/internet-censorship-ooni:
     dependencies:
       '@sentry/node':
         specifier: ^8.55.2
@@ -451,6 +531,40 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
 
+  packages/river-levels-flood:
+    dependencies:
+      '@sentry/node':
+        specifier: ^8.55.2
+        version: 8.55.2
+      node-cron:
+        specifier: ^3.0.3
+        version: 3.0.3
+      undici:
+        specifier: ^6.19.2
+        version: 6.25.0
+      ws:
+        specifier: ^8.21.3
+        version: 8.21.3
+      zod:
+        specifier: ^3.23.8
+        version: 3.25.76
+    devDependencies:
+      '@types/node':
+        specifier: ^25.7.0
+        version: 25.7.0
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.4(@types/node@25.7.0)
+
   packages/sanctions:
     dependencies:
       '@sentry/node':
@@ -501,6 +615,40 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
 
+  packages/severe-weather-alerts:
+    dependencies:
+      '@sentry/node':
+        specifier: ^8.55.2
+        version: 8.55.2
+      node-cron:
+        specifier: ^3.0.3
+        version: 3.0.3
+      undici:
+        specifier: ^6.19.2
+        version: 6.25.0
+      ws:
+        specifier: ^8.21.3
+        version: 8.21.3
+      zod:
+        specifier: ^3.23.8
+        version: 3.25.76
+    devDependencies:
+      '@types/node':
+        specifier: ^25.7.0
+        version: 25.7.0
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.4(@types/node@25.7.0)
+
   packages/shared:
     dependencies:
       '@sentry/node':
@@ -537,6 +685,40 @@ importers:
       typescript:
         specifier: ^5.7.2
         version: 5.9.3
+
+  packages/space-weather-aurora:
+    dependencies:
+      '@sentry/node':
+        specifier: ^8.55.2
+        version: 8.55.2
+      node-cron:
+        specifier: ^3.0.3
+        version: 3.0.3
+      undici:
+        specifier: ^6.19.2
+        version: 6.25.0
+      ws:
+        specifier: ^8.21.3
+        version: 8.21.3
+      zod:
+        specifier: ^3.23.8
+        version: 3.25.76
+    devDependencies:
+      '@types/node':
+        specifier: ^25.7.0
+        version: 25.7.0
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.4(@types/node@25.7.0)
 
   packages/surveillance-satellites:
     dependencies:
