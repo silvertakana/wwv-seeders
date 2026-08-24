@@ -1,0 +1,70 @@
+{
+  "articles": [
+    {
+      "url": "https://www.usatoday.com/story/news/politics/2026/08/24/example/0001",
+      "url_mobile": "https://www.usatoday.com/story/news/politics/2026/08/24/example/0001",
+      "title": "Tensions rise in contested region as talks stall",
+      "seendate": "20260824120000",
+      "socialimage": "",
+      "domain": "usatoday.com",
+      "language": "eng",
+      "sourcecountry": "US"
+    },
+    {
+      "url": "https://www.bbc.com/news/world-europe-0002",
+      "title": "Protesters gather in capital over economic policy",
+      "seendate": "20260824121500",
+      "domain": "bbc.com",
+      "language": "eng",
+      "sourcecountry": "GB"
+    },
+    {
+      "url": "https://www.spiegel.de/politik/0003",
+      "title": "Koalitionsverhandlungen stocken in Berlin",
+      "seendate": "20260824124500",
+      "domain": "spiegel.de",
+      "language": "ger",
+      "sourcecountry": "DE"
+    },
+    {
+      "url": "https://www3.nhk.or.jp/news/html/0004",
+      "title": "Election campaign heats up in Tokyo",
+      "seendate": "20260824130000",
+      "domain": "www3.nhk.or.jp",
+      "language": "jpn",
+      "sourcecountry": "JP"
+    },
+    {
+      "url": "https://www.lemonde.fr/international/0005",
+      "title": "Manifestations dans la capitale",
+      "seendate": "20260824131000",
+      "domain": "lemonde.fr",
+      "language": "fre",
+      "sourcecountry": "FR"
+    },
+    {
+      "url": "https://www.thedailystar.net/news/0006",
+      "title": "Flood warning issued for coastal districts",
+      "seendate": "20260824140000",
+      "domain": "thedailystar.net",
+      "language": "eng",
+      "sourcecountry": "BD"
+    },
+    {
+      "url": "https://www.smh.com.au/world/0007",
+      "title": "Wildfire response criticised by local leaders",
+      "seendate": "20260824143000",
+      "domain": "smh.com.au",
+      "language": "eng",
+      "sourcecountry": "AU"
+    },
+    {
+      "url": "https://example.zz/unknown-country-0008",
+      "title": "Article from an unknown country code",
+      "seendate": "20260824150000",
+      "domain": "example.zz",
+      "language": "eng",
+      "sourcecountry": "ZZ"
+    }
+  ]
+}
