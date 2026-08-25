@@ -10454,9 +10454,9 @@ async function seedDeforestationGfw() {
     }
   }
   console.log(`[DeforestationGfw] FIRES: ${tilesOk}/${tiles.length} tiles OK`);
-  const apiKey = process.env.GFW_API_KEY;
+  const apiKey = process.env.GFW_GLAD_API_KEY;
   if (!apiKey) {
-    console.warn("[DeforestationGfw] GFW_API_KEY not set \u2014 skipping GLAD deforestation layer.");
+    console.warn("[DeforestationGfw] GFW_GLAD_API_KEY not set \u2014 skipping GLAD deforestation layer.");
   } else {
     try {
       const payload = await fetchGladRows(apiKey);
