@@ -155,10 +155,10 @@ export async function seedDeforestationGfw(): Promise<DeforestationAlertItem[]> 
   console.log(`[DeforestationGfw] FIRES: ${tilesOk}/${tiles.length} tiles OK`);
 
   // 2. DEFORESTATION: one bounded SQL query. Requires the GFW API key, which
-  //    the engine injects from the marketplace credentials (GFW_API_KEY).
-  const apiKey = process.env.GFW_API_KEY;
+  //    the engine injects from the marketplace credentials (GFW_GLAD_API_KEY).
+  const apiKey = process.env.GFW_GLAD_API_KEY;
   if (!apiKey) {
-    console.warn('[DeforestationGfw] GFW_API_KEY not set — skipping GLAD deforestation layer.');
+    console.warn('[DeforestationGfw] GFW_GLAD_API_KEY not set — skipping GLAD deforestation layer.');
   } else {
     try {
       const payload = await fetchGladRows(apiKey);

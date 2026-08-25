@@ -157,7 +157,7 @@ describe('deforestation-gfw end-to-end fetch (mocked SDK)', () => {
         json: async () => (href.includes('/query') ? gladFixture : fireFixture),
       } as unknown as Response;
     });
-    vi.stubEnv('GFW_API_KEY', 'fixture-key');
+    vi.stubEnv('GFW_GLAD_API_KEY', 'fixture-key');
   });
 
   it('collects fire + deforestation items, persists rows, and publishes a snapshot', async () => {
