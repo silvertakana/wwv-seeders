@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "found": 8278
+  },
+  "results": [
+    {
+      "datetime": {
+        "utc": "2023-10-11T10:00:00Z"
+      },
+      "value": 5,
+      "coordinates": {
+        "latitude": 38.4542,
+        "longitude": 27.23107
+      },
+      "sensorsId": 6869716,
+      "locationsId": 368811
+    },
+    {
+      "datetime": {
+        "utc": "2026-08-25T11:00:00Z"
+      },
+      "value": 1.02318,
+      "coordinates": {
+        "latitude": 36.067050000123075,
+        "longitude": 14.197073999690767
+      },
+      "sensorsId": 15479,
+      "locationsId": 5577
+    },
+    {
+      "datetime": {
+        "utc": "2019-03-04T11:00:00Z"
+      },
+      "value": 25,
+      "coordinates": {
+        "latitude": 33.72140000000001,
+        "longitude": 113.30639999999998
+      },
+      "sensorsId": 18299,
+      "locationsId": 6493
+    },
+    {
+      "datetime": {
+        "utc": "2025-01-08T11:45:00Z"
+      },
+      "value": 7.69,
+      "coordinates": {
+        "latitude": -14.49654,
+        "longitude": -71.776884
+      },
+      "sensorsId": 9959965,
+      "locationsId": 2954096
+    },
+    {
+      "datetime": {
+        "utc": "2024-01-29T18:00:00Z"
+      },
+      "value": 84.85,
+      "coordinates": {
+        "latitude": 46.4825,
+        "longitude": 11.34083
+      },
+      "sensorsId": 22262,
+      "locationsId": 7652
+    },
+    {
+      "datetime": {
+        "utc": "2025-01-05T19:55:00Z"
+      },
+      "value": -18798.12,
+      "coordinates": {
+        "latitude": -14.422226,
+        "longitude": -71.828257
+      },
+      "sensorsId": 9974168,
+      "locationsId": 2956512
+    },
+    {
+      "datetime": {
+        "utc": "2021-08-09T11:00:00Z"
+      },
+      "value": 20,
+      "coordinates": {
+        "latitude": 27.9153,
+        "longitude": 113.0048
+      },
+      "sensorsId": 26176,
+      "locationsId": 8945
+    },
+    {
+      "datetime": {
+        "utc": "2026-08-25T11:00:00Z"
+      },
+      "value": 2,
+      "coordinates": {
+        "latitude": 38.07694400005979,
+        "longitude": -8.798610999927275
+      },
+      "sensorsId": 25421,
+      "locationsId": 7173
+    }
+  ]
+}
