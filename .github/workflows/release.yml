@@ -58,7 +58,7 @@ jobs:
 
       - name: Trigger Coolify API Service Restart
         run: |
-          curl -sS -X POST "https://coolify.worldwideview.dev/api/v1/services/slv47hjfvip5h1xggsc3yenm/restart" \
+          curl -sS -X POST "https://coolify.worldwideview.dev/api/v1/applications/1a7d3f54da3e2adc42453893/restart" \
             -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
             -H "Content-Type: application/json"
 
@@ -73,7 +73,7 @@ jobs:
           echo "Health check: HTTP $HEALTH"
           if [ "$HEALTH" != "200" ]; then
             echo "⚠ Engine not healthy. Retrying restart..."
-            curl -sS -X POST "https://coolify.worldwideview.dev/api/v1/services/slv47hjfvip5h1xggsc3yenm/restart" \
+            curl -sS -X POST "https://coolify.worldwideview.dev/api/v1/applications/1a7d3f54da3e2adc42453893/restart" \
               -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
               -H "Content-Type: application/json"
             sleep 30
@@ -83,5 +83,5 @@ jobs:
           if [ "$HEALTH" = "200" ]; then
             echo "✅ Engine healthy"
           else
-            echo "::warning::Engine unhealthy (HTTP $HEALTH). Manual compose restart may be needed: ssh root@server 'docker compose -f /data/coolify/services/slv47hjfvip5h1xggsc3yenm/docker-compose.yml up -d'"
+            echo "::warning::Engine unhealthy (HTTP $HEALTH). Manual compose restart may be needed: ssh root@server 'docker compose -f /data/coolify/applications/1a7d3f54da3e2adc42453893/docker-compose.yml up -d --force-recreate'"
           fi
