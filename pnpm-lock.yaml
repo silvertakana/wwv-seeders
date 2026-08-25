@@ -173,6 +173,24 @@ importers:
         specifier: ^3.2.2
         version: 3.2.4(@types/node@25.7.0)
 
+  packages/deforestation-gfw:
+    devDependencies:
+      '@types/node':
+        specifier: ^25.7.0
+        version: 25.7.0
+      '@worldwideview/seeder-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.2
+        version: 3.2.4(@types/node@25.7.0)
+
   packages/earthquakes:
     dependencies:
       '@sentry/node':
