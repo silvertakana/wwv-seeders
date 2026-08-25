@@ -1,0 +1,17 @@
+{
+  "name": "@wwv-seeders/gdacs-disasters",
+  "version": "1.0.0",
+  "main": "dist/index.mjs",
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^25.7.0",
+    "@worldwideview/seeder-sdk": "^1.0.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.7.2",
+    "vitest": "^3.2.2"
+  }
+}
