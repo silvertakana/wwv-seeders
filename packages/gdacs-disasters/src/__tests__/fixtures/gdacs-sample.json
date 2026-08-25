@@ -1,0 +1,389 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "bbox": [
+    129,
+    27.2,
+    129,
+    27.2
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     129,
+     27.2
+    ]
+   },
+   "properties": {
+    "eventtype": "TC",
+    "eventid": 1001305,
+    "episodeid": 29,
+    "eventname": "SAUDEL-26",
+    "glide": "TC-2026-000161-CHN",
+    "name": "Tropical Cyclone SAUDEL-26",
+    "description": "Tropical Cyclone SAUDEL-26",
+    "htmldescription": "Orange Tropical Cyclone SAUDEL-26 in Japan, Northern Mariana Islands, China from: 18 Aug 2026  to: 25 Aug 2026 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Orange/TC.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Orange/TC.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=TC&eventid=1001305&episodeid=29",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1001305&episodeid=29&eventtype=TC",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=TC&eventid=1001305"
+    },
+    "alertlevel": "Orange",
+    "alertscore": 2,
+    "episodealertlevel": "Orange",
+    "episodealertscore": 2,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "Japan, Northern Mariana Islands, China",
+    "fromdate": "2026-08-18T12:00:00",
+    "todate": "2026-08-25T12:00:00",
+    "datemodified": "2026-08-25T15:01:23",
+    "iso3": "CHN",
+    "source": "JTWC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "countryonland": "",
+    "affectedcountries": [
+     {
+      "iso2": "JP",
+      "iso3": "JPN",
+      "countryname": "Japan"
+     },
+     {
+      "iso2": "CN",
+      "iso3": "CHN",
+      "countryname": "China"
+     }
+    ],
+    "severitydata": {
+     "severity": 212.9616,
+     "severitytext": "Hurricane/Typhoon > 74 mph (maximum wind speed of 213 km/h)",
+     "severityunit": "km/h"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    121.6029,
+    23.9954,
+    121.6029,
+    23.9954
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     121.6029,
+     23.9954
+    ]
+   },
+   "properties": {
+    "eventtype": "FL",
+    "eventid": 1104081,
+    "episodeid": 13,
+    "eventname": "",
+    "glide": "FL-2026-000148-CHN",
+    "name": "Flood in China",
+    "description": "Flood in China",
+    "htmldescription": "Orange Flood in China from: 31 Jul 2026 01 to: 25 Aug 2026 01.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Orange/FL.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=FL&eventid=1104081&episodeid=13",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1104081&episodeid=13&eventtype=FL",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=FL&eventid=1104081"
+    },
+    "alertlevel": "Orange",
+    "alertscore": 2,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "China",
+    "fromdate": "2026-07-31T01:00:00",
+    "todate": "2026-08-25T01:00:00",
+    "datemodified": "2026-08-25T05:49:39",
+    "iso3": "CHN",
+    "source": "GLOFAS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "CN",
+      "iso3": "CHN",
+      "countryname": "China"
+     }
+    ],
+    "severitydata": {
+     "severity": 0,
+     "severitytext": "Magnitude 0 ",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    -4.5405,
+    40.3594,
+    -4.5405,
+    40.3594
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -4.5405,
+     40.3594
+    ]
+   },
+   "properties": {
+    "eventtype": "WF",
+    "eventid": 1029643,
+    "episodeid": 22,
+    "eventname": "",
+    "glide": "WF-2026-000130-ESP",
+    "name": "Forest fires in Spain",
+    "description": "Forest fires in Spain",
+    "htmldescription": "Orange Forest fires in Spain from: 22 Jul 2026 to: 30 Jul 2026.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Orange/WF.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Orange/WF.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=WF&eventid=1029643&episodeid=22",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1029643&episodeid=22&eventtype=WF",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=WF&eventid=1029643"
+    },
+    "alertlevel": "Orange",
+    "alertscore": 2,
+    "episodealertlevel": "Orange",
+    "episodealertscore": 1.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Spain",
+    "fromdate": "2026-07-22T00:00:00",
+    "todate": "2026-07-30T00:00:00",
+    "datemodified": "2026-08-25T16:02:05",
+    "iso3": "ESP",
+    "source": "GWIS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "ES",
+      "iso3": "ESP",
+      "countryname": "Spain"
+     }
+    ],
+    "severitydata": {
+     "severity": 66098,
+     "severitytext": "Orange impact for forestfire in 66098 ha",
+     "severityunit": "ha"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    156.1,
+    28.7,
+    156.1,
+    28.7
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     156.1,
+     28.7
+    ]
+   },
+   "properties": {
+    "eventtype": "TC",
+    "eventid": 1001270,
+    "episodeid": 44,
+    "eventname": "SINLAKU-26",
+    "glide": "TC-2026-000050-FSM",
+    "name": "Tropical Cyclone SINLAKU-26",
+    "description": "Tropical Cyclone SINLAKU-26",
+    "htmldescription": "Red Tropical Cyclone SINLAKU-26 in Northern Mariana Islands, Guam from: 09 Apr 2026  to: 19 Apr 2026 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/TC.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Red/TC.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=TC&eventid=1001270&episodeid=44",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1001270&episodeid=44&eventtype=TC",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=TC&eventid=1001270"
+    },
+    "alertlevel": "Red",
+    "alertscore": 3,
+    "episodealertlevel": "Green",
+    "episodealertscore": 1,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Northern Mariana Islands, Guam",
+    "fromdate": "2026-04-09T00:00:00",
+    "todate": "2026-04-19T18:00:00",
+    "datemodified": "2026-08-25T16:02:08",
+    "iso3": "MNP",
+    "source": "JTWC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "countryonland": "",
+    "affectedcountries": [
+     {
+      "iso2": "GU",
+      "iso3": "GUM",
+      "countryname": "Guam"
+     }
+    ],
+    "severitydata": {
+     "severity": 287.0352,
+     "severitytext": "Tropical Storm (maximum wind speed of 287 km/h)",
+     "severityunit": "km/h"
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    100.5684,
+    13.8284,
+    100.5684,
+    13.8284
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.5684,
+     13.8284
+    ]
+   },
+   "properties": {
+    "eventtype": "FL",
+    "eventid": 1103646,
+    "episodeid": 4,
+    "eventname": "",
+    "glide": "",
+    "name": "Flood in Indonesia, Malaysia, Thailand",
+    "description": "Flood in Indonesia, Malaysia, Thailand",
+    "htmldescription": "Red Flood in Indonesia, Malaysia, Thailand from: 03 Dec 2025 01 to: 06 Dec 2025 01.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Red/FL.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Red/FL.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=FL&eventid=1103646&episodeid=4",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1103646&episodeid=4&eventtype=FL",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=FL&eventid=1103646"
+    },
+    "alertlevel": "Red",
+    "alertscore": 3,
+    "episodealertlevel": "Red",
+    "episodealertscore": 2.5,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Indonesia, Malaysia, Thailand",
+    "fromdate": "2025-12-03T01:00:00",
+    "todate": "2025-12-06T01:00:00",
+    "datemodified": "2025-12-10T10:21:22",
+    "iso3": "IDN",
+    "source": "GLOFAS",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+     {
+      "iso2": "ID",
+      "iso3": "IDN",
+      "countryname": "Indonesia"
+     },
+     {
+      "iso2": "MY",
+      "iso3": "MYS",
+      "countryname": "Malaysia"
+     },
+     {
+      "iso2": "TH",
+      "iso3": "THA",
+      "countryname": "Thailand"
+     }
+    ],
+    "severitydata": {
+     "severity": 0,
+     "severitytext": "Magnitude 0 ",
+     "severityunit": ""
+    }
+   }
+  },
+  {
+   "type": "Feature",
+   "bbox": [
+    111.1,
+    21.8,
+    111.1,
+    21.8
+   ],
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     111.1,
+     21.8
+    ]
+   },
+   "properties": {
+    "eventtype": "TC",
+    "eventid": 1001211,
+    "episodeid": 25,
+    "eventname": "RAGASA-25",
+    "glide": "TC-2025-000170-PHL",
+    "name": "Tropical Cyclone RAGASA-25",
+    "description": "Tropical Cyclone RAGASA-25",
+    "htmldescription": "Red Tropical Cyclone RAGASA-25 in Philippines, China from: 18 Sep 2025  to: 24 Sep 2025 .",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Orange/TC.png",
+    "iconoverall": "https://www.gdacs.org/images/gdacs_icons/maps/Red/TC.png",
+    "url": {
+     "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=TC&eventid=1001211&episodeid=25",
+     "report": "https://www.gdacs.org/report.aspx?eventid=1001211&episodeid=25&eventtype=TC",
+     "details": "https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=TC&eventid=1001211"
+    },
+    "alertlevel": "Red",
+    "alertscore": 3,
+    "episodealertlevel": "Orange",
+    "episodealertscore": 2,
+    "istemporary": "false",
+    "iscurrent": "false",
+    "country": "Philippines, China",
+    "fromdate": "2025-09-18T12:00:00",
+    "todate": "2025-09-24T12:00:00",
+    "datemodified": "2026-02-11T15:18:59.037",
+    "iso3": "CHN",
+    "source": "JTWC",
+    "sourceid": "",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "countryonland": "",
+    "affectedcountries": [
+     {
+      "iso2": "PH",
+      "iso3": "PHL",
+      "countryname": "Philippines"
+     },
+     {
+      "iso2": "CN",
+      "iso3": "CHN",
+      "countryname": "China"
+     }
+    ],
+    "severitydata": {
+     "severity": 268.5168,
+     "severitytext": "Hurricane/Typhoon > 74 mph (maximum wind speed of 269 km/h)",
+     "severityunit": "km/h"
+    }
+   }
+  }
+ ],
+ "bbox": null
+}
