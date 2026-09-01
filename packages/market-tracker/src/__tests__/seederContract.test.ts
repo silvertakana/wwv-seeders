@@ -5,15 +5,16 @@ import { describe, it, expect, vi } from 'vitest';
 // Mock the full @worldwideview/seeder-sdk to avoid loading better-sqlite3 native bindings
 vi.mock('@worldwideview/seeder-sdk', () => ({
   withRetry: vi.fn(async (fn: () => Promise<unknown>) => fn()),
+  getLiveSnapshot: vi.fn(async () => null),
   setLiveSnapshot: vi.fn(),
   fetchWithTimeout: vi.fn(),
   db: {},
 }));
 
-// Mock yahoo-finance2 to avoid external HTTP calls during unit tests
+// yahoo-finance2 v4 exports a class; src/index.ts constructs it at module load.
 vi.mock('yahoo-finance2', () => ({
-  default: {
-    quote: vi.fn(async () => []),
+  default: class {
+    quote = vi.fn(async () => []);
   },
 }));
 

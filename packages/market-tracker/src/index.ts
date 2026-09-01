@@ -1,6 +1,9 @@
-import yahooFinance from 'yahoo-finance2';
-import { withRetry } from '@worldwideview/seeder-sdk';
+import YahooFinance from 'yahoo-finance2';
+import { withRetry, getLiveSnapshot } from '@worldwideview/seeder-sdk';
 import { isMarketOpen } from './isMarketOpen';
+
+// yahoo-finance2 v4 removed the static API: instantiate the client first.
+const yahooFinance = new YahooFinance({ suppressNotices: ['yahooSurvey'] });
 
 export interface StockTick {
   id: string;
@@ -9,9 +12,6 @@ export interface StockTick {
   timestamp: number;
 }
 
-// The default export's static `quote()` is typed as `(...args: unknown[]): never`
-// (deprecated static API), so `await` yields `unknown`. Type the result shape we
-// actually consume and narrow it with a guard instead of relying on that return type.
 interface MarketQuote {
   symbol: string;
   regularMarketPrice?: number;
@@ -26,7 +26,10 @@ const TICKERS = ['AAPL', 'MSFT', 'NVDA', 'SPY', 'QQQ'];
 
 async function fetchQuotes(): Promise<StockTick[] | null> {
   if (!isMarketOpen()) {
-    return null;
+    // Market closed: serve the last published snapshot so the scheduler does not
+    // count a nightly/weekend idle poll as a failure.
+    const prev = await getLiveSnapshot('market-tracker');
+    return prev && Array.isArray((prev as any).items) ? (prev as any).items : [];
   }
 
   const quotes = await withRetry(() => yahooFinance.quote(TICKERS));

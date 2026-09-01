@@ -13,14 +13,16 @@ import { resolve } from 'path';
 // harmless to keep (it is still the mock used by the other suites for src imports).
 vi.mock('@worldwideview/seeder-sdk', () => ({
   withRetry: vi.fn(async (fn: () => Promise<unknown>) => fn()),
+  getLiveSnapshot: vi.fn(async () => null),
   setLiveSnapshot: vi.fn(),
   fetchWithTimeout: vi.fn(),
   db: {},
 }));
 
+// yahoo-finance2 v4 exports a class; src/index.ts constructs it at module load.
 vi.mock('yahoo-finance2', () => ({
-  default: {
-    quote: vi.fn(async () => []),
+  default: class {
+    quote = vi.fn(async () => []);
   },
 }));
 

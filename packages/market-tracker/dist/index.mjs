@@ -1,5 +1,5 @@
 // src/index.ts
-import yahooFinance from "yahoo-finance2";
+import YahooFinance from "yahoo-finance2";
 
 // ../../node_modules/.pnpm/@worldwideview+seeder-sdk@1.0.0/node_modules/@worldwideview/seeder-sdk/dist/index.mjs
 import Database from "better-sqlite3";
@@ -169,6 +169,22 @@ redis.on("ready", () => {
   console.log("[Redis] Connected and ready.");
 });
 var SNAPSHOT_THROTTLE_MS = 5 * 60 * 1e3;
+async function getLiveSnapshot(source) {
+  const key = `data:${source}:live`;
+  try {
+    const data = await redis.getBuffer(key);
+    if (!data) return null;
+    try {
+      const decompressed = zlib.unzipSync(data);
+      return JSON.parse(decompressed.toString("utf-8"));
+    } catch {
+      return JSON.parse(data.toString("utf-8"));
+    }
+  } catch (error) {
+    console.error(`[Redis] Failed to get live snapshot ${source}:`, error);
+    return null;
+  }
+}
 async function withRetry(fn, maxRetries = 3, delayMs = 1e3) {
   let lastErr;
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
@@ -202,13 +218,15 @@ function isMarketOpen(now) {
 }
 
 // src/index.ts
+var yahooFinance = new YahooFinance({ suppressNotices: ["yahooSurvey"] });
 function isMarketQuoteArray(value) {
   return Array.isArray(value);
 }
 var TICKERS = ["AAPL", "MSFT", "NVDA", "SPY", "QQQ"];
 async function fetchQuotes() {
   if (!isMarketOpen()) {
-    return null;
+    const prev = await getLiveSnapshot("market-tracker");
+    return prev && Array.isArray(prev.items) ? prev.items : [];
   }
   const quotes = await withRetry(() => yahooFinance.quote(TICKERS));
   if (!isMarketQuoteArray(quotes)) {
