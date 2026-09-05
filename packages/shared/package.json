@@ -26,6 +26,6 @@
     "@types/geoip-lite": "^1.4.4",
     "@types/node": "^25.7.0",
     "tsup": "^8.3.5",
-    "typescript": "^5.7.2"
+    "typescript": "^7.0.2"
   }
 }
