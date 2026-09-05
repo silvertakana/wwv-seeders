@@ -8,7 +8,7 @@
   "dependencies": {
     "@sentry/node": "^8.55.2",
     "satellite.js": "^7.1.0",
-    "undici": "^6.19.2"
+    "undici": "^8.10.0"
   },
   "devDependencies": {
     "@worldwideview/seeder-sdk": "^1.0.0"
