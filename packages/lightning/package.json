@@ -10,7 +10,7 @@
     "ws": "^8.21.3"
   },
   "devDependencies": {
-    "@types/node": "^25.7.0",
+    "@types/node": "^26.4.1",
     "@types/ws": "^8.18.1",
     "@worldwideview/seeder-sdk": "^1.0.0",
     "tsup": "^8.5.1",
