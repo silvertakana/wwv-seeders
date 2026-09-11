@@ -1,0 +1,16 @@
+{
+  // Declaration-only emit, run after tsup. tsup's bundled DTS plugin is
+  // incompatible with TypeScript 7 (see tsup.config.ts), so tsc produces the
+  // dist/*.d.ts files that package.json "types" and the sibling .d.mts point at.
+  // declarationMap stays off: consumers get resolvable declarations, not
+  // source maps for the original .ts files, which are not published.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "dist",
+    "declaration": true,
+    "declarationMap": false,
+    "emitDeclarationOnly": true
+  },
+  "include": ["index.ts", "db.ts", "redis.ts", "seed-utils.ts", "geoip.ts"]
+}
