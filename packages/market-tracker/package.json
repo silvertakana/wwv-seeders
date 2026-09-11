@@ -13,7 +13,7 @@
     "yahoo-finance2": "^4.0.2"
   },
   "devDependencies": {
-    "@types/node": "^25.7.0",
+    "@types/node": "^26.4.1",
     "tsup": "^8.5.1",
     "typescript": "^5.7.2",
     "vitest": "^3.2.2",
