@@ -44,6 +44,14 @@ import seeder, { seedDeforestationGfw } from '../index';
 const mockedSetLiveSnapshot = vi.mocked(setLiveSnapshot);
 const mockedFetch = vi.mocked(fetchWithTimeout);
 
+// db.prepare is called once per top-level statement at module load (index 0 =
+// CREATE TABLE IF NOT EXISTS guard, index 1 = INSERT OR IGNORE). Snapshot the
+// SQL here, at test-module scope, because vitest 5 clears every mock's recorded
+// history before each test (clearMocks now defaults to true), so reading
+// mock.calls inside a test would see an empty list. Same pattern as
+// packages/aviation-weather-hazards.
+const moduleScopePrepareSql = vi.mocked(db.prepare).mock.calls.map((args) => String(args[0]));
+
 describe('deforestation-gfw parser: FIRES layer', () => {
   it('maps a real VIIRS fire feature to a globe-ready item', () => {
     const item = mapFireFeature(fireFixture.data[0]);
@@ -140,8 +148,10 @@ describe('deforestation-gfw seeder contract', () => {
   });
 
   it('creates the self-guarded SQLite table at module scope', () => {
-    const createCalls = vi.mocked(db.prepare).mock.calls.map((args) => args[0]);
-    expect(createCalls.some((sql) => String(sql).includes('CREATE TABLE IF NOT EXISTS deforestation_alerts'))).toBe(true);
+    const createsTable = moduleScopePrepareSql.some((sql) =>
+      sql.includes('CREATE TABLE IF NOT EXISTS deforestation_alerts')
+    );
+    expect(createsTable).toBe(true);
   });
 });
 
@@ -167,9 +177,8 @@ describe('deforestation-gfw end-to-end fetch (mocked SDK)', () => {
     expect(alertTypes.has('fire')).toBe(true);
     expect(alertTypes.has('deforestation')).toBe(true);
 
-    const insertCalls = vi.mocked(db.prepare).mock.calls;
-    expect(insertCalls.length).toBeGreaterThanOrEqual(2); // CREATE TABLE + INSERT
-    const insertSql = insertCalls.map((args) => String(args[0])).find((s) => s.includes('INSERT OR IGNORE'));
+    expect(moduleScopePrepareSql.length).toBeGreaterThanOrEqual(2); // CREATE TABLE + INSERT
+    const insertSql = moduleScopePrepareSql.find((s) => s.includes('INSERT OR IGNORE'));
     expect(insertSql).toBeTruthy();
 
     expect(mockedSetLiveSnapshot).toHaveBeenCalledTimes(1);
