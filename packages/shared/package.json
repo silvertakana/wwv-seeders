@@ -14,7 +14,7 @@
     "build": "tsup && tsc --project tsconfig.build.json && node -e \"require('fs').copyFileSync('dist/index.d.ts','dist/index.d.mts')\""
   },
   "dependencies": {
-    "@sentry/node": "^8.38.0",
+    "@sentry/node": "^10.74.0",
     "better-sqlite3": "^11.5.0",
     "dotenv": "^17.4.2",
     "geoip-lite": "^2.0.3",
