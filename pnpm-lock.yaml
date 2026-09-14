@@ -24,8 +24,8 @@ importers:
         specifier: ^8.10.2
         version: 8.10.2
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
@@ -64,8 +64,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@types/node':
         specifier: ^26.4.1
@@ -98,8 +98,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
@@ -120,8 +120,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@types/node':
         specifier: ^26.4.1
@@ -154,8 +154,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@types/node':
         specifier: ^26.4.1
@@ -206,8 +206,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@types/node':
         specifier: ^26.4.1
@@ -258,8 +258,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@types/node':
         specifier: ^26.4.1
@@ -292,8 +292,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
@@ -314,8 +314,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@types/node':
         specifier: ^26.4.1
@@ -348,8 +348,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@types/node':
         specifier: ^26.4.1
@@ -382,8 +382,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
@@ -404,8 +404,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@types/node':
         specifier: ^26.4.1
@@ -463,8 +463,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@types/node':
         specifier: ^26.4.1
@@ -497,8 +497,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@types/node':
         specifier: ^26.4.1
@@ -531,8 +531,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
@@ -581,8 +581,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
@@ -603,8 +603,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@types/node':
         specifier: ^26.4.1
@@ -637,8 +637,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
@@ -659,8 +659,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@types/node':
         specifier: ^26.4.1
@@ -696,8 +696,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
@@ -721,8 +721,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
@@ -743,8 +743,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@types/node':
         specifier: ^26.4.1
@@ -814,8 +814,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@types/node':
         specifier: ^26.4.1
@@ -882,8 +882,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.6.2
+        version: 4.6.2
     devDependencies:
       '@types/node':
         specifier: ^26.4.1
@@ -2752,11 +2752,8 @@ packages:
     peerDependencies:
       zod: ^3.25.28 || ^4
 
-  zod@3.25.76:
-    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
-
-  zod@4.4.3:
-    resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
+  zod@4.6.2:
+    resolution: {integrity: sha512-lh5RCAGFa1Cm2hjtNwLQhSs/AsqdWnTQaBER9fEwN/88pSh7KOtJavtBx/0VlkN/uFd61SwYmljLMDAsHlvzBQ==}
 
 snapshots:
 
@@ -2869,7 +2866,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
 
-  '@modelcontextprotocol/sdk@1.30.0(supports-color@7.2.0)(zod@4.4.3)':
+  '@modelcontextprotocol/sdk@1.30.0(supports-color@7.2.0)(zod@4.6.2)':
     dependencies:
       '@hono/node-server': 2.1.1(hono@4.13.2)
       ajv: 8.20.0
@@ -2886,8 +2883,8 @@ snapshots:
       json-schema-typed: 8.0.2
       pkce-challenge: 5.0.1
       raw-body: 3.0.2
-      zod: 4.4.3
-      zod-to-json-schema: 3.25.2(zod@4.4.3)
+      zod: 4.6.2
+      zod-to-json-schema: 3.25.2(zod@4.6.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -4503,12 +4500,12 @@ snapshots:
   yahoo-finance2@4.0.2(supports-color@7.2.0):
     dependencies:
       '@deno/shim-deno': 0.18.2
-      '@modelcontextprotocol/sdk': 1.30.0(supports-color@7.2.0)(zod@4.4.3)
+      '@modelcontextprotocol/sdk': 1.30.0(supports-color@7.2.0)(zod@4.6.2)
       fetch-mock-cache: 3.1.0(supports-color@7.2.0)
       json-schema: 0.4.0
       tough-cookie: 6.0.2
       tough-cookie-file-store: 3.3.0
-      zod: 4.4.3
+      zod: 4.6.2
     transitivePeerDependencies:
       - '@cfworker/json-schema'
       - supports-color
@@ -4522,10 +4519,8 @@ snapshots:
     dependencies:
       pend: 1.2.0
 
-  zod-to-json-schema@3.25.2(zod@4.4.3):
+  zod-to-json-schema@3.25.2(zod@4.6.2):
     dependencies:
-      zod: 4.4.3
+      zod: 4.6.2
 
-  zod@3.25.76: {}
-
-  zod@4.4.3: {}
+  zod@4.6.2: {}
