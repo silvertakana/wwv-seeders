@@ -18,8 +18,8 @@ importers:
   packages/_template:
     dependencies:
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -55,8 +55,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -89,8 +89,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -111,8 +111,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -145,8 +145,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -197,8 +197,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -249,8 +249,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -283,8 +283,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -305,8 +305,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -339,8 +339,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -373,8 +373,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -395,8 +395,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -454,8 +454,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -488,8 +488,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -522,8 +522,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -572,8 +572,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -594,8 +594,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -628,8 +628,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -650,8 +650,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -684,8 +684,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       sax:
         specifier: ^1.6.1
         version: 1.6.1
@@ -709,8 +709,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       satellite.js:
         specifier: ^7.1.0
         version: 7.1.0
@@ -734,8 +734,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -805,8 +805,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -873,8 +873,8 @@ importers:
         specifier: ^8.55.2
         version: 8.55.2(supports-color@7.2.0)
       node-cron:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^4.6.0
+        version: 4.6.0
       undici:
         specifier: ^8.10.2
         version: 8.10.2
@@ -2194,9 +2194,9 @@ packages:
     resolution: {integrity: sha512-KdHvFWZjEKDf0cakgFjebl371GPsISX2oZHcuyKqM7DtogIsHrqKeLTo8wBHxaXRAQlY2PsPlZmfo+9ZCxEREQ==}
     engines: {node: '>=10'}
 
-  node-cron@3.0.3:
-    resolution: {integrity: sha512-dOal67//nohNgYWb+nWmg5dkFdIwDm8EpeGYMekPMrngV3637lqnX0lbUcCtgibHTz6SEz7DAIjKvKDFYCnO1A==}
-    engines: {node: '>=6.0.0'}
+  node-cron@4.6.0:
+    resolution: {integrity: sha512-Si/bzYiKRHOB8/a99T2+SDGN582ONDMSTlJr5oCkT6GtnqPjZ2s10eoQRYkW9ZHwjVxONL+W8Fb+qR0AHMQsdg==}
+    engines: {node: '>=20'}
 
   node-fetch@2.7.0:
     resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==}
@@ -2603,11 +2603,6 @@ packages:
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
-
-  uuid@8.3.2:
-    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
-    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
-    hasBin: true
 
   vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
@@ -3983,9 +3978,7 @@ snapshots:
     dependencies:
       semver: 7.8.0
 
-  node-cron@3.0.3:
-    dependencies:
-      uuid: 8.3.2
+  node-cron@4.6.0: {}
 
   node-fetch@2.7.0:
     dependencies:
@@ -4435,8 +4428,6 @@ snapshots:
   unpipe@1.0.0: {}
 
   util-deprecate@1.0.2: {}
-
-  uuid@8.3.2: {}
 
   vary@1.1.2: {}
 
