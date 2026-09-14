@@ -34,8 +34,8 @@ importers:
   packages/air-quality-openaq:
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -47,7 +47,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/aviation-weather-hazards:
     dependencies:
@@ -68,8 +68,8 @@ importers:
         version: 3.25.76
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -81,7 +81,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/civilUnrest:
     dependencies:
@@ -124,8 +124,8 @@ importers:
         version: 3.25.76
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -137,7 +137,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/cyberAttacks:
     dependencies:
@@ -158,8 +158,8 @@ importers:
         version: 3.25.76
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -171,13 +171,13 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/deforestation-gfw:
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -189,7 +189,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/earthquakes:
     dependencies:
@@ -210,8 +210,8 @@ importers:
         version: 3.25.76
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -223,13 +223,13 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/gdacs-disasters:
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -241,7 +241,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/global-news-gdelt:
     dependencies:
@@ -262,8 +262,8 @@ importers:
         version: 3.25.76
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -275,7 +275,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/gpsjam:
     dependencies:
@@ -318,8 +318,8 @@ importers:
         version: 3.25.76
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -331,7 +331,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/internet-censorship-ooni:
     dependencies:
@@ -352,8 +352,8 @@ importers:
         version: 3.25.76
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -365,7 +365,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/iranwarlive:
     dependencies:
@@ -408,8 +408,8 @@ importers:
         version: 3.25.76
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -421,7 +421,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/lightning:
     dependencies:
@@ -430,8 +430,8 @@ importers:
         version: 8.21.3
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@types/ws':
         specifier: ^8.18.1
         version: 8.18.1
@@ -446,7 +446,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/live-disasters:
     dependencies:
@@ -467,8 +467,8 @@ importers:
         version: 3.25.76
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -480,7 +480,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/marine-buoys:
     dependencies:
@@ -501,8 +501,8 @@ importers:
         version: 3.25.76
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -514,7 +514,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/maritime:
     dependencies:
@@ -551,8 +551,8 @@ importers:
         version: 4.0.2(supports-color@7.2.0)
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -564,7 +564,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/military-aviation:
     dependencies:
@@ -607,8 +607,8 @@ importers:
         version: 3.25.76
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -620,7 +620,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/nz-traffic-cameras:
     dependencies:
@@ -663,8 +663,8 @@ importers:
         version: 3.25.76
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -676,7 +676,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/sanctions:
     dependencies:
@@ -747,8 +747,8 @@ importers:
         version: 3.25.76
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -760,7 +760,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/shared:
     dependencies:
@@ -790,8 +790,8 @@ importers:
         specifier: ^1.4.4
         version: 1.4.4
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       tsup:
         specifier: ^8.3.5
         version: 8.5.1(postcss@8.5.15)(supports-color@7.2.0)(typescript@7.0.2)
@@ -818,8 +818,8 @@ importers:
         version: 3.25.76
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -831,7 +831,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/surveillance-satellites:
     dependencies:
@@ -852,8 +852,8 @@ importers:
   packages/undersea-cables:
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -865,7 +865,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
   packages/wildfires:
     dependencies:
@@ -886,8 +886,8 @@ importers:
         version: 3.25.76
     devDependencies:
       '@types/node':
-        specifier: ^26.4.1
-        version: 26.4.1
+        specifier: ^26.5.1
+        version: 26.5.1
       '@worldwideview/seeder-sdk':
         specifier: ^1.0.0
         version: 1.0.0(supports-color@7.2.0)
@@ -899,7 +899,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.0
-        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1))
+        version: 5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1))
 
 packages:
 
@@ -1511,8 +1511,8 @@ packages:
   '@types/mysql@2.15.26':
     resolution: {integrity: sha512-DSLCOXhkvfS5WNNPbfn2KdICAmk8lLc+/PNvnPnF7gOdMZCxopXduqv0OQ13y/yA/zXTSikZZqVgybUxOEg6YQ==}
 
-  '@types/node@26.4.1':
-    resolution: {integrity: sha512-k97ENvZWtvA6yqz5/FS6a7duDgOPEeOQOc2iKS/nY6mX6qJUKtLnWzQS+Xj6tXweyj6ZcTAK2Qecetnvi9nCLA==}
+  '@types/node@26.5.1':
+    resolution: {integrity: sha512-CzNm2FezW4VR/LjG6yUdiEgLE/rAQ9Slj5gCu/C2VrdcW7I0ahNZ8DRbHT7zOZ6r3ONgd/bsQIeSaoDGrd1C6g==}
 
   '@types/pg-pool@2.0.6':
     resolution: {integrity: sha512-TaAUE5rq2VQYxab5Ts7WZhKNmuN78Q6PiFonTDdpbx8a1H0M1vhy3rhiMjl+e2iHmogyMw7jZF4FrE6eJUy5HQ==}
@@ -2590,8 +2590,8 @@ packages:
   ufo@1.6.4:
     resolution: {integrity: sha512-JFNbkD1Svwe0KvGi8GOeLcP4kAWQ609twvCdcHxq1oSL8svv39ZuSvajcD8B+5D0eL4+s1Is2D/O6KN3qcTeRA==}
 
-  undici-types@8.3.0:
-    resolution: {integrity: sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ==}
+  undici-types@8.9.0:
+    resolution: {integrity: sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==}
 
   undici@8.10.2:
     resolution: {integrity: sha512-/y4/bH9YNU5hi9NIrpOuvGXFcxrj3CMrV+/AYpowAYTpHn8gX/XPFjNy766FPoYY0miQhdW977JFWKGNhBdwyQ==}
@@ -3321,7 +3321,7 @@ snapshots:
 
   '@types/better-sqlite3@7.6.13':
     dependencies:
-      '@types/node': 26.4.1
+      '@types/node': 26.5.1
 
   '@types/chai@5.2.3':
     dependencies:
@@ -3330,7 +3330,7 @@ snapshots:
 
   '@types/connect@3.4.36':
     dependencies:
-      '@types/node': 26.4.1
+      '@types/node': 26.5.1
 
   '@types/deep-eql@4.0.2': {}
 
@@ -3342,11 +3342,11 @@ snapshots:
 
   '@types/mysql@2.15.26':
     dependencies:
-      '@types/node': 26.4.1
+      '@types/node': 26.5.1
 
-  '@types/node@26.4.1':
+  '@types/node@26.5.1':
     dependencies:
-      undici-types: 8.3.0
+      undici-types: 8.9.0
 
   '@types/pg-pool@2.0.6':
     dependencies:
@@ -3354,7 +3354,7 @@ snapshots:
 
   '@types/pg@8.6.1':
     dependencies:
-      '@types/node': 26.4.1
+      '@types/node': 26.5.1
       pg-protocol: 1.13.0
       pg-types: 2.2.0
 
@@ -3362,11 +3362,11 @@ snapshots:
 
   '@types/tedious@4.0.14':
     dependencies:
-      '@types/node': 26.4.1
+      '@types/node': 26.5.1
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 26.4.1
+      '@types/node': 26.5.1
 
   '@typescript/typescript-aix-ppc64@7.0.2':
     optional: true
@@ -3428,14 +3428,14 @@ snapshots:
   '@typescript/typescript-win32-x64@7.0.2':
     optional: true
 
-  '@vitest/mocker@5.0.0(vite@7.3.3(@types/node@26.4.1))':
+  '@vitest/mocker@5.0.0(vite@7.3.3(@types/node@26.5.1))':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       '@vitest/spy': 5.0.0
       estree-walker: 3.0.3
       magic-string: 1.2.3
     optionalDependencies:
-      vite: 7.3.3(@types/node@26.4.1)
+      vite: 7.3.3(@types/node@26.5.1)
 
   '@vitest/spy@5.0.0': {}
 
@@ -4428,7 +4428,7 @@ snapshots:
 
   ufo@1.6.4: {}
 
-  undici-types@8.3.0: {}
+  undici-types@8.9.0: {}
 
   undici@8.10.2: {}
 
@@ -4440,7 +4440,7 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vite@7.3.3(@types/node@26.4.1):
+  vite@7.3.3(@types/node@26.5.1):
     dependencies:
       esbuild: 0.27.7
       fdir: 6.5.0(picomatch@4.0.7)
@@ -4449,13 +4449,13 @@ snapshots:
       rollup: 4.60.3
       tinyglobby: 0.2.17
     optionalDependencies:
-      '@types/node': 26.4.1
+      '@types/node': 26.5.1
       fsevents: 2.3.3
 
-  vitest@5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.4.1)(vite@7.3.3(@types/node@26.4.1)):
+  vitest@5.0.0(@opentelemetry/api@1.9.1)(@types/node@26.5.1)(vite@7.3.3(@types/node@26.5.1)):
     dependencies:
       '@types/chai': 5.2.3
-      '@vitest/mocker': 5.0.0(vite@7.3.3(@types/node@26.4.1))
+      '@vitest/mocker': 5.0.0(vite@7.3.3(@types/node@26.5.1))
       chai: 6.2.2
       es-module-lexer: 2.3.2
       expect-type: 1.4.0
@@ -4466,11 +4466,11 @@ snapshots:
       tinybench: 6.1.4
       tinyexec: 1.3.0
       tinyglobby: 0.2.17
-      vite: 7.3.3(@types/node@26.4.1)
+      vite: 7.3.3(@types/node@26.5.1)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@opentelemetry/api': 1.9.1
-      '@types/node': 26.4.1
+      '@types/node': 26.5.1
     transitivePeerDependencies:
       - msw
 
