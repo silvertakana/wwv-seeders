@@ -19,7 +19,7 @@
     "dotenv": "^17.4.2",
     "geoip-lite": "^2.0.3",
     "ioredis": "^6.0.0",
-    "node-fetch": "^2.7.0"
+    "node-fetch": "^3.3.2"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
