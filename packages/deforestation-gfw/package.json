@@ -7,7 +7,7 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@types/node": "^26.6.1",
+    "@types/node": "^26.6.2",
     "@worldwideview/seeder-sdk": "^1.0.0",
     "tsup": "^8.5.1",
     "typescript": "^7.0.2",

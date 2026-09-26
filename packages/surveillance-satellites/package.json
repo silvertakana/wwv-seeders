@@ -6,9 +6,9 @@
     "build": "tsup"
   },
   "dependencies": {
-    "@sentry/node": "^10.74.0",
+    "@sentry/node": "^10.75.2",
     "satellite.js": "^7.1.0",
-    "undici": "^8.10.2"
+    "undici": "^8.11.0"
   },
   "devDependencies": {
     "@worldwideview/seeder-sdk": "^1.0.0"

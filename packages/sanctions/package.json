@@ -6,12 +6,12 @@
     "build": "tsup"
   },
   "dependencies": {
-    "@sentry/node": "^10.74.0",
+    "@sentry/node": "^10.75.2",
     "node-cron": "^4.6.0",
     "sax": "^1.6.1",
-    "undici": "^8.10.2",
+    "undici": "^8.11.0",
     "ws": "^8.21.3",
-    "zod": "^4.6.2"
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@worldwideview/seeder-sdk": "^1.0.0"
