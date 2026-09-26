@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@sentry/node": "^10.74.0",
-    "node-cron": "^3.0.3",
+    "node-cron": "^4.6.0",
     "undici": "^8.10.2",
     "ws": "^8.21.3",
     "zod": "^4.6.2"
