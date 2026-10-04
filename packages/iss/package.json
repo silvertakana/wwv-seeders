@@ -1,0 +1,23 @@
+{
+  "name": "@wwv-seeders/iss",
+  "version": "1.0.0",
+  "main": "dist/index.mjs",
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@sentry/node": "^10.74.0",
+    "node-cron": "^4.6.0",
+    "undici": "^8.10.2",
+    "ws": "^8.21.3",
+    "zod": "^4.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.1",
+    "tsup": "^8.5.1",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.1",
+    "@worldwideview/seeder-sdk": "^1.0.0"
+  }
+}
