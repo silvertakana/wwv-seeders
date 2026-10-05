@@ -192,7 +192,7 @@ async function setLiveSnapshot(source, payload, ttlSeconds) {
 // src/index.ts
 var SOURCE_URL = "https://api.wheretheiss.at/v1/satellites/25544";
 var POLL_INTERVAL_MS = 5e3;
-var SNAPSHOT_TTL_SECONDS = 60;
+var SNAPSHOT_TTL_SECONDS = 600;
 var FETCH_TIMEOUT_MS = 4e3;
 var TRACK_SAMPLE_INTERVAL_MS = 18e4;
 var TRACK_MAX_POINTS = 10;

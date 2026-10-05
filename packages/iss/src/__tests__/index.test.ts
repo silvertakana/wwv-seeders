@@ -136,7 +136,7 @@ describe('published snapshot shape', () => {
     expect(lastSnapshot().items[0].timestamp).toBe(BASE_TIMESTAMP);
     expect(lastSnapshot().items[0].altitude).toBe(419.241);
     expect(lastSnapshot().items[0].units).toBe('kilometers');
-    expect(setLiveSnapshot).toHaveBeenCalledWith('iss', expect.anything(), 60);
+    expect(setLiveSnapshot).toHaveBeenCalledWith('iss', expect.anything(), SNAPSHOT_TTL_SECONDS);
   });
 
   it('polls immediately then every 5 seconds', async () => {
@@ -153,6 +153,16 @@ describe('published snapshot shape', () => {
     expect(fetchMock).toHaveBeenCalledTimes(3);
     expect(setLiveSnapshot).toHaveBeenCalledTimes(3);
     expect(lastSnapshot().fetchedAt).toBe('2026-05-01T00:00:10.000Z');
+  });
+});
+
+describe('snapshot TTL against the SDK write throttle', () => {
+  // The SDK throttles the Redis write to one per 5 minutes (SNAPSHOT_THROTTLE_MS
+  // in @worldwideview/seeder-sdk/src/redis.ts) while broadcasting to WebSocket
+  // consumers on every call. A TTL at or below that throttle lets the key expire
+  // between writes, so /api/iss 404s for the rest of each cycle.
+  it('exceeds the seeder SDK 5 minute write throttle', () => {
+    expect(SNAPSHOT_TTL_SECONDS).toBeGreaterThan(300);
   });
 });
 

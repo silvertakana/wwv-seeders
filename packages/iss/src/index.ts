@@ -4,10 +4,17 @@ import { setLiveSnapshot } from '@worldwideview/seeder-sdk';
 export const SOURCE_URL = 'https://api.wheretheiss.at/v1/satellites/25544';
 
 // The station moves fast enough that a 5 second cadence keeps the globe marker
-// close to its real position; the snapshot TTL is 60s so /api/iss never serves
-// a stale entry between polls.
+// close to its real position.
 export const POLL_INTERVAL_MS = 5_000;
-export const SNAPSHOT_TTL_SECONDS = 60;
+
+// The TTL has to exceed the SDK's write cadence, not the poll cadence:
+// setLiveSnapshot broadcasts to WebSocket consumers on every call but throttles
+// the Redis write to one per 5 minutes. A TTL shorter than that throttle lets
+// the key expire between writes, so /api/iss 404s until the next one (60s of
+// life per 300s cycle). 600s is 2x the throttle: the key never lapses between
+// writes, and a dead seeder still clears the snapshot within 10 minutes, which
+// keeps a 404 an honest liveness signal.
+export const SNAPSHOT_TTL_SECONDS = 600;
 
 // A 5 second cadence cannot be expressed as a cron expression, so this seeder
 // uses the init form and owns its timers (same shape as the satellite seeder).
