@@ -1,0 +1,433 @@
+// Unit tests for the ISS position seeder. The @worldwideview/seeder-sdk is
+// fully mocked (same pattern as packages/earthquakes/src/__tests__/index.test.ts)
+// and global fetch is stubbed, so no network or native dependency ever loads.
+//
+// Fake timers drive the two real timers the seeder owns: the 5s poll interval
+// and the 180s track-sampling interval. Time is advanced in explicit 5s steps so
+// the poll count at every ring boundary is exact rather than approximate.
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+
+vi.mock('@worldwideview/seeder-sdk', () => ({
+  setLiveSnapshot: vi.fn(async () => undefined),
+}));
+
+import seeder, {
+  resetIssState,
+  startIssSeeder,
+  SOURCE_URL,
+  POLL_INTERVAL_MS,
+  SNAPSHOT_TTL_SECONDS,
+  TRACK_SAMPLE_INTERVAL_MS,
+  TRACK_MAX_POINTS,
+  type IssSnapshot,
+} from '../index';
+import { setLiveSnapshot } from '@worldwideview/seeder-sdk';
+
+const fetchMock = vi.fn();
+
+// Frozen clock so fetchedAt is deterministic.
+const T0 = new Date('2026-05-01T00:00:00.000Z');
+const BASE_TIMESTAMP = 1777593600;
+
+// Upstream position, published verbatim (altitude in km, timestamp in seconds).
+function makePosition(overrides: Partial<Record<string, unknown>> = {}) {
+  return {
+    id: 25544,
+    name: 'iss',
+    latitude: 51.6416,
+    longitude: -2.9302,
+    altitude: 419.241,
+    velocity: 27600.582,
+    visibility: 'daylight',
+    footprint: 4523.4521,
+    timestamp: BASE_TIMESTAMP,
+    units: 'kilometers',
+    ...overrides,
+  };
+}
+
+function okResponse(body: unknown) {
+  return { ok: true, status: 200, json: async () => body };
+}
+
+// Collect rejections that escape a timer callback. A poll error must never
+// escape, so any entry here is a seeder bug (vitest only warns about these).
+function captureUnhandledRejections() {
+  const seen: unknown[] = [];
+  const listener = (reason: unknown) => {
+    seen.push(reason);
+  };
+  process.on('unhandledRejection', listener);
+  return {
+    seen,
+    stop: () => process.off('unhandledRejection', listener),
+  };
+}
+
+function snapshotAt(call: number): IssSnapshot {
+  return vi.mocked(setLiveSnapshot).mock.calls[call][1] as IssSnapshot;
+}
+
+function lastSnapshot(): IssSnapshot {
+  return snapshotAt(vi.mocked(setLiveSnapshot).mock.calls.length - 1);
+}
+
+// Every fetch returns a position derived from the frozen clock and a per-request
+// counter, so the ring point taken at a boundary is identifiable from its values.
+// timestamp mimics the upstream seconds field: BASE_TIMESTAMP plus the seconds
+// elapsed since the frozen clock started.
+function positionFor(nowMs: number, callNumber: number) {
+  return makePosition({
+    latitude: 51.6416 + callNumber / 100,
+    longitude: -2.9302 + callNumber / 100,
+    timestamp: BASE_TIMESTAMP + Math.floor((nowMs - T0.getTime()) / 1000),
+  });
+}
+
+// Advance time one 5s tick at a time, letting each poll settle.
+async function tick(count: number) {
+  for (let i = 0; i < count; i++) {
+    await vi.advanceTimersByTimeAsync(POLL_INTERVAL_MS);
+  }
+}
+
+beforeEach(() => {
+  vi.useFakeTimers();
+  vi.setSystemTime(T0);
+  vi.clearAllMocks();
+  resetIssState();
+  fetchMock.mockReset();
+  vi.stubGlobal('fetch', fetchMock);
+});
+
+afterEach(() => {
+  vi.unstubAllGlobals();
+  vi.useRealTimers();
+});
+
+describe('published snapshot shape', () => {
+  it('publishes source, fetchedAt, items, track, and totalCount on the first poll', async () => {
+    const position = makePosition();
+    fetchMock.mockResolvedValue(okResponse(position));
+
+    startIssSeeder();
+    await vi.advanceTimersByTimeAsync(0);
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock.mock.calls[0][0]).toBe(SOURCE_URL);
+    expect(fetchMock.mock.calls[0][1].signal).toBeInstanceOf(AbortSignal);
+
+    expect(setLiveSnapshot).toHaveBeenCalledTimes(1);
+    expect(setLiveSnapshot).toHaveBeenCalledWith(
+      'iss',
+      {
+        source: 'iss',
+        fetchedAt: '2026-05-01T00:00:00.000Z',
+        items: [position],
+        track: [],
+        totalCount: 1,
+      },
+      SNAPSHOT_TTL_SECONDS
+    );
+
+    // The position object is the upstream payload verbatim: no field renamed,
+    // no unit converted, timestamp still in SECONDS.
+    expect(lastSnapshot().items[0]).toEqual(position);
+    expect(lastSnapshot().items[0].timestamp).toBe(BASE_TIMESTAMP);
+    expect(lastSnapshot().items[0].altitude).toBe(419.241);
+    expect(lastSnapshot().items[0].units).toBe('kilometers');
+    expect(setLiveSnapshot).toHaveBeenCalledWith('iss', expect.anything(), SNAPSHOT_TTL_SECONDS);
+  });
+
+  it('polls immediately then every 5 seconds', async () => {
+    fetchMock.mockImplementation(async () =>
+      okResponse(positionFor(Date.now(), fetchMock.mock.calls.length))
+    );
+
+    startIssSeeder();
+    await vi.advanceTimersByTimeAsync(0);
+    expect(setLiveSnapshot).toHaveBeenCalledTimes(1);
+
+    await tick(2);
+
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+    expect(setLiveSnapshot).toHaveBeenCalledTimes(3);
+    expect(lastSnapshot().fetchedAt).toBe('2026-05-01T00:00:10.000Z');
+  });
+});
+
+describe('snapshot TTL against the SDK write throttle', () => {
+  // The SDK throttles the Redis write to one per 5 minutes (SNAPSHOT_THROTTLE_MS
+  // in @worldwideview/seeder-sdk/src/redis.ts) while broadcasting to WebSocket
+  // consumers on every call. A TTL at or below that throttle lets the key expire
+  // between writes, so /api/iss 404s for the rest of each cycle.
+  it('exceeds the seeder SDK 5 minute write throttle', () => {
+    expect(SNAPSHOT_TTL_SECONDS).toBeGreaterThan(300);
+  });
+});
+
+describe('track ring', () => {
+  it('takes one sample per 180s boundary and caps the ring at 10, dropping the oldest', async () => {
+    fetchMock.mockImplementation(async (url: string, init: { signal: AbortSignal }) => {
+      expect(url).toBe(SOURCE_URL);
+      expect(init.signal).toBeInstanceOf(AbortSignal);
+      return okResponse(positionFor(Date.now(), fetchMock.mock.calls.length));
+    });
+
+    startIssSeeder();
+    await vi.advanceTimersByTimeAsync(0);
+
+    // 36 ticks = 180s: exactly one boundary, so the ring holds one sample.
+    await tick(35);
+    expect(lastSnapshot().track).toHaveLength(0);
+    await tick(1);
+    expect(lastSnapshot().track).toHaveLength(1);
+
+    // 72 ticks = 360s: a second boundary. Ring samples stay 180s apart.
+    await tick(36);
+    expect(lastSnapshot().track).toHaveLength(2);
+    expect(lastSnapshot().track[1].timestamp - lastSnapshot().track[0].timestamp).toBe(180);
+
+    // Out to 36 minutes (432 ticks = 12 boundaries): capped at 10, oldest dropped.
+    await tick(360);
+
+    const track = lastSnapshot().track;
+    expect(TRACK_MAX_POINTS).toBe(10);
+    expect(track).toHaveLength(10);
+
+    // 12 boundaries passed (t=180s .. t=2160s) and only the newest 10 survive:
+    // the two earliest are gone.
+    const timestamps = track.map((point) => point.timestamp);
+    expect(timestamps[0]).toBe(BASE_TIMESTAMP + 180 * 3 - 5);
+    expect(timestamps[0]).not.toBe(BASE_TIMESTAMP + 180);
+    expect(timestamps[1] - timestamps[0]).toBe(180);
+    expect(timestamps[9]).toBe(BASE_TIMESTAMP + 180 * 12 - 5);
+    expect(timestamps[9] - timestamps[0]).toBe(180 * 9);
+
+    // Each ring point carries the fix that was latest when the boundary fired.
+    // Polls land at t=0, 5, 10, ...; the boundary at t=180k fires before the
+    // poll at t=180k, so the newest fix there is the one 5s earlier.
+    const firstPollIndex = (timestamps[0] - BASE_TIMESTAMP + 5) / 5;
+    const lastPollIndex = (timestamps[9] - BASE_TIMESTAMP + 5) / 5;
+    expect(firstPollIndex).toBe(108);
+    expect(lastPollIndex).toBe(432);
+    expect(track[0].latitude).toBeCloseTo(51.6416 + firstPollIndex / 100, 10);
+    expect(track[0].longitude).toBeCloseTo(-2.9302 + firstPollIndex / 100, 10);
+    expect(track[9].latitude).toBeCloseTo(51.6416 + lastPollIndex / 100, 10);
+    expect(track[9].longitude).toBeCloseTo(-2.9302 + lastPollIndex / 100, 10);
+  });
+
+  it('does not sample the ring between 180s boundaries', async () => {
+    fetchMock.mockImplementation(async () =>
+      okResponse(positionFor(Date.now(), fetchMock.mock.calls.length))
+    );
+
+    startIssSeeder();
+    await vi.advanceTimersByTimeAsync(0);
+
+    // 35 ticks = 175s: just short of the first boundary.
+    await tick(35);
+    expect(lastSnapshot().track).toHaveLength(0);
+
+    await tick(1);
+    expect(lastSnapshot().track).toHaveLength(1);
+
+    // Another 35 ticks = 355s: still short of the second boundary.
+    await tick(35);
+    expect(lastSnapshot().track).toHaveLength(1);
+
+    await tick(1);
+    expect(lastSnapshot().track).toHaveLength(2);
+    expect(lastSnapshot().track[1].timestamp - lastSnapshot().track[0].timestamp).toBe(
+      TRACK_SAMPLE_INTERVAL_MS / 1000
+    );
+  });
+});
+
+describe('failure handling', () => {
+  it('keeps the last snapshot and does not throw when a fetch fails', async () => {
+    const position = makePosition();
+    fetchMock.mockResolvedValueOnce(okResponse(position));
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    startIssSeeder();
+    await vi.advanceTimersByTimeAsync(0);
+    expect(setLiveSnapshot).toHaveBeenCalledTimes(1);
+
+    const escapes = captureUnhandledRejections();
+    fetchMock.mockRejectedValue(new Error('upstream exploded'));
+    await tick(2);
+
+    // Three polls happened in total; only the first published.
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+    expect(setLiveSnapshot).toHaveBeenCalledTimes(1);
+    expect(lastSnapshot().items[0]).toEqual(position);
+    expect(lastSnapshot().fetchedAt).toBe('2026-05-01T00:00:00.000Z');
+    expect(errorSpy).toHaveBeenCalledTimes(2);
+    expect(String(errorSpy.mock.calls[0][0])).toContain('upstream exploded');
+    // The failure is handled inside the timer: nothing escapes as a rejection.
+    expect(escapes.seen).toEqual([]);
+    escapes.stop();
+
+    // The seeder is still alive: a later success publishes again.
+    const recovered = makePosition({ latitude: -12.5, longitude: 130.5 });
+    fetchMock.mockResolvedValue(okResponse(recovered));
+    await tick(1);
+
+    expect(setLiveSnapshot).toHaveBeenCalledTimes(2);
+    expect(lastSnapshot().items[0]).toEqual(recovered);
+
+    errorSpy.mockRestore();
+  });
+
+  it('keeps the previous snapshot on a non-2xx response', async () => {
+    const position = makePosition();
+    fetchMock.mockResolvedValueOnce(okResponse(position));
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    startIssSeeder();
+    await vi.advanceTimersByTimeAsync(0);
+
+    const escapes = captureUnhandledRejections();
+    fetchMock.mockResolvedValue({ ok: false, status: 503, json: async () => ({}) });
+    await tick(1);
+
+    expect(setLiveSnapshot).toHaveBeenCalledTimes(1);
+    expect(lastSnapshot().items[0]).toEqual(position);
+    expect(String(errorSpy.mock.calls[0][0])).toContain('HTTP 503');
+    expect(escapes.seen).toEqual([]);
+    escapes.stop();
+
+    errorSpy.mockRestore();
+  });
+
+  it('keeps the previous snapshot when the body is not a position', async () => {
+    const escapes = captureUnhandledRejections();
+    fetchMock.mockResolvedValueOnce(okResponse(makePosition()));
+    fetchMock.mockResolvedValue(okResponse({ id: 25544 }));
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    startIssSeeder();
+    await vi.advanceTimersByTimeAsync(0);
+    await tick(1);
+
+    expect(setLiveSnapshot).toHaveBeenCalledTimes(1);
+    expect(String(errorSpy.mock.calls[0][0])).toContain('response is missing name');
+    expect(escapes.seen).toEqual([]);
+    escapes.stop();
+
+    errorSpy.mockRestore();
+  });
+});
+
+describe('upstream payload validation', () => {
+  // The plugin builds a Date from `timestamp` and converts altitude/velocity
+  // using `units`, so a partial payload is worse than no payload: it draws a
+  // broken frame and replaces a good snapshot with it.
+  const rejected: Array<[string, unknown, string]> = [
+    ['a null body', null, 'response is not an object'],
+    ['an array body', [], 'response is not an object'],
+    ['a wrong satellite id', makePosition({ id: 25545 }), 'unexpected satellite id 25545'],
+    ['a missing name', makePosition({ name: undefined }), 'response is missing name'],
+    ['a blank name', makePosition({ name: '  ' }), 'response is missing name'],
+    [
+      'a numeric-string latitude',
+      makePosition({ latitude: '51.6416' }),
+      'latitude is not a number in [-90, 90]',
+    ],
+    ['a latitude above 90', makePosition({ latitude: 91 }), 'latitude is not a number in [-90, 90]'],
+    ['a NaN latitude', makePosition({ latitude: NaN }), 'latitude is not a number in [-90, 90]'],
+    [
+      'an infinite longitude',
+      makePosition({ longitude: Infinity }),
+      'longitude is not a number in [-180, 180]',
+    ],
+    [
+      'a longitude below -180',
+      makePosition({ longitude: -181 }),
+      'longitude is not a number in [-180, 180]',
+    ],
+    ['a negative altitude', makePosition({ altitude: -1 }), 'altitude is not a non-negative number'],
+    ['a negative velocity', makePosition({ velocity: -1 }), 'velocity is not a non-negative number'],
+    ['a missing visibility', makePosition({ visibility: undefined }), 'response is missing visibility'],
+    ['a negative footprint', makePosition({ footprint: -1 }), 'footprint is not a non-negative number'],
+    ['a missing timestamp', makePosition({ timestamp: undefined }), 'timestamp is not a positive number'],
+    ['a zero timestamp', makePosition({ timestamp: 0 }), 'timestamp is not a positive number'],
+    [
+      'a numeric-string timestamp',
+      makePosition({ timestamp: '1777593600' }),
+      'timestamp is not a positive number',
+    ],
+    [
+      'an unrepresentable timestamp',
+      makePosition({ timestamp: 1e20 }),
+      'timestamp is not a representable date',
+    ],
+    ['miles instead of kilometres', makePosition({ units: 'miles' }), 'unexpected units "miles"'],
+    ['a missing units field', makePosition({ units: undefined }), 'unexpected units "undefined"'],
+  ];
+
+  // Publish a good fix, then feed the bad payload and prove nothing replaced it.
+  async function pollWith(payload: unknown, expectedMessage: string) {
+    const good = makePosition();
+    fetchMock.mockResolvedValueOnce(okResponse(good));
+    fetchMock.mockResolvedValue(okResponse(payload));
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const escapes = captureUnhandledRejections();
+
+    startIssSeeder();
+    await vi.advanceTimersByTimeAsync(0);
+    await tick(1);
+
+    // One publish only: the bad payload neither published nor refreshed the TTL.
+    expect(setLiveSnapshot).toHaveBeenCalledTimes(1);
+    expect(lastSnapshot().items[0]).toEqual(good);
+    expect(lastSnapshot().fetchedAt).toBe('2026-05-01T00:00:00.000Z');
+    expect(String(errorSpy.mock.calls[0][0])).toContain(expectedMessage);
+    expect(escapes.seen).toEqual([]);
+    escapes.stop();
+    errorSpy.mockRestore();
+  }
+
+  it.each(rejected)('keeps the last good fix on %s', async (_label, payload, message) => {
+    await pollWith(payload, message);
+  });
+
+  it('accepts a fix on the equator at the prime meridian', async () => {
+    const position = makePosition({ latitude: 0, longitude: 0 });
+    fetchMock.mockResolvedValue(okResponse(position));
+
+    startIssSeeder();
+    await vi.advanceTimersByTimeAsync(0);
+
+    expect(setLiveSnapshot).toHaveBeenCalledTimes(1);
+    expect(lastSnapshot().items[0]).toEqual(position);
+  });
+
+  it('publishes again once upstream recovers', async () => {
+    const good = makePosition();
+    const recovered = makePosition({ latitude: -12.5, longitude: 130.5 });
+    fetchMock.mockResolvedValueOnce(okResponse(good));
+    fetchMock.mockResolvedValueOnce(okResponse({ id: 25544 }));
+    fetchMock.mockResolvedValue(okResponse(recovered));
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    startIssSeeder();
+    await vi.advanceTimersByTimeAsync(0);
+    await tick(1);
+    expect(setLiveSnapshot).toHaveBeenCalledTimes(1);
+
+    await tick(1);
+    expect(setLiveSnapshot).toHaveBeenCalledTimes(2);
+    expect(lastSnapshot().items[0]).toEqual(recovered);
+
+    errorSpy.mockRestore();
+  });
+});
+
+describe('default export contract', () => {
+  it('registers as "iss" with an init function', () => {
+    expect(seeder.name).toBe('iss');
+    expect(typeof seeder.init).toBe('function');
+  });
+});

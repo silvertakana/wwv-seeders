@@ -25,6 +25,11 @@ jobs:
           node-version: 20
           cache: 'pnpm'
           
+      # The gate that guards this workflow has its own tests, and it needs no
+      # dependencies, so it runs before the install it does not need.
+      - name: Test the release gate
+        run: node --test scripts/verify-iss-release.test.mjs
+
       - name: Install dependencies
         run: pnpm install
         
@@ -57,31 +62,16 @@ jobs:
           generate_release_notes: true
 
       - name: Trigger Coolify API Service Restart
+        timeout-minutes: 1
+        env:
+          COOLIFY_API_TOKEN: ${{ secrets.COOLIFY_API_TOKEN }}
         run: |
-          curl -sS -X POST "https://coolify.worldwideview.dev/api/v1/applications/1a7d3f54da3e2adc42453893/restart" \
-            -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
+          set -euo pipefail
+          curl -fsS --connect-timeout 5 --max-time 30 -X POST \
+            "https://coolify.worldwideview.dev/api/v1/applications/1a7d3f54da3e2adc42453893/restart" \
+            -H "Authorization: Bearer $COOLIFY_API_TOKEN" \
             -H "Content-Type: application/json"
 
-      - name: Verify Engine Health (Prevent 502 Trap)
-        run: |
-          echo "Waiting for engine to restart..."
-          sleep 30
-          check_health() {
-            curl -sS -o /dev/null -w "%{http_code}" "https://dataenginev2.worldwideview.dev/health" 2>/dev/null || echo "000"
-          }
-          HEALTH=$(check_health)
-          echo "Health check: HTTP $HEALTH"
-          if [ "$HEALTH" != "200" ]; then
-            echo "⚠ Engine not healthy. Retrying restart..."
-            curl -sS -X POST "https://coolify.worldwideview.dev/api/v1/applications/1a7d3f54da3e2adc42453893/restart" \
-              -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
-              -H "Content-Type: application/json"
-            sleep 30
-            HEALTH=$(check_health)
-            echo "Health check after retry: HTTP $HEALTH"
-          fi
-          if [ "$HEALTH" = "200" ]; then
-            echo "✅ Engine healthy"
-          else
-            echo "::warning::Engine unhealthy (HTTP $HEALTH). Manual compose restart may be needed: ssh root@server 'docker compose -f /data/coolify/applications/1a7d3f54da3e2adc42453893/docker-compose.yml up -d --force-recreate'"
-          fi
+      - name: Verify the engine serves fresh, advancing ISS data
+        timeout-minutes: 12
+        run: node scripts/verify-iss-release.mjs https://dataenginev2.worldwideview.dev
