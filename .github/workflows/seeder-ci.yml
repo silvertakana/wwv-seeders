@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - 'packages/**'
+      - 'scripts/**'
+      - '.github/workflows/seeder-ci.yml'
+      - '.github/workflows/release.yml'
 
 jobs:
   detect:
@@ -126,3 +129,22 @@ jobs:
           else
             echo "No test script defined — skipping"
           fi
+
+  # The release gate's own tests. Deliberately independent of the matrix above:
+  # a change under scripts/ or to a workflow touches no packages/** path, so the
+  # detect job reports has_seeders=false and the test job skips. Without this
+  # job a broken gate would reach main with every check green.
+  release-verifier:
+    name: Release gate tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 20
+
+      # No install step: the gate and its tests use only Node built-ins.
+      - name: Test the release gate
+        run: node --test scripts/verify-iss-release.test.mjs
