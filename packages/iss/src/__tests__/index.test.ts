@@ -312,9 +312,114 @@ describe('failure handling', () => {
     await tick(1);
 
     expect(setLiveSnapshot).toHaveBeenCalledTimes(1);
-    expect(String(errorSpy.mock.calls[0][0])).toContain('missing latitude/longitude');
+    expect(String(errorSpy.mock.calls[0][0])).toContain('response is missing name');
     expect(escapes.seen).toEqual([]);
     escapes.stop();
+
+    errorSpy.mockRestore();
+  });
+});
+
+describe('upstream payload validation', () => {
+  // The plugin builds a Date from `timestamp` and converts altitude/velocity
+  // using `units`, so a partial payload is worse than no payload: it draws a
+  // broken frame and replaces a good snapshot with it.
+  const rejected: Array<[string, unknown, string]> = [
+    ['a null body', null, 'response is not an object'],
+    ['an array body', [], 'response is not an object'],
+    ['a wrong satellite id', makePosition({ id: 25545 }), 'unexpected satellite id 25545'],
+    ['a missing name', makePosition({ name: undefined }), 'response is missing name'],
+    ['a blank name', makePosition({ name: '  ' }), 'response is missing name'],
+    [
+      'a numeric-string latitude',
+      makePosition({ latitude: '51.6416' }),
+      'latitude is not a number in [-90, 90]',
+    ],
+    ['a latitude above 90', makePosition({ latitude: 91 }), 'latitude is not a number in [-90, 90]'],
+    ['a NaN latitude', makePosition({ latitude: NaN }), 'latitude is not a number in [-90, 90]'],
+    [
+      'an infinite longitude',
+      makePosition({ longitude: Infinity }),
+      'longitude is not a number in [-180, 180]',
+    ],
+    [
+      'a longitude below -180',
+      makePosition({ longitude: -181 }),
+      'longitude is not a number in [-180, 180]',
+    ],
+    ['a negative altitude', makePosition({ altitude: -1 }), 'altitude is not a non-negative number'],
+    ['a negative velocity', makePosition({ velocity: -1 }), 'velocity is not a non-negative number'],
+    ['a missing visibility', makePosition({ visibility: undefined }), 'response is missing visibility'],
+    ['a negative footprint', makePosition({ footprint: -1 }), 'footprint is not a non-negative number'],
+    ['a missing timestamp', makePosition({ timestamp: undefined }), 'timestamp is not a positive number'],
+    ['a zero timestamp', makePosition({ timestamp: 0 }), 'timestamp is not a positive number'],
+    [
+      'a numeric-string timestamp',
+      makePosition({ timestamp: '1777593600' }),
+      'timestamp is not a positive number',
+    ],
+    [
+      'an unrepresentable timestamp',
+      makePosition({ timestamp: 1e20 }),
+      'timestamp is not a representable date',
+    ],
+    ['miles instead of kilometres', makePosition({ units: 'miles' }), 'unexpected units "miles"'],
+    ['a missing units field', makePosition({ units: undefined }), 'unexpected units "undefined"'],
+  ];
+
+  // Publish a good fix, then feed the bad payload and prove nothing replaced it.
+  async function pollWith(payload: unknown, expectedMessage: string) {
+    const good = makePosition();
+    fetchMock.mockResolvedValueOnce(okResponse(good));
+    fetchMock.mockResolvedValue(okResponse(payload));
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const escapes = captureUnhandledRejections();
+
+    startIssSeeder();
+    await vi.advanceTimersByTimeAsync(0);
+    await tick(1);
+
+    // One publish only: the bad payload neither published nor refreshed the TTL.
+    expect(setLiveSnapshot).toHaveBeenCalledTimes(1);
+    expect(lastSnapshot().items[0]).toEqual(good);
+    expect(lastSnapshot().fetchedAt).toBe('2026-05-01T00:00:00.000Z');
+    expect(String(errorSpy.mock.calls[0][0])).toContain(expectedMessage);
+    expect(escapes.seen).toEqual([]);
+    escapes.stop();
+    errorSpy.mockRestore();
+  }
+
+  it.each(rejected)('keeps the last good fix on %s', async (_label, payload, message) => {
+    await pollWith(payload, message);
+  });
+
+  it('accepts a fix on the equator at the prime meridian', async () => {
+    const position = makePosition({ latitude: 0, longitude: 0 });
+    fetchMock.mockResolvedValue(okResponse(position));
+
+    startIssSeeder();
+    await vi.advanceTimersByTimeAsync(0);
+
+    expect(setLiveSnapshot).toHaveBeenCalledTimes(1);
+    expect(lastSnapshot().items[0]).toEqual(position);
+  });
+
+  it('publishes again once upstream recovers', async () => {
+    const good = makePosition();
+    const recovered = makePosition({ latitude: -12.5, longitude: 130.5 });
+    fetchMock.mockResolvedValueOnce(okResponse(good));
+    fetchMock.mockResolvedValueOnce(okResponse({ id: 25544 }));
+    fetchMock.mockResolvedValue(okResponse(recovered));
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    startIssSeeder();
+    await vi.advanceTimersByTimeAsync(0);
+    await tick(1);
+    expect(setLiveSnapshot).toHaveBeenCalledTimes(1);
+
+    await tick(1);
+    expect(setLiveSnapshot).toHaveBeenCalledTimes(2);
+    expect(lastSnapshot().items[0]).toEqual(recovered);
 
     errorSpy.mockRestore();
   });

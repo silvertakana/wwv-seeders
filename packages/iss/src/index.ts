@@ -61,8 +61,68 @@ let latestPosition: IssPosition | null = null;
 // Oldest-first ring of track samples, capped at TRACK_MAX_POINTS.
 const track: IssTrackPoint[] = [];
 
+// Upstream contract. This seeder is pinned to one satellite and one unit, so a
+// response carrying anything else means the source changed underneath us.
+const ISS_NORAD_ID = 25544;
+const EXPECTED_UNITS = 'kilometers';
+
+function isFiniteNumber(value: unknown): value is number {
+  return typeof value === 'number' && Number.isFinite(value);
+}
+
 // A malformed or non-2xx response must not blank the published snapshot, so
 // this throws instead and pollIss returns without publishing.
+//
+// The whole contract is checked, not just latitude/longitude: the globe plugin
+// renders `new Date(timestamp * 1000)` and converts altitude/velocity using the
+// declared units, so a partial payload draws a broken frame and replaces a good
+// snapshot with it. Throwing keeps the last good fix instead.
+function parsePosition(raw: unknown): IssPosition {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) {
+    throw new Error('response is not an object');
+  }
+
+  const value = raw as Partial<IssPosition>;
+
+  if (value.id !== ISS_NORAD_ID) {
+    throw new Error(`unexpected satellite id ${String(value.id)} (expected ${ISS_NORAD_ID})`);
+  }
+  if (typeof value.name !== 'string' || !value.name.trim()) {
+    throw new Error('response is missing name');
+  }
+  if (!isFiniteNumber(value.latitude) || value.latitude < -90 || value.latitude > 90) {
+    throw new Error(`latitude is not a number in [-90, 90]: ${String(value.latitude)}`);
+  }
+  if (!isFiniteNumber(value.longitude) || value.longitude < -180 || value.longitude > 180) {
+    throw new Error(`longitude is not a number in [-180, 180]: ${String(value.longitude)}`);
+  }
+  if (!isFiniteNumber(value.altitude) || value.altitude < 0) {
+    throw new Error(`altitude is not a non-negative number: ${String(value.altitude)}`);
+  }
+  if (!isFiniteNumber(value.velocity) || value.velocity < 0) {
+    throw new Error(`velocity is not a non-negative number: ${String(value.velocity)}`);
+  }
+  if (typeof value.visibility !== 'string' || !value.visibility.trim()) {
+    throw new Error('response is missing visibility');
+  }
+  if (!isFiniteNumber(value.footprint) || value.footprint < 0) {
+    throw new Error(`footprint is not a non-negative number: ${String(value.footprint)}`);
+  }
+  if (!isFiniteNumber(value.timestamp) || value.timestamp <= 0) {
+    throw new Error(`timestamp is not a positive number: ${String(value.timestamp)}`);
+  }
+  // The plugin builds a Date from this value; an unrepresentable one would
+  // surface there as an Invalid Date rather than as bad data here.
+  if (Number.isNaN(new Date(value.timestamp * 1000).getTime())) {
+    throw new Error(`timestamp is not a representable date: ${String(value.timestamp)}`);
+  }
+  if (value.units !== EXPECTED_UNITS) {
+    throw new Error(`unexpected units "${String(value.units)}" (expected ${EXPECTED_UNITS})`);
+  }
+
+  return value as IssPosition;
+}
+
 async function fetchPosition(): Promise<IssPosition> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
@@ -73,12 +133,7 @@ async function fetchPosition(): Promise<IssPosition> {
       throw new Error(`HTTP ${response.status} from ${SOURCE_URL}`);
     }
 
-    const parsed = (await response.json()) as Partial<IssPosition> | null;
-    if (!parsed || typeof parsed.latitude !== 'number' || typeof parsed.longitude !== 'number') {
-      throw new Error('response is missing latitude/longitude');
-    }
-
-    return parsed as IssPosition;
+    return parsePosition(await response.json());
   } finally {
     clearTimeout(timeout);
   }

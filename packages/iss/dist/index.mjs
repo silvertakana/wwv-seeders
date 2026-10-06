@@ -198,6 +198,51 @@ var TRACK_SAMPLE_INTERVAL_MS = 18e4;
 var TRACK_MAX_POINTS = 10;
 var latestPosition = null;
 var track = [];
+var ISS_NORAD_ID = 25544;
+var EXPECTED_UNITS = "kilometers";
+function isFiniteNumber(value) {
+  return typeof value === "number" && Number.isFinite(value);
+}
+function parsePosition(raw) {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+    throw new Error("response is not an object");
+  }
+  const value = raw;
+  if (value.id !== ISS_NORAD_ID) {
+    throw new Error(`unexpected satellite id ${String(value.id)} (expected ${ISS_NORAD_ID})`);
+  }
+  if (typeof value.name !== "string" || !value.name.trim()) {
+    throw new Error("response is missing name");
+  }
+  if (!isFiniteNumber(value.latitude) || value.latitude < -90 || value.latitude > 90) {
+    throw new Error(`latitude is not a number in [-90, 90]: ${String(value.latitude)}`);
+  }
+  if (!isFiniteNumber(value.longitude) || value.longitude < -180 || value.longitude > 180) {
+    throw new Error(`longitude is not a number in [-180, 180]: ${String(value.longitude)}`);
+  }
+  if (!isFiniteNumber(value.altitude) || value.altitude < 0) {
+    throw new Error(`altitude is not a non-negative number: ${String(value.altitude)}`);
+  }
+  if (!isFiniteNumber(value.velocity) || value.velocity < 0) {
+    throw new Error(`velocity is not a non-negative number: ${String(value.velocity)}`);
+  }
+  if (typeof value.visibility !== "string" || !value.visibility.trim()) {
+    throw new Error("response is missing visibility");
+  }
+  if (!isFiniteNumber(value.footprint) || value.footprint < 0) {
+    throw new Error(`footprint is not a non-negative number: ${String(value.footprint)}`);
+  }
+  if (!isFiniteNumber(value.timestamp) || value.timestamp <= 0) {
+    throw new Error(`timestamp is not a positive number: ${String(value.timestamp)}`);
+  }
+  if (Number.isNaN(new Date(value.timestamp * 1e3).getTime())) {
+    throw new Error(`timestamp is not a representable date: ${String(value.timestamp)}`);
+  }
+  if (value.units !== EXPECTED_UNITS) {
+    throw new Error(`unexpected units "${String(value.units)}" (expected ${EXPECTED_UNITS})`);
+  }
+  return value;
+}
 async function fetchPosition() {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
@@ -206,11 +251,7 @@ async function fetchPosition() {
     if (!response.ok) {
       throw new Error(`HTTP ${response.status} from ${SOURCE_URL}`);
     }
-    const parsed = await response.json();
-    if (!parsed || typeof parsed.latitude !== "number" || typeof parsed.longitude !== "number") {
-      throw new Error("response is missing latitude/longitude");
-    }
-    return parsed;
+    return parsePosition(await response.json());
   } finally {
     clearTimeout(timeout);
   }

@@ -58,30 +58,59 @@ jobs:
 
       - name: Trigger Coolify API Service Restart
         run: |
-          curl -sS -X POST "https://coolify.worldwideview.dev/api/v1/applications/1a7d3f54da3e2adc42453893/restart" \
+          curl -fsS -X POST "https://coolify.worldwideview.dev/api/v1/applications/1a7d3f54da3e2adc42453893/restart" \
             -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
             -H "Content-Type: application/json"
 
-      - name: Verify Engine Health (Prevent 502 Trap)
+      - name: Verify Engine Health and ISS Data
         run: |
-          echo "Waiting for engine to restart..."
-          sleep 30
-          check_health() {
-            curl -sS -o /dev/null -w "%{http_code}" "https://dataenginev2.worldwideview.dev/health" 2>/dev/null || echo "000"
+          set -euo pipefail
+          ENGINE="https://dataenginev2.worldwideview.dev"
+
+          echo "Waiting for the engine to come back after the seeder release restart..."
+          healthy=0
+          code="000"
+          for i in $(seq 1 36); do
+            code=$(curl -sS -o /dev/null -w "%{http_code}" "$ENGINE/health" 2>/dev/null || echo "000")
+            if [ "$code" = "200" ]; then
+              healthy=1
+              echo "Engine healthy after $((i * 5))s (HTTP 200)"
+              break
+            fi
+            sleep 5
+          done
+          if [ "$healthy" != "1" ]; then
+            echo "::error::Engine did not return HTTP 200 within 180s (last: HTTP $code)."
+            exit 1
+          fi
+
+          # The seeder SDK throttles the Redis snapshot write to one per 5 minutes
+          # while broadcasting every fix over WebSocket, so the persisted ISS
+          # timestamp only advances across that window. Wait it out rather than
+          # trusting this workflow's own green tick.
+          read_iss_timestamp() {
+            curl -sS --max-time 10 "$ENGINE/api/iss" 2>/dev/null | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{try{const j=JSON.parse(s);const t=j?.items?.[0]?.timestamp;process.stdout.write(typeof t==="number"?String(Math.floor(t)):"");}catch{process.stdout.write("");}})'
           }
-          HEALTH=$(check_health)
-          echo "Health check: HTTP $HEALTH"
-          if [ "$HEALTH" != "200" ]; then
-            echo "⚠ Engine not healthy. Retrying restart..."
-            curl -sS -X POST "https://coolify.worldwideview.dev/api/v1/applications/1a7d3f54da3e2adc42453893/restart" \
-              -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
-              -H "Content-Type: application/json"
-            sleep 30
-            HEALTH=$(check_health)
-            echo "Health check after retry: HTTP $HEALTH"
+
+          first=$(read_iss_timestamp)
+          if [ -z "$first" ]; then
+            echo "::error::/api/iss returned no usable position; the seeder did not publish."
+            exit 1
           fi
-          if [ "$HEALTH" = "200" ]; then
-            echo "✅ Engine healthy"
-          else
-            echo "::warning::Engine unhealthy (HTTP $HEALTH). Manual compose restart may be needed: ssh root@server 'docker compose -f /data/coolify/applications/1a7d3f54da3e2adc42453893/docker-compose.yml up -d --force-recreate'"
+          echo "First ISS timestamp: $first"
+
+          advanced=0
+          for i in $(seq 1 40); do
+            sleep 10
+            now=$(read_iss_timestamp)
+            if [ -n "$now" ] && [ "$now" -gt "$first" ]; then
+              echo "ISS timestamp advanced to $now after $((i * 10))s"
+              advanced=1
+              break
+            fi
+          done
+          if [ "$advanced" != "1" ]; then
+            echo "::error::ISS snapshot did not advance within 400s; the published data is stale."
+            exit 1
           fi
+          echo "Engine healthy and the ISS snapshot is advancing."
